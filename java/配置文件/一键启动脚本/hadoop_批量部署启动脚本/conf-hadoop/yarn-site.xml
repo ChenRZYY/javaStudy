@@ -1,0 +1,37 @@
+<configuration>
+	<!-- 配置yarn主节点的位置 -->
+	<property>
+		<name>yarn.resourcemanager.hostname</name>
+		<value>node01</value>
+	</property>
+	<property>
+		<name>yarn.nodemanager.aux-services</name>
+		<value>mapreduce_shuffle</value>
+	</property>
+	
+	<!-- 开启日志聚合功能 -->
+	<property>
+		<name>yarn.log-aggregation-enable</name>
+		<value>true</value>
+	</property>
+	<!-- 设置聚合日志在hdfs上的保存时间 -->
+	<property>
+		<name>yarn.log-aggregation.retain-seconds</name>
+		<value>604800</value>
+	</property>
+	<!-- 设置yarn集群的内存分配方案 -->
+	<property>    
+		<name>yarn.nodemanager.resource.memory-mb</name>    
+		<value>20480</value>
+	</property>
+
+	<property>  
+        	 <name>yarn.scheduler.minimum-allocation-mb</name>
+         	<value>2048</value>
+	</property>
+	<property>
+		<name>yarn.nodemanager.vmem-pmem-ratio</name>
+		<value>2.1</value>
+	</property>
+
+</configuration>

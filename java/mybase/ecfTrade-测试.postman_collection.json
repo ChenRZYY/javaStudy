@@ -1,0 +1,1027 @@
+{
+	"id": "e2c5f93e-16b4-4478-8f5e-7165378449ab",
+	"name": "ecfTrade-测试",
+	"description": null,
+	"auth": null,
+	"events": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c797ae4d-15ef-4719-b242-4d700d970dc3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "55a8a212-6b83-46fe-bcc7-3c0ee5111dea",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variables": [],
+	"order": [
+		"f0af3ca8-8475-41bb-b9b3-9fcd325a365a",
+		"0c855d5a-ba75-4db1-90c0-b4a3edf8732f",
+		"73bfcce0-9500-49a4-a197-e223f1c6679d",
+		"59e6f87e-e7a6-4c8d-9ec1-bfae8bc0ba7d",
+		"ea0b6514-2585-40e5-85b5-79f55f0bf30a",
+		"d0707bf5-a358-406d-a82c-889f7702986d",
+		"65d2dadc-f8b2-4391-9069-f6c33a5860e7",
+		"332facbb-0bf9-4f3e-949c-c3a7d6b559ae",
+		"a74f38ae-b98f-4fc1-a219-cbdf274b8531",
+		"7c2d53a7-8092-4107-ac9e-a476bc450a0f",
+		"d0816601-d96b-4074-9e9a-9a8496486f8f",
+		"23ba6d3e-6eb5-450e-b5e4-65b4f203bd17",
+		"b60ae310-603d-4efd-b6ea-bc8147dce4f0",
+		"be70dbb3-d81c-4760-8cf8-7e6bc5e7d6be",
+		"3ba95732-bb12-4616-a424-df9c310c9b20",
+		"c0bbb6aa-f971-46a8-9c35-818db06ccbf9",
+		"1e0f1417-bfd6-44f8-8782-4ec32dc09a06",
+		"927da2fe-51d6-42b1-878c-88d2fffea566",
+		"895d5a80-9cea-41db-8e3a-ce591785bbd5",
+		"c25339ee-7211-405d-b8b1-b0242692938e",
+		"0abb7012-7ddc-4f4c-a61b-33ee72113e13",
+		"e1b9083f-5e62-4738-9ebe-b2c0c9d9fdbb",
+		"5603b56f-72a1-4cf6-bfe9-e7249f83abd4",
+		"963c5083-f95c-49ee-a756-d8191d143aa5",
+		"06453ecd-c7fe-4a00-a092-7497123c189b",
+		"b0eda25a-8710-43a7-b135-f3c517fecce2",
+		"b7d21d1f-5e9b-4506-9392-629021e68072",
+		"dfa5a141-8041-408d-a2db-55d77472c583",
+		"3494937c-5c96-43c3-8111-69aa2092f712"
+	],
+	"folders_order": [],
+	"protocolProfileBehavior": {},
+	"folders": [],
+	"requests": [
+		{
+			"id": "06453ecd-c7fe-4a00-a092-7497123c189b",
+			"name": "F404-查当日委托",
+			"url": "localhost:8680/v1.0/EcfTradeService/F404",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\":\"404\",\n        \"reqNo\": \"333\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"userCode\": \"\",\n        \"wtAccountType\": \"\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "0abb7012-7ddc-4f4c-a61b-33ee72113e13",
+			"name": "F429-40211 融资融券取可卖数量--可买数量 0B  0S",
+			"url": "localhost:8680/v1.0/EcfTradeService/F429",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"429\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001@W\",\n        \"reqNo\": \"7211190\",\n        \"token\": \"8932190d62244ba48503962ebd9faf2d\",\n        \"fundAccount\": \"1987196\",\n        \"wtAccountType\": \"\",\n        \"stockCode\": \"000002\",\n        \"price\": \"25\",\n        \"priceType\": \"0\",\n        \"creditType\": \"2\",\n        \"direction\": \"S\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "0c855d5a-ba75-4db1-90c0-b4a3edf8732f",
+			"name": "F417-531 融资负债订单明细查询_ok",
+			"url": "localhost:8680/v1.0/EcfTradeService/F417",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"431\",\n        \"reqNo\": \"51\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"fundAccount\": \"67997005\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "1e0f1417-bfd6-44f8-8782-4ec32dc09a06",
+			"name": "F400-403委托确认-买入,卖出-ok 上海买入 Copy",
+			"url": "localhost:8680/v1.0/EcfTradeService/F400",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f535a83-7b51-403e-a122-1f6c9ac49bec",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \n    \"requests\": {\n        \"action\": \"400\",\n        \"reqNo\": \"646\",\n        \"token\": \"59f425e20fa14751bacc8a5ab8dae522\",\n        \"accountToken\": \"10998183_token\",\n        \"fundAccount\": \"10998183\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"wtaccount\": \"0603135629\",\n        \"stockCode\": \"000001\",\n        \"volume\": \"100\",\n        \"direction\": \"S\",\n        \"price\": \"16.32\",\n        \"priceType\": \"0\",\n        \"creditType\": \"1\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"H12345678901234567890123456789012345\",\n        \"errorMessage\": \"[306050]网关:股份信息[加载:10998183, 0603135629, 1, 0, ]不存在\",\n        \"terminalCode\": \"kpt\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "23ba6d3e-6eb5-450e-b5e4-65b4f203bd17",
+			"name": "F430-405担保品划转R2",
+			"url": "localhost:8680/v1.0/EcfTradeService/F430",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9f3ed7e-5c0f-4a14-a21c-85f093f40247",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"430\",\n        \"reqNo\": \"712\",\n        \"token\": \"2b3aecd8c79949f4a6aac6eb2a0be4e6\",\n        \"fundAccount\": \"76877046\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"wtaccount\": \"0600612006\",\n        \"stockCode\": \"000725\",\n        \"volume\": \"1\",\n        \"direction\": \"2\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"hdid-abcd1234\",\n        \"terminalCode\": \"kpt\"\n    },\n    \"account\": \"76877046_token\",\n    \"76877046\":\"\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "332facbb-0bf9-4f3e-949c-c3a7d6b559ae",
+			"name": "F426-613银行转账查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F426",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests1\": {\n        \"action\": \"426\",\n        \"reqNo\": \"304\",\n        \"token\": \"65a9c7cad97d4da3a4770ccc68a825c8\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"beginDate\": \"2019-10-30\",\n        \"endDate\": \"2019-10-30\"\n    },\n    \"requests\": {\n        \"action\": \"426\",\n        \"reqNo\": \"878\",\n        \"token\": \"65a9c7cad97d4da3a4770ccc68a825c8\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"beginDate\": \"20190815\",\n        \"endDate\": \"20190816\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "3494937c-5c96-43c3-8111-69aa2092f712",
+			"name": "F7101-新股申购帐户市值查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F7101",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"7101\",\n        \"reqNo\": \"735\",\n        \"token\": \"17a3b416291f4c82afa769a2a242feaa\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\"\n    },\n    \"fundAccount\": \"76877046\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "3ba95732-bb12-4616-a424-df9c310c9b20",
+			"name": "F7112-516 查询跨系统股份_ok",
+			"url": "localhost:8680/v1.0/EcfTradeService/F7112",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "546c3a13-d060-481e-b453-d009880438e7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"7112\",\n        \"reqNo\": \"545\",\n        \"token\": \"65a9c7cad97d4da3a4770ccc68a825c8\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "5603b56f-72a1-4cf6-bfe9-e7249f83abd4",
+			"name": "F432-303 融资融券更改密码",
+			"url": "localhost:8680/v1.0/EcfTradeService/F432",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94b6b47a-eec8-4f65-b419-4e2eade3e31a",
+						"exec": [
+							"tests[\"Status code is 200\"] =responseCode.code === 200;\r",
+							"// console.log(responseBody);\r",
+							"//获取body中返回的所有参数\r",
+							"var JsonData =JSON.parse(responseBody);\r",
+							"\r",
+							"//let someData = pm.Body.json().data;\r",
+							"\r",
+							"//获取返回的auth_token值\r",
+							"var auth_token = JsonData.data.token;\r",
+							"\r",
+							"function tokenUpdate(token){\r",
+							"    if(token !==''){\r",
+							"        pm.globals.set(\"76877183_token\", auth_token);\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"tokenUpdate(auth_token);\r",
+							"\r",
+							"//将Bearer+“空格”拼接在auth_token上\r",
+							"//var global_token=\"Bearer\"+\" \" +auth_token;\r",
+							"\r",
+							"//将authorization的值设置为全局变量\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\":\"432\",\n        \"reqNo\": \"611\",\n        \"token\":\"43b17868d68846b39dac605575456054\",\n        \"fundAccount\":\"76877183\",\n        \"userCode\": \"26304162\",\n        \"newPassword\":\"123444\",\n        \"oldPassword\":\"123555\",\n        \"passwordType\":\"1\"\n\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "59e6f87e-e7a6-4c8d-9ec1-bfae8bc0ba7d",
+			"name": "F420-50501非交易过户委托查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F420",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"420\",\n        \"reqNo\": \"502\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"beginDate\": \"20190815\",\n        \"endDate\": \"20190910\"\n    },\n    \"注意事项一\": \"传股票代码,同时传市场,柜台报错\",\n    \"stockCode\": \"002465\",\n    \"wtAccountType\": \"SZACCOUNT\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "65d2dadc-f8b2-4391-9069-f6c33a5860e7",
+			"name": "F425-611银证转账",
+			"url": "localhost:8680/v1.0/EcfTradeService/F425",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc678115-9c1d-4a49-8b9c-4c81a9794e20",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"425\",\n        \"reqNo\": \"72\",\n        \"token\": \"da69f3e5c22a4bbc814517be2aa528c6\",\n        \"fetchPassword\": \"123444\",\n        \"bankPassword\": \"123444\",\n        \"bankDirection\": \"1\",\n        \"bankVolume\": \"100\",\n        \"MoneyType\": \"0\",\n        \"terminalCode\":\"kptclient\",\n        \"hdId\":\"11-22-33-AA-BB-CC\",\n        \"macAddr\":\"11-22-33-AA-BB-CC@192168001001@W\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "73bfcce0-9500-49a4-a197-e223f1c6679d",
+			"name": "F418-531 融券负债订单明细查询_ok",
+			"url": "localhost:8680/v1.0/EcfTradeService/F418",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\":\"431\",\n        \"reqNo\": \"127\",\n        \"token\":\"54ab461919ee4317b65c79ad682b0893\",\n        \"fundAccount\":\"67997005\",\n        \"wtAccountType\": \"SHACCOUNT\",\n        \"interfanceFlag\":\"418\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"H12345678901234567890123456789012345\",\n        \"terminalCode\": \"kpt\"\n\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "7c2d53a7-8092-4107-ac9e-a476bc450a0f",
+			"name": "F427-614查询银行余额",
+			"url": "localhost:8680/v1.0/EcfTradeService/F427",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"401\",\n        \"reqNo\": \"374\",\n        \"token\": \"75c00ab3a51e4b0fb66e73e4d9c3ee6a\",\n                \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n\n        \"moneyType\": \"0\"\n    },\n    \"\":\"下面2个字段确认是否必须\",\n    \"bankIndent\": \"5701\",\n    \"bankAccount\": \"12671786\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "895d5a80-9cea-41db-8e3a-ce591785bbd5",
+			"name": "F429-40211 融资融券取可卖数量 0s普通转信用",
+			"url": "localhost:8680/v1.0/EcfTradeService/F429",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"429\",\n        \"reqNo\": \"302\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"fundAccount\": \"67997005\",\n        \"stockCode\": \"600460\",\n        \"price\": \"16.96\",\n        \"wtAccountType\": \"SHACCOUNT\",\n        \"wtAccount\": \"E010234716\",\n        \"direction\": \"0s\"\n    },\n    \"requests02\": {\n        \"action\": \"429\",\n        \"reqNo\": \"304\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"fundAccount\": \"67997005\",\n        \"stockCode\": \"600460\",\n        \"price\": \"16.96\",\n        \"wtAccountType\": \"SHACCOUNT\",\n        \"wtAccount\": \"E010234716\",\n        \"direction\": \"0s\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "927da2fe-51d6-42b1-878c-88d2fffea566",
+			"name": "F401-404委托撤单 046",
+			"url": "localhost:8680/v1.0/EcfTradeService/F401",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\":\"401\",\n        \"reqNo\": \"931\",\n        \"token\":\"e4c385c14b7e46508d228c015d93917d\",\n        \"fundAccount\":\"76877046\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"wtaccount\": \"0600612006\",\n        \"contactID\": \"NA628661\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"H12345678901234567890123456789012345\",\n        \"terminalCode\": \"kpt\"\n\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "963c5083-f95c-49ee-a756-d8191d143aa5",
+			"name": "F5061-203股票信息查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F5061",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests1\": {\n        \"action\": \"401\",\n        \"reqNo\": \"754\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"stockCode\": \"002837\"\n    },\n    \"requests3\": {\n        \"action\": \"5061\",\n        \"reqNo\": \"538\",\n        \"token\": \"65a9c7cad97d4da3a4770ccc68a825c8\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"stockCode\": \"000001\"\n    },\n    \"requests\": {\n        \"action\": \"5061\",\n        \"reqNo\": \"512\",\n        \"token\": \"fc229ebdd67f42eab844b06fd210401d\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"stockCode\": \"688009\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "a74f38ae-b98f-4fc1-a219-cbdf274b8531",
+			"name": "F7109-613今日资金查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F7109",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "\n{\n    \"requests\": {\n        \"action\": \"7109\",\n        \"reqNo\": \"91\",\n        \"token\": \"65a9c7cad97d4da3a4770ccc68a825c8\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "b0eda25a-8710-43a7-b135-f3c517fecce2",
+			"name": "F428- 查最大可买",
+			"url": "localhost:8680/v1.0/EcfTradeService/F428",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"428\",\n        \"reqNo\": \"899\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"wtAccount\": \"0601027525\",\n        \"direction\": \"B\",\n        \"creditType\": \"3\",\n        \"stockCode\": \"000001\",\n        \"priceType\": \"0\",\n        \"price\": \"16.96\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "b60ae310-603d-4efd-b6ea-bc8147dce4f0",
+			"name": "F431-404委托撤单",
+			"url": "localhost:8680/v1.0/EcfTradeService/F431",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\":\"431\",\n        \"reqNo\": \"778\",\n        \"token\":\"a7355333725944b590db31054a1b89c5\",\n        \"fundAccount\":\"67997005\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"wtaccount\": \"0601027525\",\n        \"contactId\": \"DB081237\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"H12345678901234567890123456789012345\",\n        \"terminalCode\": \"kpt\"\n\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "b7d21d1f-5e9b-4506-9392-629021e68072",
+			"name": "F42000-融资融券合约展期des加密",
+			"url": "localhost:8680/v1.0/EcfTradeService/F42000",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"42000\",\n        \"reqNo\": \"988\",\n        \"branch\": \"8070\",\n        \"fundAccount\": \"85987242\",\n        \"macAddr\": \"0026C792F832\",\n        \"UserCode\": \"10004081\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "be70dbb3-d81c-4760-8cf8-7e6bc5e7d6be",
+			"name": "F7115-502银行资金查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F7115",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"7115\",\n        \"reqNo\": \"504\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "c0bbb6aa-f971-46a8-9c35-818db06ccbf9",
+			"name": "F7120-517 跨系统查询普通帐号股东席位_ok",
+			"url": "localhost:8680/v1.0/EcfTradeService/F7120",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "546c3a13-d060-481e-b453-d009880438e7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"7120\",\n        \"reqNo\": \"817\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"fundAccount\": \"67997005\",\n        \"userCode\": \"12262067\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "c25339ee-7211-405d-b8b1-b0242692938e",
+			"name": "F429-40211 融资融券取可卖数量 0w-0t 担保品转出与现券还券",
+			"url": "localhost:8680/v1.0/EcfTradeService/F429",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"429\",\n        \"reqNo\": \"801\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"fundAccount\": \"67997005\",\n        \"wtAccountType\": \"SHACCOUNT\",\n        \"wtAccount\": \"E010234716\",\n        \"stockCode\": \"600460\",\n        \"price\": \"16.96\",\n        \"direction\": \"0t\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "d0707bf5-a358-406d-a82c-889f7702986d",
+			"name": "F421-430直接还款",
+			"url": "localhost:8680/v1.0/EcfTradeService/F421",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49e99407-32c0-41f2-bf3f-edb22995058b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"421\",\n        \"reqNo\": \"254\",\n        \"token\": \"17a3b416291f4c82afa769a2a242feaa\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"moneyType\": \"0\",\n        \"volume\": \"10\",\n        \"repaidSet\": \"2\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "d0816601-d96b-4074-9e9a-9a8496486f8f",
+			"name": "F430-405担保品划转R1",
+			"url": "localhost:8680/v1.0/EcfTradeService/F430",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1dbfeee8-1de6-4b2c-afac-84f13a93e2d5",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests1\": {\n        \"action\": \"430\",\n        \"reqNo\": \"579\",\n        \"token\": \"2b3aecd8c79949f4a6aac6eb2a0be4e6\",\n        \"accountToken\": \"76877046_token\",\n        \"fundAccount\": \"76877046\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"wtaccount\": \"0600612006\",\n        \"stockCode\": \"000629\",\n        \"volume\": \"100\",\n        \"direction\": \"1\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"hdid-abcd1234\",\n        \"terminalCode\": \"kpt\"\n    },\n    \"requests\": {\n        \"action\": \"430\",\n        \"reqNo\": \"871\",\n        \"token\": \"17a3b416291f4c82afa769a2a242feaa\",\n        \"accountToken\": \"10998658_token\",\n        \"pwtAccount\": \"0026707251\",\n        \"wtAccountType\": \"SZACCOUNT\",\n        \"wtaccount\": \"0604326537\",\n        \"stockCode\": \"000078\",\n        \"volume\": \"100\",\n        \"direction\": \"2\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"hdid-abcd1234\",\n        \"terminalCode\": \"kpt\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "dfa5a141-8041-408d-a2db-55d77472c583",
+			"name": "F7103-新股申购认购扣收信息查询",
+			"url": "http://10.137.36.37:8680/v1.0/EcfTradeService/F7103",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\":\"7103\",\n        \"reqNo\": \"22222222222112211222111210112\",\n        \"token\": \"fa77406e196f49bba4fd65964ca5ceb0\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001@W\",\n        \"userCode\": \"\",\n        \"fundAccount\": \"\",\n        \"branch\": \"\"\n\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "e1b9083f-5e62-4738-9ebe-b2c0c9d9fdbb",
+			"name": "F433-506 融资融券历史成交",
+			"url": "localhost:8680/v1.0/EcfTradeService/F433",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94b6b47a-eec8-4f65-b419-4e2eade3e31a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"429\",\n        \"reqNo\": \"608\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"token\": \"c2028bef8dd647308b972a61a0a42609\",\n        \"fundAccount\": \"67997005\",\n        \"wtAccountType\": \"SHACCOUNT\",\n        \"wtAccount\": \"E010234716\",\n        \"stockCode\": \"600460\",\n        \"price\": \"16.96\",\n        \"beginDate\": \"20190609\",\n        \"endDate\": \"20190708\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "ea0b6514-2585-40e5-85b5-79f55f0bf30a",
+			"name": "F411-509 对账单查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F411",
+			"description": null,
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94b6b47a-eec8-4f65-b419-4e2eade3e31a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n        \"action\": \"411\",\n        \"reqNo\": \"187\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"token\": \"17a3b416291f4c82afa769a2a242feaa\",\n        \"fundAccount\": \"10998658\",\n        \"beginDate\": \"20191022\",\n        \"endDate\": \"20191022\"\n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "f0af3ca8-8475-41bb-b9b3-9fcd325a365a",
+			"name": "F417- 融资负债订单明细查询",
+			"url": "localhost:8680/v1.0/EcfTradeService/F104",
+			"description": null,
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"rawModeData": "{\n    \"requests\": {\n\n        \"action\":\"104\",\n        \"reqNo\": \"800\",\n        \"accountType\": \"KHBH\",\n        \"account\": \"10011826\",\n        \"password\": \"123444\",\n        \"checkCode\":\"gge8\",\n        \"checkToken\": \"b7a97bd5b1cd437fb00600875d2a0c71\",\n        \"macAddr\": \"11-22-33-AA-BB-CC@192168001001\",\n        \"hdId\": \"abcdefg123456\",\n        \"terminalCode\": \"kpt\"\n    \n    }\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/crypto-js.js"></script>
+		<script>
+			var secretKey = 'macProd@12312344';
+			var afterEncrypt = CryptoJS.DES.encrypt('sfsdfxiangmu', CryptoJS.enc.Utf8.parse(secretKey), {
+				mode: CryptoJS.mode.ECB,
+				padding: CryptoJS.pad.Pkcs7
+			}).toString()
+			
+			afterEncrypt = encodeURIComponent(afterEncrypt);
+			console.log(afterEncrypt); //7D7RsPHmNSlBAaEVgEyE4aL0j1SJtFi9
+			
+//			afterEncrypt = "SaHLnwtmjhIPniT3064aZ0zVlNHDTBcdYDYrniz1MEnOF6HzkIpGDKB2KUU3A64oIPrdixlH0pU%3D" ;
+			//afterEncrypt = "JKyRHJGUClWbULOUCF5U%2F02DU%2Bv21eoun8apdfvE9W5dfJR4iUFzqF5ZxUUGfGBtL53RzpHqn194gbmjno7Dkg%3D%3D";
+//			afterEncrypt = "7qpls8a7WA0JCRfvFLurZE6BsLI%2BOwDgJ0PUTsQ49SZtMcOPmsinbP%2BXSjz5pPaGr7Ul%2FzjJ5bQgbtoFh9x2xQ%3D%3D"
+//			//afterEncrypt ="7qpls8a7WA0JCRfvFLurZE6BsLI%2BOwDgJ0PUTsQ49SZtMcOPmsinbP%2BXSjz5pPaGr7Ul%2FzjJ5bQgbtoFh9x2xQ%3D%3D"
+//			//afterEncrypt = "http%3A%2F%2F10.137.37.143%3\nA6060%2FClient%2FClient.html%3Fcredential%3D7qpls8a7WA0JCRfvFLurZE6BsLI%252BOwDgJ0PUTsQ49SZtMcOPmsinbP%252BXSjz5pPaGr7Ul%252FzjJ5bQgbtoFh9x2xQ%253D%253D"
+//			afterEncrypt = "http%3A%2F%2F10.137.37.143%3A6060%2FClient%2FClient.html%3Fcredential%3D7qpls8a7WA0JCRfvFLurZE6BsLI%252BOwDgJ0PUTsQ49SZtMcOPmsinbP%252BXSjz5pPaGr7Ul%252FzjJ5bQgbtoFh9x2xQ%253D%253D"
+//			afterEncrypt  = decodeURIComponent(afterEncrypt);
+			//afterDecrypt ="7qpls8a7WA0JCRfvFLurZE6BsLI%2BOwDgJ0PUTsQ49SZtMcOPmsinbP%2BXSjz5pPaGr7Ul%2FzjJ5bQgbtoFh9x2xQ%3D%3D"
+			//var afterDecrypt = "http%3A%2F%2F10.137.37.143%3A6060%2FClient%2FClient.html%3Fcredential%3D7qpls8a7WA0JCRfvFLurZE6BsLI%252BOwDgJ0PUTsQ49SZtMcOPmsinbP%252BXSjz5pPaGr7Ul%252FzjJ5bQgbtoFh9x2xQ%253D%253D";
+			//var afterDecrypt = "http%3A%2F%2F10.137.37.143%3A6060%2FClient%2FClient.html%3Fcredential%3D7qpls8a7WA0JCRfvFLurZE6BsLI%252BOwDgJ0PUTsQ49SZtMcOPmsinbP%252BXSjz5pPaGr7Ul%252FzjJ5bQgbtoFh9x2xQ%253D%253D";	
+							 //  "http%3A%2F%2F10.137.37.143%3A6060%2FClient%2FClient.html%3Fcredential%3D7qpls8a7WA0JCRfvFLurZE6BsLI%252BOwDgJ0PUTsQ49SZtMcOPmsinbP%252BXSjz5pPaGr7Ul%252FzjJ5bQgbtoFh9x2xQ%253D%253D";
+			//var afterDecrypt ="7qpls8a7WA0JCRfvFLurZE6BsLI%2BOwDgJ0PUTsQ49SZtMcOPmsinbP%2BXSjz5pPaGr7Ul%2FzjJ5bQgbtoFh9x2xQ%3D%3D";
+			//var afterDecrypt = "http%3A%2F%2F10.137.37.143%3A6060%2FClient%2FClient.html%3Fcredential%3D7qpls8a7WA0JCRfvFLurZE6BsLI%252BOwDgJ0PUTsQ49SZtMcOPmsinbP%252BXSjz5pPaGr7Ul%252FzjJ5bQgbtoFh9x2xQ%253D%253D";
+			//var afterDecrypt = "7qpls8a7WA0JCRfvFLurZE6BsLI%2BOwDgJ0PUTsQ49SZtMcOPmsinbP%2BXSjz5pPaGr7Ul%2FzjJ5bQgbtoFh9x2xQ%3D%3D";
+			//var  afterDecrypt="http%3A%2F%2F10.137.37.143%3A6060%2FClient%2FClient.html%3Fcredential%3D7qpls8a7WA0JCRfvFLurZE6BsLI%252BOwDg8vpcxsxlCn7uDZVX676%252Fe7MCjqPKBHlxqK4%252F6zqUzfRDrlphj3wJGw%253D%253D";
+			var  afterDecrypt="7qpls8a7WA0JCRfvFLurZE6BsLI%2BOwDg8vpcxsxlCn7uDZVX676%2Fe7MCjqPKBHlxqK4%2F6zqUzfRDrlphj3wJGw%3D%3D";
+			afterEncrypt  = decodeURIComponent(afterDecrypt);
+			console.log(afterEncrypt);
+			var afterDecrypt = CryptoJS.DES.decrypt(afterEncrypt, CryptoJS.enc.Utf8.parse(secretKey), {
+				mode: CryptoJS.mode.ECB,
+				padding: CryptoJS.pad.Pkcs7
+			}).toString(CryptoJS.enc.Utf8);
+			console.log(afterDecrypt); //passwordtoecrypt
+			
+
+		</script>
+	</head>
+
+	<body>
+		des加密
+		<!--<form action="localhost:1031/information-service/des" method="get">
+			First name:<br>
+			<input type="text" name="firstname" value="Mickey"><br> Last name:<br>
+			<input type="text" name="lastname" value="Mouse"><br><br>
+			<input type="submit" value="提交">
+		</form>-->
+
+		<form action="http://localhost:1031/information-service/des" target="_blank">
+			E-mail: <input type="text" name="des" id="des"><br>
+			<input type="submit" value="提交"><br>
+		</form>
+	</body>
+
+	<!--		
+	<script>
+		/*这里是提交表单前的非空校验*/
+		$("form").submit(function() {
+			var first = $("input[name='firstname']").val();
+			var last = $("input[name='lastname']").val();
+			if (first == "" || first == null || first == undefined) {
+				alert("first");
+				return false; /*阻止表单提交*/
+			} else if (last == "" || last == null || last == undefined) {
+				alert("last");
+				return false; /*阻止表单提交*/
+			} else {
+				alert("提交");
+				return true;
+			}
+		})
+	</script>-->
+
+</html>

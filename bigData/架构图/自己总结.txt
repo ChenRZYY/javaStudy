@@ -1,0 +1,1 @@
+show create table my_last;  -- 在impla中查看表的结构；
