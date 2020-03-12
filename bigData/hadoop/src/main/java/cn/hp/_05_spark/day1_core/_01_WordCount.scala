@@ -25,7 +25,7 @@ object _01_WordCount {
     //["hello sparkSession hello","hello python hello"]
     //3、数据处理
     //3.1 单词切割 压平
-    val rdd2: RDD[String] = rdd1.flatMap(item => item.split(","))
+    val rdd2: RDD[String] = rdd1.flatMap(item => item.split(" "))
     //["hello","sparkSession","hello","hello","python","hello"]
     //3.2 出现一个单词给一个词频1
     val rdd3: RDD[(String, Int)] = rdd2.map(item => (item, 1))
@@ -41,9 +41,9 @@ object _01_WordCount {
     ////    hello
     ////        List(1,1,1,1)
     ////       (agg,curr)=> agg+curr  agg:上一次聚合结果  curr:本次要聚合的元素
-    ////         第一次计算: agg:1   curr:1  => 2
-    ////         第二次计算:agg:2   curr:1   => 3
-    ////         第三次计算: agg:3   curr:1  => 4
+    ////         第一次计算:agg:1   curr:1  => 2
+    ////         第二次计算:agg:2   curr:1  => 3
+    ////         第三次计算:agg:3   curr:1  => 4
     ////   (hello,4)
     ////   sparkSession
     ////          List(1)
