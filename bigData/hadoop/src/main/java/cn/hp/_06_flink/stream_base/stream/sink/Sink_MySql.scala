@@ -34,8 +34,6 @@ object Sink_MySql {
 }
 
 class MySqlSink extends RichSinkFunction[(Int, String, String, String)] {
-
-
   var connection: Connection = null;
   var ps: PreparedStatement = null;
 
@@ -51,12 +49,11 @@ class MySqlSink extends RichSinkFunction[(Int, String, String, String)] {
   }
 
   override def invoke(value: (Int, String, String, String)): Unit = {
-
     // 执行插入
-    ps.setInt(1,value._1)
-    ps.setString(2,value._2)
-    ps.setString(3,value._3)
-    ps.setString(4,value._4)
+    ps.setInt(1, value._1)
+    ps.setString(2, value._2)
+    ps.setString(3, value._3)
+    ps.setString(4, value._4)
 
     ps.executeUpdate()
   }
@@ -64,25 +61,22 @@ class MySqlSink extends RichSinkFunction[(Int, String, String, String)] {
 
   override def close(): Unit = {
     // 关闭连接
-    if(connection!=null){
+    if (connection != null) {
       connection.close()
     }
-    if(ps!=null){
+    if (ps != null) {
       ps.close()
     }
   }
 
   class MySqlSink1 extends RichSinkFunction[(Int, String, String, String)] {
     override def open(parameters: Configuration): Unit = {
-
     }
 
     override def close(): Unit = {
-
     }
 
     override def invoke(value: (Int, String, String, String)): Unit = {
-
     }
   }
 

@@ -36,7 +36,7 @@ object Sink_Kafka {
       * producerConfig: Properties,
       * semantic: FlinkKafkaProducer011.Semantic
       */
-    var props = new Properties
+    val props = new Properties
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaCluster)
     //props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, CustomPartition)
     //props.put(ProducerConfig.ACKS_CONFIG, 0)

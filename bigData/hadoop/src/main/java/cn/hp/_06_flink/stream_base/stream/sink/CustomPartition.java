@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CustomPartition implements Partitioner {
     AtomicInteger count = new AtomicInteger(1);
+
     public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
         Integer partitionCount = cluster.partitionCountForTopic(topic);
         count.getAndIncrement();
@@ -15,7 +16,6 @@ public class CustomPartition implements Partitioner {
     }
 
     public void close() {
-
     }
 
     public void configure(Map<String, ?> configs) {

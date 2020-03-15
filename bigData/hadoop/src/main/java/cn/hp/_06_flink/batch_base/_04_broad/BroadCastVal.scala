@@ -1,4 +1,4 @@
-package cn.hp._06_flink.batch_base.broad
+package cn.hp._06_flink.batch_base._04_broad
 
 import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.api.scala._
@@ -17,6 +17,9 @@ object BroadCastVal {
     // List( ("张三", "语文", 50),("李四", "数学", 70), ("王五", "英文", 86))
     val stuDataSet: DataSet[(Int, String)] = env.fromCollection(List((1, "张三"), (2, "李四"), (3, "王五")))
     val scoreDataSet: DataSet[(Int, String, Int)] = env.fromCollection(List((1, "语文", 50), (2, "数学", 70), (3, "英文", 86)))
+
+    //    TODO 广播变量的使用  什么时候广播???
+    //    stuDataSet.withBroadcastSet(stuDataSet, "stuDataSet")
     // 3. 遍历成绩集合
     // IN  OUT
     val resultDataSet: DataSet[(String, String, Int)] = scoreDataSet.map(new RichMapFunction[(Int, String, Int), (String, String, Int)] {

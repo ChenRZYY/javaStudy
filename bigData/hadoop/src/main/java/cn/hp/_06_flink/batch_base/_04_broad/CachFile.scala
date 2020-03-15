@@ -1,4 +1,4 @@
-package cn.hp._06_flink.batch_base.broad
+package cn.hp._06_flink.batch_base._04_broad
 
 import java.io.File
 
@@ -14,17 +14,15 @@ object CachFile {
     // 1. env
     val env = ExecutionEnvironment.getExecutionEnvironment
     // 2. load list
-    val list: DataSet[String] = env.fromCollection(List("a","b","c","d"))
-
+    val list: DataSet[String] = env.fromCollection(List("a", "b", "c", "d"))
     // 3. 注册文件
     // 参数1:文件路径,可以是HDFS的路径,参数2:文件的名称,自定义
-    env.registerCachedFile("D:\\flink_project\\flink-base-project\\flink-batch-base\\src\\main\\resources\\data.txt","data.txt")
-
+    env.registerCachedFile("dataset/wordcount.txt", "wordcount.txt")
     // 4. map open 获取文件
     val result: DataSet[String] = list.map(new RichMapFunction[String, String] {
       override def open(parameters: Configuration): Unit = {
         // 获取文件
-        val file: File = getRuntimeContext.getDistributedCache.getFile("data.txt")
+        val file: File = getRuntimeContext.getDistributedCache.getFile("wordcount.txt")
         // 打印文件内容
         val str: String = FileUtils.readFileToString(file)
         println(str)

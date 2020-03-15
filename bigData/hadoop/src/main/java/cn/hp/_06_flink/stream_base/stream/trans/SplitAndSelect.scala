@@ -3,6 +3,9 @@ package cn.hp._06_flink.stream_base.stream.trans
 import org.apache.flink.streaming.api.scala.{DataStream, SplitStream, StreamExecutionEnvironment}
 import org.apache.flink.api.scala._
 
+/**
+  * 按照指定条件分流
+  */
 object SplitAndSelect {
 
   def main(args: Array[String]): Unit = {
@@ -26,7 +29,7 @@ object SplitAndSelect {
     // 5. 数据查询
     val even: DataStream[Int] = splitStream.select("even")
     val odd: DataStream[Int] = splitStream.select("odd")
-    val all: DataStream[Int] = splitStream.select("odd","even")
+    val all: DataStream[Int] = splitStream.select("odd", "even")
 
     // 6. 打印数据
     all.print()

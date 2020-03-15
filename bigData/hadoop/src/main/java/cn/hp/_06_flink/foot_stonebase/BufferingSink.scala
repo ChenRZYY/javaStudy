@@ -13,11 +13,10 @@ import scala.collection.mutable.ListBuffer
   *
   * SinkFunction : 自定义Sink的函数
   * CheckpointedFunction: 状态转换函数的核心接口
-  * @param threshold    阈值
+  *
+  * @param threshold 阈值
   */
-class BufferingSink(threshold: Int = 0)
-  extends SinkFunction[(String, Int)]
-    with CheckpointedFunction {
+class BufferingSink(threshold: Int = 0) extends SinkFunction[(String, Int)] with CheckpointedFunction {
 
   @transient
   private var checkpointedState: ListState[(String, Int)] = _
@@ -38,10 +37,11 @@ class BufferingSink(threshold: Int = 0)
     }
   }
 
- /**
-  * 快照State
-  * @param context
-  */
+  /**
+    * 快照State
+    *
+    * @param context
+    */
   override def snapshotState(context: FunctionSnapshotContext): Unit = {
     // 清理下历史State
     checkpointedState.clear()
@@ -52,9 +52,10 @@ class BufferingSink(threshold: Int = 0)
   }
 
   /**
-  * 初始化State
-  * @param context
-  */
+    * 初始化State
+    *
+    * @param context
+    */
   override def initializeState(context: FunctionInitializationContext): Unit = {
     // 创建ListStateDescriptor
     val descriptor = new ListStateDescriptor[(String, Int)](
@@ -66,11 +67,11 @@ class BufferingSink(threshold: Int = 0)
     checkpointedState = context.getOperatorStateStore.getListState(descriptor)
 
     // 如果是错误恢复状态, 获取ListState对象的值,并且累加到bufferedElements
-//    if(context.isRestored) {
-//      for(element <- checkpointedState.get()) {
-//        bufferedElements += element
-//      }
-//    }
+    //    if(context.isRestored) {
+    //      for(element <- checkpointedState.get()) {
+    //        bufferedElements += element
+    //      }
+    //    }
   }
 
 } //```

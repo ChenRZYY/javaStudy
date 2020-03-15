@@ -20,7 +20,7 @@ object Sink_Kafka_181 {
     //  2. 设置并行度
     env.setParallelism(1)
     //  3. 添加自定义MySql数据源
-    val mySqlDataStream: DataStream[(String,Int,Double)] = env.addSource(new MySql_Source_181())
+    val mySqlDataStream: DataStream[(String, Int, Double)] = env.addSource(new MySql_Source_181())
     //  4. 转换元组数据为字符串
     val mapDataStream: DataStream[String] = mySqlDataStream.map {
       line => line._1 + "," + line._2 + "" + line._3

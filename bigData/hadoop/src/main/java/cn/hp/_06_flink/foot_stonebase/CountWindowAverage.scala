@@ -6,6 +6,7 @@ import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.api.scala._
 import org.apache.flink.util.Collector
+import org.apache.log4j.{Level, Logger}
 
 /**
   * RichFlatMapFunction[IN, OUT]
@@ -19,17 +20,17 @@ class CountWindowAverage extends RichFlatMapFunction[(Long, Long), (Long, Long)]
   // 声明状态值
   private var sum: ValueState[(Long, Long)] = _
 
-  override def flatMap(value: (Long, Long), out: Collector[(Long, Long)]): Unit = {
-    //access the state value
-    //通过value方法，获取状态值
-    val tmpCurrentSum = sum.value()
-
-    //If it hasn't bean used before, it will be null
-    //如果状态值为null，赋予一个默认值(0,0)，否则返回状态值
-  }
+  //  override def flatMap(value: (Long, Long), out: Collector[(Long, Long)]): Unit = {
+  //    //access the state value
+  //    //通过value方法，获取状态值
+  //    val tmpCurrentSum = sum.value()
+  //
+  //    //If it hasn't bean used before, it will be null
+  //    //如果状态值为null，赋予一个默认值(0,0)，否则返回状态值
+  //  }
 
   // 重写flatmap方法
-  /*override def flatMap(input: (Long, Long), out: Collector[(Long, Long)]): Unit = {
+  override def flatMap(input: (Long, Long), out: Collector[(Long, Long)]): Unit = {
 
     // access the state value
     // 通过value方法,获取状态值
@@ -42,8 +43,6 @@ class CountWindowAverage extends RichFlatMapFunction[(Long, Long), (Long, Long)]
     } else {
       (0L, 0L)
     }
-
-
     // update the count
     // 累加数据  (1L, 3L)  (1,3)  (1L, 5L)  (2,8)
     val newSum = (currentSum._1 + 1, currentSum._2 + input._2)
@@ -59,7 +58,7 @@ class CountWindowAverage extends RichFlatMapFunction[(Long, Long), (Long, Long)]
       out.collect((input._1, newSum._2 / newSum._1))
       sum.clear()
     }
-  }*/
+  }
 
   override def open(parameters: Configuration): Unit = {
     sum = getRuntimeContext.getState(
@@ -70,6 +69,9 @@ class CountWindowAverage extends RichFlatMapFunction[(Long, Long), (Long, Long)]
 
 
 object ExampleCountWindowAverage extends App {
+
+  Logger.getLogger("org").setLevel(Level.ERROR)
+
   // 加载流处理环境
   val env = StreamExecutionEnvironment.getExecutionEnvironment
 
@@ -80,9 +82,9 @@ object ExampleCountWindowAverage extends App {
     (1L, 7L),
     (1L, 4L),
     (1L, 2L)
-  )).keyBy(_._1)      // 分组,根据元组的第一个元素
-    .flatMap(new CountWindowAverage())  // 进行自定义FlatMap
-    .print()          // 打印结果
+  )).keyBy(_._1) // 分组,根据元组的第一个元素
+    .flatMap(new CountWindowAverage()) // 进行自定义FlatMap
+    .print() // 打印结果
   // the printed output will be (1,4) and (1,5)
 
   // 执行任务

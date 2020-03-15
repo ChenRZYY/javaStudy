@@ -33,9 +33,7 @@ object DataSource_MySql {
       }
 
     }
-
     override def cancel(): Unit = {
-
     }
   }
 

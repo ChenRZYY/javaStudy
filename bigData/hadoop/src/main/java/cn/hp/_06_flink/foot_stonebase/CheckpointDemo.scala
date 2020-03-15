@@ -57,9 +57,12 @@ class UDFState extends Serializable {
 }
 
 
-// **开发自定义Window和检查点**
-// 1. 继承WindowFunction
-// 3. 继承ListCheckpointed
+/**
+  * **开发自定义Window和检查点**
+  * 1. 继承WindowFunction
+  * 3. 继承ListCheckpointed
+  * Msg 入参,Long 出参, Tuple 分组类型,TimeWindow 使用的是什么窗口
+  */
 class MyWindowAndCheckpoint extends WindowFunction[Msg, Long, Tuple, TimeWindow] with ListCheckpointed[UDFState] {
 
   // 求和总数
@@ -67,7 +70,6 @@ class MyWindowAndCheckpoint extends WindowFunction[Msg, Long, Tuple, TimeWindow]
 
   // 2. 重写apply方法,对窗口数据进行总数累加
   override def apply(key: Tuple, window: TimeWindow, input: Iterable[Msg], out: Collector[Long]): Unit = {
-
     var count = 0L
     for (msg <- input) {
       count = count + 1
@@ -91,9 +93,7 @@ class MyWindowAndCheckpoint extends WindowFunction[Msg, Long, Tuple, TimeWindow]
 
   // 恢复快照
   override def restoreState(state: util.List[UDFState]): Unit = {
-
     val udfState: UDFState = state.get(0)
-
     // 取出检查点的值 赋值给total即可
     total = udfState.getState
 
@@ -111,8 +111,8 @@ object CheckpointDemo {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     //2. 开启checkpoint,间隔时间为6s
     env.enableCheckpointing(6000)
-    //3. 设置checkpoint位置
-    env.setStateBackend(new FsStateBackend("file:///E:/dev_checkpoint"))
+    //3. 设置checkpoint位置 TODO 必须带上hdfs:// file:///
+    env.setStateBackend(new FsStateBackend("file:///C:/test/dev_checkpoint"))
     //4. 设置处理时间为事件时间
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
     //5. 添加数据源

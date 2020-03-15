@@ -6,6 +6,9 @@ import org.apache.flink.streaming.api.functions.source.SourceFunction
 import org.apache.flink.streaming.api.scala.{ConnectedStreams, DataStream, StreamExecutionEnvironment}
 import org.apache.flink.api.scala._
 
+/**
+  * 把两个数据源合成一个
+  */
 object Trans_Connect {
 
   def main(args: Array[String]): Unit = {
@@ -26,8 +29,11 @@ object Trans_Connect {
       (line2: String) => line2
     )
 
+    val value: DataStream[String] = connectedStreams.map(line1 => line1.toString, line2 => line2)
+
     // 5. 打印数据
     ds.print().setParallelism(1)
+    value.print()
 
     // 6. 执行任务
     env.execute()

@@ -1,4 +1,4 @@
-package cn.hp._06_flink.batch_base.broad
+package cn.hp._06_flink.batch_base._04_broad
 
 import org.apache.flink.api.common.JobExecutionResult
 import org.apache.flink.api.common.accumulators.IntCounter
@@ -14,11 +14,11 @@ object CounterDemo {
     // 1. 创建批处理环境
     val env = ExecutionEnvironment.getExecutionEnvironment
     // 2. 加载本地集合
-    val words: DataSet[String] = env.fromElements("a","b","c","d")
+    val words: DataSet[String] = env.fromElements("a", "b", "c", "d")
 
+    //TODO getRuntimeContext??? 在哪里有这个类
     // 3. map转换
     val resultDataSet: DataSet[String] = words.map(new RichMapFunction[String, String] {
-
       // 1. 创建累加器
       val intCounter = new IntCounter
 
@@ -36,17 +36,14 @@ object CounterDemo {
     })
 
     // 4. 输出到文件
-//    resultDataSet.print()
-    resultDataSet.writeAsText("./data/couter",FileSystem.WriteMode.OVERWRITE)
-
-    // 5. 执行任务
+    //    resultDataSet.print()
+    resultDataSet.writeAsText("datasetOut/couter", FileSystem.WriteMode.OVERWRITE)
+    // FIXME 5. 执行任务 必须要去执行任务才能获取累加器
     val jobExecutionResult: JobExecutionResult = env.execute("counterDemo")
-
     // 6. 获取累加器的数值
     val sumResult: Int = jobExecutionResult.getAccumulatorResult[Int]("wordsCount")
-
-    // 7. 打印结果
-    println(sumResult)
+    // 7. 打印结果S
+    print(sumResult)
 
   }
 }

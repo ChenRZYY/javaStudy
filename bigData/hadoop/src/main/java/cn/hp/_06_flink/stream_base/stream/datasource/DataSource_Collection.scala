@@ -7,7 +7,7 @@ object DataSource_Collection {
 
   def main(args: Array[String]): Unit = {
     // 1. 创建流处理环境
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
     // 设置并行度,默认和CPU的核数相同
     env.setParallelism(1)
 

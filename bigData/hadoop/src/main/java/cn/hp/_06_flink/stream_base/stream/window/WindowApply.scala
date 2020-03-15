@@ -7,6 +7,9 @@ import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
 
+/**
+  * 对window进行聚合
+  */
 object WindowApply {
 
   def main(args: Array[String]): Unit = {
@@ -14,7 +17,7 @@ object WindowApply {
     //  1. 获取流处理运行环境
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     //  2. 构建socket流数据源，并指定IP地址和端口号
-    val socketDataStream: DataStream[String] = env.socketTextStream("node01", 9999)
+    val socketDataStream: DataStream[String] = env.socketTextStream("localhost", 2181)
     //  3. 对接收到的数据转换成单词元组 以空格切分单词
     val wordsDataStream: DataStream[(String, Int)] = socketDataStream.flatMap {
       text => text.split(" ").map(_ -> 1)
@@ -23,7 +26,7 @@ object WindowApply {
     val keyedStream: KeyedStream[(String, Int), String] = wordsDataStream.keyBy(_._1)
     //  5. 使用`timeWinodw`指定窗口的长度（每3秒计算一次）
     val windowedStream: WindowedStream[(String, Int), String, TimeWindow] = keyedStream.timeWindow(Time.seconds(3))
-    //  6. 实现一个WindowFunction匿名内部类
+    //  6. 实现一个WindowFunction匿名内部类  FIXME  不进行累加 apply 进行聚合操作
     val result: DataStream[(String, Int)] = windowedStream.apply(new WindowFunction[(String, Int), (String, Int), String, TimeWindow] {
       override def apply(key: String, window: TimeWindow, input: Iterable[(String, Int)], out: Collector[(String, Int)]): Unit = {
         //  - 在apply方法中实现聚合计算

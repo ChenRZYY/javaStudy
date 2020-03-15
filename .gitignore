@@ -33,3 +33,4 @@ bigData/hadoop/spark-warehouse
 /bigData/hadoop/*.ipr
 /bigData/hadoop/*.iws
 /bigData/doc/
+/bigData/bigData.doc

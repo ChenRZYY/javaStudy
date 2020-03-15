@@ -11,10 +11,12 @@ import org.apache.flink.streaming.api.functions.source.{RichSourceFunction, Sour
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.streaming.api.watermark.Watermark
 import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.log4j.{Level, Logger}
 
 import scala.util.Random
 
 object WatermarkDemo {
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   //  3. 创建一个订单样例类`Order`，包含四个字段（订单ID、用户ID、订单金额、时间戳）
   case class Order(orderId: String, userId: Int, money: Long, timestamp: Long)
@@ -44,39 +46,38 @@ object WatermarkDemo {
 
       override def cancel(): Unit = isRunning = false
     })
-    //  5. 添加水印
 
+    // FIXME  5. 添加水印 ,每来一个元素调用一次水印时间
     val watermarkDataStream: DataStream[Order] = orderDataStream.assignTimestampsAndWatermarks(
       new AssignerWithPeriodicWatermarks[Order] {
 
-      // 允许延迟2秒
-      val delayTime = 2000L
-      // 当前时间戳
-      var currentTimestamp = 0L
+        // 允许延迟2秒
+        val delayTime = 2000L
+        // 当前时间戳
+        var currentTimestamp = 0L
 
-      // 获取水印时间
-      override def getCurrentWatermark: Watermark = {
-        val watermark = new Watermark(currentTimestamp - delayTime)
-        // - 在获取水印方法中，打印水印时间、事件时间和当前系统时间
-        val dateFormat: FastDateFormat = FastDateFormat.getInstance("HH:mm:ss")
-        println(s"水印时间:${dateFormat.format(watermark.getTimestamp)}," +
-          s"事件时间:${dateFormat.format(currentTimestamp)}," +
-          s"系统时间:${dateFormat.format(System.currentTimeMillis())}")
+        // 获取水印时间
+        override def getCurrentWatermark: Watermark = {
+          val watermark = new Watermark(currentTimestamp - delayTime)
+          // - 在获取水印方法中，打印水印时间、事件时间和当前系统时间
+          val dateFormat: FastDateFormat = FastDateFormat.getInstance("HH:mm:ss")
+          println(s"水印时间:${dateFormat.format(watermark.getTimestamp)}," +
+            s"事件时间:${dateFormat.format(currentTimestamp)}," +
+            s"系统时间:${dateFormat.format(System.currentTimeMillis())}")
 
-        watermark
-      }
+          watermark
+        }
 
-      // 抽取当前时间戳
-      override def extractTimestamp(element: Order, previousElementTimestamp: Long): Long = {
-        // 比对两个元素的时间,求最大值
-        currentTimestamp = Math.max(element.timestamp, previousElementTimestamp)
-        currentTimestamp
-      }
-    })
+        // 抽取当前时间戳
+        override def extractTimestamp(element: Order, previousElementTimestamp: Long): Long = {
+          // 比对两个元素的时间,求最大值  系统记录的上个order的时间
+          currentTimestamp = Math.max(element.timestamp, previousElementTimestamp)
+          currentTimestamp
+        }
+      })
 
 
-
-    //  6. 按照用户进行分流
+    //FIXME   6. 按照用户进行分流  每次都是先分组后设置窗口时间聚合,不设置窗口时间每次都会运行???
     //  7. 设置5秒的时间窗口
     //  8. 进行聚合计算
     val resultDataStream = watermarkDataStream.
@@ -86,8 +87,8 @@ object WatermarkDemo {
 
     //  9. 打印结果数据
     resultDataStream.print()
-    
-    //  10. 启动执行流处理
+
+    //  10. 启动执行流处理  在流环境下手动执行任务
     env.execute()
   }
 

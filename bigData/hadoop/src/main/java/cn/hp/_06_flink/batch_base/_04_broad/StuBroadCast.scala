@@ -1,4 +1,4 @@
-package cn.hp._06_flink.batch_base.broad
+package cn.hp._06_flink.batch_base._04_broad
 
 import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.api.scala.{DataSet, ExecutionEnvironment, _}
@@ -13,6 +13,7 @@ object StuBroadCast {
     val scoreData: DataSet[(Int, String, Int)] = env.fromCollection(List((1, "语文", 60), (2, "数学", 90), (3, "政治", 89)))
     //转换操作
     val result: DataSet[(String, String, Int)] = scoreData.map(new RichMapFunction[(Int, String, Int), (String, String, Int)] {
+
       var stuInfo: List[(String, String)] = null
 
       override def map(value: (Int, String, Int)): (String, String, Int) = {
@@ -22,6 +23,7 @@ object StuBroadCast {
       }
 
       override def open(parameters: Configuration): Unit = {
+        //FIXME 把java 的list转成 scala中的list
         import scala.collection.JavaConversions._
         stuInfo = getRuntimeContext.getBroadcastVariable[(String, String)]("stuInfo").toList
       }

@@ -1,20 +1,23 @@
 package cn.hp._06_flink.stream_base.stream.window
 
 import org.apache.flink.streaming.api.scala.{DataStream, KeyedStream, StreamExecutionEnvironment, WindowedStream}
-import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.api.scala._
-import org.apache.flink.streaming.api.windowing.windows.GlobalWindow
+import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.junit.Test
+import org.apache.log4j.{Level, Logger}
 
-class CountTumblingWindow {
+class TumblingTimeWindow {
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   @Test
-  def countWindow1: Unit = {
+  def mtimeWindow: Unit = {
 
     // 1. env
     val env = StreamExecutionEnvironment.getExecutionEnvironment
+
     // 2. 定义数据源  socket nc -lk 9999 [ 1,2 2,2 ]
-    val socketDataStream: DataStream[String] = env.socketTextStream("server02", 2181)
+    val socketDataStream: DataStream[String] = env.socketTextStream("server02", 2181, delimiter = '\n', 5)
     // 3. 转换数据  1,2 2,2
     val mapDataStream: DataStream[CountCar] = socketDataStream.map {
       line =>
@@ -24,7 +27,10 @@ class CountTumblingWindow {
     // 4. 执行统计
     // 以红绿灯进行分组
     val keyedStream: KeyedStream[CountCar, Int] = mapDataStream.keyBy(_.sen)
-    val countCarDataStream: DataStream[CountCar] = keyedStream.countWindow(5).sum(1)
+    // FIXME 每5s 计算一次  timeWindow 怎么详细操作???
+    val value: WindowedStream[CountCar, Int, TimeWindow] = keyedStream.timeWindow(Time.seconds(5))
+
+    val countCarDataStream: DataStream[CountCar] = keyedStream.timeWindow(Time.seconds(5)).sum(1)
     // 5. 打印结果
     countCarDataStream.print()
     // 6. 执行任务
@@ -32,9 +38,8 @@ class CountTumblingWindow {
 
   }
 
-
   @Test
-  def countWindow2: Unit = {
+  def mtimeWindow2: Unit = {
     // 1. env
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     // 2. 定义数据源  socket nc -lk 9999 [ 1,2 2,2 ]
@@ -48,11 +53,9 @@ class CountTumblingWindow {
     // 4. 执行统计
     // 以红绿灯进行分组
     val keyedStream: KeyedStream[CountCar, Int] = mapDataStream.keyBy(_.sen)
-    //FIXME  sum的具体操作 ???
-    val value: WindowedStream[CountCar, Int, GlobalWindow] = keyedStream.countWindow(5, 10)
-
-    val countCarDataStream: DataStream[CountCar] = keyedStream.countWindow(2, 4).sum(1)
-    // 5. 打印结果 ??? 什么时候需要execute
+    //会丢失数据
+    val countCarDataStream: DataStream[CountCar] = keyedStream.timeWindow(Time.seconds(4), Time.seconds(8)).sum(1)
+    // 5. 打印结果
     countCarDataStream.print()
     // 6. 执行任务
     env.execute()
@@ -60,11 +63,3 @@ class CountTumblingWindow {
 
 
 }
-
-/**
-  *
-  * @param sen    哪个红绿灯
-  * @param carNum 多少辆车
-  *               类写 class中一个包下能重名,放在class外面不能重名
-  */
-case class CountCar(sen: Int, carNum: Int)

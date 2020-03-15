@@ -1,12 +1,9 @@
-package cn.hp._06_flink.batch_base.example
+package cn.hp._06_flink.batch_base
 
-import org.apache.commons.lang3.StringUtils
 import org.apache.flink.api.common.functions.RichFlatMapFunction
 import org.apache.flink.api.java.utils.ParameterTool
-import org.apache.flink.api.scala.{ExecutionEnvironment, _}
+import org.apache.flink.api.scala._
 import org.apache.flink.util.Collector
-//import org.apache.kafka.common.utils.ByteUtils
-import org.apache.parquet.bytes.BytesUtils
 
 object WordCount {
   def main(args: Array[String]): Unit = {
@@ -27,16 +24,16 @@ object WordCount {
       }
     }).groupBy(0).reduce((x, y) => (x._1, x._2 + y._2)).print()*/
 
-    data.flatMap(new RichFlatMapFunction[String,(String,Int)] {
+    data.flatMap(new RichFlatMapFunction[String, (String, Int)] {
       override def flatMap(value: String, out: Collector[(String, Int)]): Unit = {
         val words: Array[String] = value.toLowerCase.split("\\s+")
-        for(word<-words){
-          if(word!=null && word.length>0){
-            out.collect((word,1))
+        for (word <- words) {
+          if (word != null && word.length > 0) {
+            out.collect((word, 1))
           }
         }
       }
-    }).groupBy(0).reduce((x,y)=>(x._1,x._2+y._2)).print()
+    }).groupBy(0).reduce((x, y) => (x._1, x._2 + y._2)).print()
   }
 
 

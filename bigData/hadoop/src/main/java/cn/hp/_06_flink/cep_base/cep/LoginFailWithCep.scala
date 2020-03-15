@@ -1,4 +1,5 @@
 package cn.hp._06_flink.cep_base.cep
+
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.scala._
 import org.apache.flink.cep.scala.pattern.Pattern
@@ -8,6 +9,7 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.api.windowing.time.Time
 
 object LoginFailWithCep {
+
   case class LoginEvent(userId: Long, ip: String, eventType: String, eventTime: Long)
 
   def main(args: Array[String]): Unit = {
@@ -35,14 +37,14 @@ object LoginFailWithCep {
     import org.apache.flink.api.scala._
     import org.apache.flink.streaming.api.scala._
 
-//    val loginFailDataStream: Any = patternStream.select[TypeInformation[(Int,String,String)]((pattern: Map[String, Iterable[LoginEvent]]) => {
-//      val first: LoginEvent = pattern.getOrElse("begin", null).iterator.next()
-//      val second: LoginEvent = pattern.getOrElse("next", null).iterator.next()
-//      (second.userId, second.ip, second.eventType)
-//    })
+    //    val loginFailDataStream: Any = patternStream.select[TypeInformation[(Int,String,String)]((pattern: Map[String, Iterable[LoginEvent]]) => {
+    //      val first: LoginEvent = pattern.getOrElse("begin", null).iterator.next()
+    //      val second: LoginEvent = pattern.getOrElse("next", null).iterator.next()
+    //      (second.userId, second.ip, second.eventType)
+    //    })
 
     //将匹配到的复合条件的事件打印出来
-//    loginFailDataStream.print()
+    //    loginFailDataStream.print()
     env.execute("Login Fail Detect job")
 
   }
