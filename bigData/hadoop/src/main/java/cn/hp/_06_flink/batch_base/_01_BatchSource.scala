@@ -62,7 +62,7 @@ class BatchSource {
         sortDataset1.print()
 
 //    val csvDataSet2: DataSet[(String, String, String, String)] = env.readCsvFile[(String, String, String, String)](filePath)
-//    val sortDataset2 = csvDataSet2.sortPartition(0, Order.ASCENDING).setParallelism(1)
+//    val sortDataset2 = csvDataSet2.sortPartition(0, OrderSql.ASCENDING).setParallelism(1)
 //    sortDataset2.print()
   }
 

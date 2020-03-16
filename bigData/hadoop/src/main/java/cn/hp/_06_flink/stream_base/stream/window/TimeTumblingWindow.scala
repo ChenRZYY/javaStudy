@@ -11,7 +11,7 @@ class TumblingTimeWindow {
   Logger.getLogger("org").setLevel(Level.ERROR)
 
   @Test
-  def mtimeWindow: Unit = {
+  def timeWindow: Unit = {
 
     // 1. env
     val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -39,7 +39,7 @@ class TumblingTimeWindow {
   }
 
   @Test
-  def mtimeWindow2: Unit = {
+  def timeWindow2: Unit = {
     // 1. env
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     // 2. 定义数据源  socket nc -lk 9999 [ 1,2 2,2 ]

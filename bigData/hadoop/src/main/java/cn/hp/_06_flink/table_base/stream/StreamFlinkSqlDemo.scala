@@ -17,7 +17,7 @@ import scala.util.Random
 
 object StreamFlinkSqlDemo {
 
-  //  4. 创建一个订单样例类`Order`，包含四个字段（订单ID、用户ID、订单金额、时间戳）
+  //  4. 创建一个订单样例类`OrderSql`，包含四个字段（订单ID、用户ID、订单金额、时间戳）
   case class Order(id: String, userId: Int, money: Int, createTime: Long)
 
   def main(args: Array[String]): Unit = {

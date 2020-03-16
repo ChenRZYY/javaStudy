@@ -15,7 +15,7 @@ import scala.util.Random
 
 object WaterMarkDemo {
 
-  // 3. 创建一个订单样例类`Order`，包含四个字段（订单ID、用户ID、订单金额、时间戳）
+  // 3. 创建一个订单样例类`OrderSql`，包含四个字段（订单ID、用户ID、订单金额、时间戳）
   case class Order(orderId: String, userId: Int, money: Long, timestamp: Long)
 
   def main(args: Array[String]): Unit = {

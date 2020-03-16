@@ -18,30 +18,31 @@ object DataSet_DataStreamToTable {
     val tableEnv: StreamTableEnvironment = TableEnvironment.getTableEnvironment(env)
 
     // 3. 加载本地集合
-    val dataStream: DataStream[Order1] = env.fromCollection(List(
-      Order1(1, "beer", 3),
-      Order1(2, "diaper", 4),
-      Order1(3, "rubber", 2)
+    val dataStream: DataStream[OrderTable] = env.fromCollection(List(
+      OrderTable(1, "beer", 3),
+      OrderTable(2, "diaper", 4),
+      OrderTable(3, "rubber", 2)
     ))
 
     // 4. 转换为表
-    tableEnv.registerDataStream("order1",dataStream)
+    tableEnv.registerDataStream("order1", dataStream)
 
     // 5. 执行SQL
     val table: Table = tableEnv.sqlQuery("select * from order1 where id=2")
 
     // 6.写入CSV
     // 打印表结构
-    table.printSchema()
-//    @param path CSV写入的文件路径
-//    @param fieldDelim 各个字段的分隔符
-//    @param numFiles 写入的文件的个数
-//    @param writeMode 是否覆盖文件
-      table.writeToSink(new CsvTableSink("./data/score_sql.csv",",",1,FileSystem.WriteMode.OVERWRITE))
-      //table.insertInto("order1")
+//    table.printSchema()
+    //    @param path CSV写入的文件路径
+    //    @param fieldDelim 各个字段的分隔符
+    //    @param numFiles 写入的文件的个数
+    //    @param writeMode 是否覆盖文件 ./
+    table.writeToSink(new CsvTableSink("datasetOut/score_sql.csv", ",", 1, FileSystem.WriteMode.OVERWRITE))
+    //table.insertInto("order1")
     // 7.执行任务
     env.execute()
   }
 
-  case class Order1(id:Long,proudct:String,amount:Int)
+  case class OrderTable(id: Long, proudct: String, amount: Int)
+
 }

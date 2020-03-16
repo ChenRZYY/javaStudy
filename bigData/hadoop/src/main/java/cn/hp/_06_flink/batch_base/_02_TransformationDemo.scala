@@ -9,6 +9,14 @@ import org.junit.Test
 //TODO 样例类必须放到 类外面 否则不能被序列化 报错,main方法的时候可以放到里面
 case class Person(id: String, name: String)
 
+case class Score1(id: String, name: String, subjecid: String, score: String)
+
+case class score(id: Int, name: String, cid: Int, scores: Double)
+
+case class subject1(cid: Int, className: String)
+
+case class Subject(id: String, name: String)
+
 class TransformationDemo {
 
 
@@ -280,13 +288,13 @@ class TransformationDemo {
     // env
     val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
 
-    // readCsvFile
-    val scoreDataSet: DataSet[Score] = env.readCsvFile[Score]("dataset/score.csv")
+    // readCsvFile 为什么Score1 不行 ????  虚拟机运行时找不到类
+    val scoreDataSet: DataSet[Score1] = env.readCsvFile[Score1]("dataset/score.csv")
     val subjectDataSet: DataSet[Subject] = env.readCsvFile[Subject]("dataset/subject.csv")
 
     // join
     // A.join(B).where(A的哪一个元素).equalTo(和B的哪个元素相等)
-    val joinDataSet: JoinDataSet[Score, Subject] = scoreDataSet.join(subjectDataSet).where(2).equalTo(0)
+    val joinDataSet: JoinDataSet[Score1, Subject] = scoreDataSet.join(subjectDataSet).where(2).equalTo(0)
 
     val applyDataSet: DataSet[(String, String, String, String, String, String)] = joinDataSet.apply((sc, su) => (sc.id, sc.name, sc.subjecid, sc.score, su.id, sc.name))
     applyDataSet.print()
@@ -300,12 +308,12 @@ class TransformationDemo {
     val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
     //2.加载本地文件数据
     val scores: DataSet[score] = env.readCsvFile[score]("dataset/score.csv")
-    val subject: DataSet[subject] = env.readCsvFile[subject]("dataset/subject.csv")
+    val subject: DataSet[subject1] = env.readCsvFile[subject1]("dataset/subject.csv")
     //3.join操作
-    val result: JoinDataSet[score, subject] = scores.join[subject](subject).where(2).equalTo(0)
+    val result: JoinDataSet[score, subject1] = scores.join[subject1](subject).where(2).equalTo(0)
     //平常的map怎么不行
-    val finalResult: DataSet[(Int, String, String, Double)] = result.map(new RichMapFunction[(score, subject), (Int, String, String, Double)] {
-      override def map(value: (score, subject)): (Int, String, String, Double) = {
+    val finalResult: DataSet[(Int, String, String, Double)] = result.map(new RichMapFunction[(score, subject1), (Int, String, String, Double)] {
+      override def map(value: (score, subject1)): (Int, String, String, Double) = {
         (value._1.id, value._1.name, value._2.className, value._1.scores)
       }
     })
@@ -314,10 +322,3 @@ class TransformationDemo {
   }
 }
 
-case class score(id: Int, name: String, cid: Int, scores: Double)
-
-case class subject(cid: Int, className: String)
-
-case class Score(id: String, name: String, subjecid: String, score: String)
-
-case class Subject(id: String, name: String)
