@@ -46,8 +46,9 @@
         <json4s.version>3.6.6</json4s.version>
         <esri.version>2.2.2</esri.version>
         <kudu.version>1.6.0</kudu.version>
-        <!--<flink.version>1.6.1</flink.version>-->
-        <flink.version>1.7.2</flink.version>
+        <flink.version>1.6.1</flink.version>
+        <!-- <flink.version>1.7.2</flink.version>-->
+        <!--<flink.version>1.8.0</flink.version>-->
         <scala.v>2.11</scala.v>
         <slf4j.version>1.7.16</slf4j.version>
     </properties>
@@ -123,6 +124,22 @@
                     <artifactId>jackson-databind</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>netty</artifactId>
+                    <groupId>io.netty</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>calcite-linq4j</artifactId>
+                    <groupId>org.apache.calcite</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>calcite-core</artifactId>
+                    <groupId>org.apache.calcite</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -192,8 +209,27 @@
                     <artifactId>jettison</artifactId>
                     <groupId>org.codehaus.jettison</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
+
+        <!--有的电脑无法加载1.1版本 重新引用-->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!--需要制定netty的版本,因为引入spark,Flink依赖后netty冲突-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.0.23.Final</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
@@ -221,6 +257,12 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
             <version>${hadoop.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jsr305</artifactId>
+                    <groupId>com.google.code.findbugs</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -279,6 +321,10 @@
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>hbase-common</artifactId>
+                    <groupId>org.apache.hbase</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-server -->
@@ -298,6 +344,10 @@
                 <exclusion>
                     <artifactId>jersey-container-servlet-core</artifactId>
                     <groupId>org.glassfish.jersey.containers</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hbase-common</artifactId>
+                    <groupId>org.apache.hbase</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -324,6 +374,14 @@
                     <artifactId>scala-library</artifactId>
                     <groupId>org.scala-lang</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>avro</artifactId>
+                    <groupId>org.apache.avro</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>gson</artifactId>
+                    <groupId>com.google.code.gson</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -339,6 +397,10 @@
                 <exclusion>
                     <artifactId>jackson-core</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>netty</artifactId>
+                    <groupId>io.netty</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -401,6 +463,14 @@
                 <exclusion>
                     <artifactId>jackson-databind</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>netty</artifactId>
+                    <groupId>io.netty</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jsr305</artifactId>
+                    <groupId>com.google.code.findbugs</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -489,6 +559,10 @@
                 <exclusion>
                     <artifactId>scala-library</artifactId>
                     <groupId>org.scala-lang</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -709,10 +783,11 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--TODO spark中有1.2版本,和本地spark包产生冲突,将pom中的1.18改成1.2.0-->
         <dependency>
             <groupId>org.apache.calcite</groupId>
             <artifactId>calcite-core</artifactId>
-            <version>1.18.0</version>
+            <version>1.20.0</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-lang</artifactId>
@@ -729,6 +804,10 @@
                 <exclusion>
                     <artifactId>jackson-annotations</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -854,7 +933,14 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.11_${scala.v}</artifactId>
             <version>${flink.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>kafka-clients</artifactId>
+                    <groupId>org.apache.kafka</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.bahir</groupId>
             <artifactId>flink-connector-redis_${scala.v}</artifactId>
@@ -864,8 +950,13 @@
                     <artifactId>flink-streaming-java_2.11</artifactId>
                     <groupId>org.apache.flink</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>jedis</artifactId>
+                    <groupId>redis.clients</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-elasticsearch5_${scala.v}</artifactId>
