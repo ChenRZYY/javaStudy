@@ -52,7 +52,6 @@ object LoginFail {
       if (login.eventType == "fail") {
         loginState.add(login)
       }
-
       ctx.timerService().registerEventTimeTimer(login.eventTime + 2 * 1000)
     }
 

@@ -46,8 +46,8 @@
         <json4s.version>3.6.6</json4s.version>
         <esri.version>2.2.2</esri.version>
         <kudu.version>1.6.0</kudu.version>
-       <!-- <flink.version>1.6.1</flink.version>-->
-        <flink.version>1.7.2</flink.version>
+        <flink.version>1.6.1</flink.version>
+        <!-- <flink.version>1.7.2</flink.version>-->
         <!--<flink.version>1.8.0</flink.version>-->
         <scala.v>2.11</scala.v>
         <slf4j.version>1.7.16</slf4j.version>
@@ -502,10 +502,6 @@
                     <artifactId>jackson-databind</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>commons-compiler</artifactId>
-                    <groupId>org.codehaus.janino</groupId>
-                </exclusion>
             </exclusions>
         </dependency>
         <!--导入spark Mlib依赖-->
@@ -788,7 +784,7 @@
         </dependency>
 
         <!--TODO spark中有1.2版本,和本地spark包产生冲突,将pom中的1.18改成1.2.0-->
-       <!-- <dependency>
+        <dependency>
             <groupId>org.apache.calcite</groupId>
             <artifactId>calcite-core</artifactId>
             <version>1.20.0</version>
@@ -814,7 +810,7 @@
                     <groupId>com.google.guava</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>-->
+        </dependency>
 
         <!--批处理-->
         <dependency>

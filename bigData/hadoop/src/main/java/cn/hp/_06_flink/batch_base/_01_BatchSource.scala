@@ -70,10 +70,8 @@ class BatchSource {
   def readFolder = {
     // env
     val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
-
     // 读取目录
     def params: Configuration = new Configuration()
-
     params.setBoolean("recursive.file.enumeration", true) //设置递归读取文件
     val folderDataSet: DataSet[String] = env.readTextFile("datasetOut/").withParameters(params)
     folderDataSet.printToErr()

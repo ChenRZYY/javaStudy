@@ -72,12 +72,12 @@ class RDDIntro {
     // 3. 演示
     val sourceRDD = spark.sparkContext.parallelize(Seq(Person("zhangsan", 10), Person("lisi", 15)))
     val dataset = sourceRDD.toDS()
-    
+
     dataset.filter(item => item.age > 10).show() // Dataset 支持强类型的 API
     // Dataset 支持弱类型 API
     dataset.filter('age > 10).show()
     dataset.filter($"age" > 10).show()
-    
+
     dataset.filter("age > 10").show() // Dataset 可以直接编写 SQL 表达式
   }
 

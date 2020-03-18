@@ -74,22 +74,22 @@ object StreamFlinkSqlDemo {
     import org.apache.flink.table.api.scala._
 
     //    8. 使用`registerDataStream`注册表，并分别指定字段，还要指定rowtime字段
-    tableEnv.registerDataStream("t_order",waterDataStream,'id, 'userId, 'money, 'createTime.rowtime)
+    tableEnv.registerDataStream("t_order", waterDataStream, 'id, 'userId, 'money, 'createTime.rowtime)
     //  9. 编写SQL语句统计用户订单总数、最大金额、最小金额
     //  - 分组时要使用`tumble(时间列, interval '窗口时间' second)`来创建窗口
     val sql =
-      """
-        |select
-        | userId,
-        | count(1) as totalCount,
-        | max(money) as maxMoney,
-        | min(money) as minMoney
-        | from
-        | t_order
-        | group by
-        | userId,
-        | tumble(createTime, interval '5' second)
-      """.stripMargin
+    """
+      |select
+      | userId,
+      | count(1) as totalCount,
+      | max(money) as maxMoney,
+      | min(money) as minMoney
+      | from
+      | t_order
+      | group by
+      | userId,
+      | tumble(createTime, interval '5' second)
+    """.stripMargin
     //  10. 使用`tableEnv.sqlQuery`执行sql语句
     val table: Table = tableEnv.sqlQuery(sql)
     //    11. 将SQL的执行结果转换成DataStream再打印出来

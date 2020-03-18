@@ -14,7 +14,6 @@ object BatchFlinkSqlDemo {
     val tableEnv = TableEnvironment.getTableEnvironment(env)
 
     // 4. 基于本地`OrderSql`集合创建一个DataSet source
-
     val dataSet: DataSet[OrderSql] = env.fromCollection(List(
       OrderSql(1, "zhangsan", "2018-10-20 15:30", 358.5),
       OrderSql(2, "zhangsan", "2018-10-20 16:30", 131.5),
@@ -36,7 +35,10 @@ object BatchFlinkSqlDemo {
       "min(money) as minMoney, " +
       "count(1) as totalCount " +
       "from t_order group by username"
+
+
     val table: Table = tableEnv.sqlQuery(sql)
+//    table.printSchema()
     // 7. 使用TableEnv.toDataSet将Table转换为DataSet
     val resultDataSet: DataSet[Row] = tableEnv.toDataSet[Row](table)
     // 8. 打印测试
