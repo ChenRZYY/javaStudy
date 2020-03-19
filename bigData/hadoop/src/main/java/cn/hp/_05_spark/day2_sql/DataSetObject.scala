@@ -29,7 +29,7 @@ class DataSetObject {
     ds.show()
 
     //2、读取外部文件的方式创建[只有读取文本文件才能创建Dataste]
-    val ds2 = spark.read.textFile("data/wordcount.txt")
+    val ds2 = spark.read.textFile("data/globalParameter.txt")
 
     //3、根据本地集合创建DataSet
     val data = Seq[Person](Person("lisi", 20), Person("wangwu", 30), Person("zhaoliu", 25))
@@ -42,7 +42,7 @@ class DataSetObject {
   @Test
   def dataSetToRdd(): Unit = {
 
-    val ds2 = spark.read.textFile("data/wordcount.txt")
+    val ds2 = spark.read.textFile("data/globalParameter.txt")
     val rdd = ds2.rdd
 
     val rdd2: RDD[WrodCount] = rdd.flatMap(_.split(" ")).map(item => WrodCount(item, 1))

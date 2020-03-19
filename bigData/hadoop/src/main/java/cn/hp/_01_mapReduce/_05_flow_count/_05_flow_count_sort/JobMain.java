@@ -23,7 +23,7 @@ public class JobMain extends Configured implements Tool {
 
         //第一步:指定文件的读取方式和读取路径
         job.setInputFormatClass(TextInputFormat.class);
-        //TextInputFormat.addInputPath(job, new Path("hdfs://node01:8020/wordcount"));
+        //TextInputFormat.addInputPath(job, new Path("hdfs://node01:8020/globalParameter"));
 //        TextInputFormat.addInputPath(job, new Path("file:///D:\\out\\flowcount_out"));
         TextInputFormat.addInputPath(job, new Path("file:///C:\\学习\\study\\bigData\\hadoop\\src\\main\\java\\cn\\hp\\_01_mapReduce\\_05_flow_count\\_05_fllow_count_dome\\source.txt"));
 

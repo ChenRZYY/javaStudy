@@ -40,11 +40,11 @@ object LoginFailWithCep {
     import org.apache.flink.api.scala._
     import org.apache.flink.streaming.api.scala._
 
-    //    val loginFailDataStream: Any = patternStream.select[TypeInformation[(Int,String,String)]((pattern: Map[String, Iterable[LoginEvent]]) => {
-    //      val first: LoginEvent = pattern.getOrElse("begin", null).iterator.next()
-    //      val second: LoginEvent = pattern.getOrElse("next", null).iterator.next()
-    //      (second.userId, second.ip, second.eventType)
-    //    })
+//        val loginFailDataStream: Any = patternStream.select[TypeInformation[(Int,String,String)]((pattern: Map[String, Iterable[LoginEvent]]) => {
+//          val first: LoginEvent = pattern.getOrElse("begin", null).iterator.next()
+//          val second: LoginEvent = pattern.getOrElse("next", null).iterator.next()
+//          (second.userId, second.ip, second.eventType)
+//        })
 
     //将匹配到的复合条件的事件打印出来
     //    loginFailDataStream.print()

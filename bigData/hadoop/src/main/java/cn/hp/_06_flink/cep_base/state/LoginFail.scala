@@ -17,7 +17,6 @@ object LoginFail {
   case class LoginEvent(userId: Long, ip: String, eventType: String, eventTime: Long)
 
   def main(args: Array[String]): Unit = {
-    //创建环境变量
     val sEnv: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
     //设置eventTime
     sEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
@@ -42,25 +41,18 @@ object LoginFail {
 
   class MatchFunction extends KeyedProcessFunction[Long, LoginEvent, LoginEvent] {
     //定义状态变量
-    lazy val loginState: ListState[LoginEvent] = getRuntimeContext.getListState(
-      new ListStateDescriptor[LoginEvent]("saved login", classOf[LoginEvent])
-    )
+    lazy val loginState: ListState[LoginEvent] = getRuntimeContext.getListState(new ListStateDescriptor[LoginEvent]("saved login", classOf[LoginEvent]))
 
-    override def processElement(login: LoginEvent,
-                                ctx: KeyedProcessFunction[Long, LoginEvent, LoginEvent]#Context,
-                                out: Collector[LoginEvent]): Unit = {
+    override def processElement(login: LoginEvent, ctx: KeyedProcessFunction[Long, LoginEvent, LoginEvent]#Context, out: Collector[LoginEvent]): Unit = {
       if (login.eventType == "fail") {
         loginState.add(login)
       }
       ctx.timerService().registerEventTimeTimer(login.eventTime + 2 * 1000)
     }
 
-    override def onTimer(timestamp: Long,
-                         ctx: KeyedProcessFunction[Long, LoginEvent, LoginEvent]#OnTimerContext,
-                         out: Collector[LoginEvent]): Unit = {
+    override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[Long, LoginEvent, LoginEvent]#OnTimerContext, out: Collector[LoginEvent]): Unit = {
 
       val allLogins: ListBuffer[LoginEvent] = ListBuffer()
-
       import scala.collection.JavaConverters._
 
       //      for (login <- loginState.get) {

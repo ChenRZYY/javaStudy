@@ -33,7 +33,7 @@ public class JobMain extends Configured implements Tool {
         job.setInputFormatClass(TextInputFormat.class);
         TextInputFormat.addInputPath(job, getHdfsInputputPath(JobMain.class));
 
-//        TextInputFormat.addInputPath(job, new Path("hdfs://server02:8020/wordcount"));
+//        TextInputFormat.addInputPath(job, new Path("hdfs://server02:8020/globalParameter"));
 //        TextInputFormat.addInputPath(job, new Path("hdfs://server02:8020/input/hadoop_03_sortBean_input"));
 //        TextInputFormat.addInputPath(job, new Path("hdfs://server02:8020/input/chenzhendong"));
 //        TextInputFormat.addInputPath(job, new Path("file:///D:\\input\\sort_input"));

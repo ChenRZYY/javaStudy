@@ -14,7 +14,7 @@ object _01_FileStreaming {
     ssc.sparkContext.setLogLevel("warn")
     //2、从数据源获取数据 监控HDFS上的一个目录
     //TODO 在监控文件夹读取数据的时候，可能出现读取不到数据情况，问题应该是时间没有同步:service ntpd restart
-    val ds = ssc.textFileStream("hdfs://server02:8020/wordcount")
+    val ds = ssc.textFileStream("hdfs://server02:8020/globalParameter")
     //3、数据处理
     ds.flatMap(_.split(","))
       .map((_, 1))

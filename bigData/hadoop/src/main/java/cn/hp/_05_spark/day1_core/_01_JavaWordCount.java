@@ -17,7 +17,7 @@ public class _01_JavaWordCount {
 
     public static void main(String[] args) {
         //1、创建SparkContext
-        SparkConf conf = new SparkConf().setMaster("local[4]").setAppName("wordcount");
+        SparkConf conf = new SparkConf().setMaster("local[4]").setAppName("globalParameter");
         JavaSparkContext sc = new JavaSparkContext(conf);
         //2、数据读取
         JavaRDD<String> rdd1 = sc.textFile("dataSet/source.txt");

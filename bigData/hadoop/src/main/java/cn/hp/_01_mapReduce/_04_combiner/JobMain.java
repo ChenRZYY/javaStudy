@@ -28,7 +28,7 @@ public class JobMain extends Configured implements Tool {
     @Override
     public int run(String[] args) throws Exception {
         //1:创建一个job任务对象
-        Job job = Job.getInstance(super.getConf(), "wordcount");
+        Job job = Job.getInstance(super.getConf(), "globalParameter");
         //如果打包运行出错，则需要加该配置
         job.setJarByClass(JobMain.class);
         //2:配置job任务对象(八个步骤)

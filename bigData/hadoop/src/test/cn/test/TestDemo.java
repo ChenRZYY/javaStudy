@@ -19,7 +19,7 @@ public class TestDemo {
         URL.setURLStreamHandlerFactory(new FsUrlStreamHandlerFactory());
 
         //获取文件输入流
-        InputStream inputStream  = new URL("hdfs://server02:8020/wordcount/wordcount.txt").openStream();
+        InputStream inputStream  = new URL("hdfs://server02:8020/globalParameter/globalParameter.txt").openStream();
         //获取文件输出流
         FileOutputStream outputStream = new FileOutputStream(new File("C:\\学习\\test.txt"));
 

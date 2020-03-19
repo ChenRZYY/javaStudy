@@ -14,7 +14,7 @@ class _01_RDDIntro_1 {
     val conf = new SparkConf().setMaster("local[4]").setAppName("_01_RDDIntro_1")
     val context: SparkContext = new SparkContext(conf)
 
-    context.textFile("dataset/wordcount.txt")
+    context.textFile("dataset/globalParameter.txt")
       .flatMap(_.split(" "))
       .map((_, 1))
       .reduceByKey(_ + _)

@@ -19,7 +19,7 @@ class _02_CreateRDD {
 
   @Test
   def createRddFromFile(): Unit = {
-    val rdd1 = sc.textFile("dataset/wordcount.txt", 6)
+    val rdd1 = sc.textFile("dataset/globalParameter.txt", 6)
     println(rdd1.partitions.length)
   }
 

@@ -12,15 +12,15 @@ object _01_WordCount {
     //1、创建SparkContext
     //setMaster:在本地idea中运行的时候必须设置，如果在集群中运行就不用设置
     //setAppName:必须设置
-    val conf = new SparkConf().setMaster("local[4]").setAppName("wordcount")
+    val conf = new SparkConf().setMaster("local[4]").setAppName("globalParameter")
     //    conf.set("sparkSession.driver.host", "localhost")
     val sc: SparkContext = new SparkContext(conf)
     //2、数据读取
     //val rdd1: RDD[String] = sc.textFile("src\\main\\java\\cn\\hp\\_05_spark\\day1_core\\source.txt")
-    //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/wordcount/wordcount.txt", 2)
-    //val rdd1: RDD[String] = sc.textFile("hdfs:///data/wordcount.txt")
-    //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/wordcount/", 2) //TODO 读取文件夹
-    val rdd1: RDD[String] = sc.textFile("dataset/wordcount.txt", 2)
+    //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/globalParameter/globalParameter.txt", 2)
+    //val rdd1: RDD[String] = sc.textFile("hdfs:///data/globalParameter.txt")
+    //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/globalParameter/", 2) //TODO 读取文件夹
+    val rdd1: RDD[String] = sc.textFile("dataset/globalParameter.txt", 2)
 
     //["hello sparkSession hello","hello python hello"]
     //3、数据处理
