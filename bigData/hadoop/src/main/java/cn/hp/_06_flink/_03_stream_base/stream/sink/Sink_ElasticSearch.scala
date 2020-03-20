@@ -36,10 +36,8 @@ object Sink_ElasticSearch {
     props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer")
     //props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest")
     props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
-    val kafkaDataStream: DataStream[String] = env.addSource(new FlinkKafkaConsumer011[String](
-      kafkaTopic,
-      new SimpleStringSchema(),
-      props))
+
+    val kafkaDataStream: DataStream[String] = env.addSource(new FlinkKafkaConsumer011[String](kafkaTopic, new SimpleStringSchema(), props))
 
     // 4.写入sink到elastic search
     val config = new java.util.HashMap[String, String]

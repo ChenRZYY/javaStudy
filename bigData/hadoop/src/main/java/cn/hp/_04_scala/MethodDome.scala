@@ -24,12 +24,22 @@ object Method {
     println("I'm Yinzhengjie！")
   }
 
+  def open[U](body: => U): U = {
+    body
+  }
+
   def main(args: Array[String]): Unit = {
     var res = sum(100, 200, 300) //调用有参函数
     println(res)
     sayHello() //调用无参函数,调用时可以省略括号"()", 也可以不省略。如果方法没有括号"()"，调用时不能加"()"
     var f1 = sum _ //方法可转换为函数，格式很简单，只需要在方法名后面加个空格和下划线即可。
-    var res1 = f1(1, 2, 3)   //调用我们将方法转换过来的函数
+    var res1 = f1(1, 2, 3) //调用我们将方法转换过来的函数
     println(res1)
+
+    open {
+      val str = "chen,zhen,dong"
+      val list: List[String] = str.split(",").toList.map(_ + "1")
+      System.err.println(list)
+    }
   }
 }

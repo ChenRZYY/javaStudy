@@ -5,8 +5,7 @@ import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisPoolC
 import org.apache.flink.streaming.connectors.redis.common.mapper.{RedisCommand, RedisCommandDescription, RedisMapper}
 
 object RedisUtil {
-  private val config: FlinkJedisPoolConfig = new FlinkJedisPoolConfig.Builder()
-    .setHost("node01").setPort(6379).build()
+  private val config: FlinkJedisPoolConfig = new FlinkJedisPoolConfig.Builder().setHost("node01").setPort(6379).build()
 
   def getRedisSink(): RedisSink[(String, Int)] = {
     new RedisSink[(String, Int)](config, new MyRedisMapper)
