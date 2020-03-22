@@ -5,9 +5,11 @@ import org.apache.flink.api.scala.{DataSet, ExecutionEnvironment}
 import org.junit.Test
 import org.apache.flink.api.scala._
 import org.apache.flink.core.fs.FileSystem
+import org.apache.log4j.{Level, Logger}
 
 class _03_BatchSink {
   val env = ExecutionEnvironment.getExecutionEnvironment
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   @Test
   def collect() = {

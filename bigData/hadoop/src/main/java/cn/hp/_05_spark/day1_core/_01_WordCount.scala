@@ -20,7 +20,7 @@ object _01_WordCount {
     //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/globalParameter/globalParameter.txt", 2)
     //val rdd1: RDD[String] = sc.textFile("hdfs:///data/globalParameter.txt")
     //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/globalParameter/", 2) //TODO 读取文件夹
-    val rdd1: RDD[String] = sc.textFile("dataset/globalParameter.txt", 2)
+    val rdd1: RDD[String] = sc.textFile("dataset/wordcount.txt", 2)
 
     //["hello sparkSession hello","hello python hello"]
     //3、数据处理

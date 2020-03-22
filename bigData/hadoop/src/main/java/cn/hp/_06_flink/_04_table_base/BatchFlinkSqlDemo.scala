@@ -3,12 +3,15 @@ package cn.hp._06_flink._04_table_base
 import org.apache.flink.api.scala._
 import org.apache.flink.table.api.{Table, TableEnvironment}
 import org.apache.flink.types.Row
+import org.apache.log4j.{Level, Logger}
 
 /**
   * @Author Haishi
   * @create 2020/3/19 10:32
   */
 object BatchFlinkSqlDemo {
+
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   def main(args: Array[String]): Unit = {
     // 1. 获取一个批处理运行环境
@@ -41,7 +44,7 @@ object BatchFlinkSqlDemo {
 
 
     val table: Table = tableEnv.sqlQuery(sql)
-//    table.printSchema()
+    //    table.printSchema()
     // 7. 使用TableEnv.toDataSet将Table转换为DataSet
     val resultDataSet: DataSet[Row] = tableEnv.toDataSet[Row](table)
     // 8. 打印测试

@@ -5,11 +5,13 @@ import java.util.concurrent.TimeUnit
 import org.apache.flink.streaming.api.functions.source.SourceFunction
 import org.apache.flink.streaming.api.scala.{ConnectedStreams, DataStream, StreamExecutionEnvironment}
 import org.apache.flink.api.scala._
+import org.apache.log4j.{Level, Logger}
 
 /**
   * 把两个数据源合成一个
   */
 object Trans_Connect {
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   def main(args: Array[String]): Unit = {
 

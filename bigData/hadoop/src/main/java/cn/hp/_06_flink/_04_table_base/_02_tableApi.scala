@@ -9,11 +9,14 @@ import org.apache.flink.table.api.scala._
 import org.apache.flink.table.api.{Table, TableEnvironment, Types}
 import org.apache.flink.table.sinks.CsvTableSink
 import org.apache.flink.table.sources.CsvTableSource
+import org.apache.log4j.{Level, Logger}
 import org.junit.Test
 
 
 class _02_tableApi {
 
+  Logger.getLogger("org").setLevel(Level.ERROR)
+  
   val env = ExecutionEnvironment.getExecutionEnvironment //    1. 获取批处理环境
   val tableEnv = TableEnvironment.getTableEnvironment(env) //    3. 获取Table运行环境
   val dataSet = env.fromElements((1, "zhangsan", 10), (2, "lisi", 20), (3, "wangwu", 30), (4, "zhaoliu", 20))

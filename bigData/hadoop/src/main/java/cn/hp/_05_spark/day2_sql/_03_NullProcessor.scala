@@ -1,10 +1,13 @@
 package cn.hp._05_spark.day2_sql
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types.{DoubleType, IntegerType, LongType, StructField, StructType}
 import org.junit.Test
 
 class _03_NullProcessor {
+  Logger.getLogger("org").setLevel(Level.ERROR)
+
   // 1. 创建 SparkSession
   val spark = SparkSession.builder()
     .master("local[6]")
@@ -40,8 +43,9 @@ class _03_NullProcessor {
 
     val sourceDF = spark.read
       .option("header", value = true)
+//      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
       .schema(schema)
-      .csv("dataset/beijingpm_with_nan.csv")
+      .csv("dataset/BeijingPM.csv")
 
     sourceDF.show()
 
@@ -70,7 +74,7 @@ class _03_NullProcessor {
     val sourceDF = spark.read
       .option("header", value = true)
       .option("inferSchema", value = true)
-      .csv("dataset/BeijingPM20100101_20151231.csv")
+      .csv("dataset/BeijingPM.csv")
 
 //    sourceDF.show()
 

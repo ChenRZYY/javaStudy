@@ -5,6 +5,7 @@ import org.apache.flink.api.common.operators.Order
 import org.apache.flink.api.common.operators.base.JoinOperatorBase.JoinHint
 import org.apache.flink.api.java.aggregation.Aggregations
 import org.apache.flink.api.scala._
+import org.apache.flink.core.fs.FileSystem
 import org.apache.flink.util.Collector
 import org.junit.Test
 import org.apache.log4j.{Level, Logger}
@@ -18,7 +19,7 @@ case class score(id: Int, name: String, cid: Int, scores: Double)
 
 case class subject1(cid: Int, className: String)
 
-case class Subject(id: String, name: String)
+case class Subject2(id: String, name: String)
 
 class TransformationDemo {
   val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
@@ -312,7 +313,7 @@ class TransformationDemo {
     // 4. 进行分区 总共有3个方法 按照第一参数的toString方法分区  如果是元祖用下标,其他数据输入名称
     val hashDataSet: DataSet[Int] = listDataSet.partitionByHash(_.toString)
     // 5. 写入文件
-    hashDataSet.writeAsText("datasetOut/patitions3")
+    hashDataSet.writeAsText("datasetOut/patitions3",FileSystem.WriteMode.OVERWRITE)
     // 6. 打印输出
     hashDataSet.print()
   }
@@ -350,13 +351,13 @@ class TransformationDemo {
   def join_apply(): Unit = {
     // readCsvFile 为什么Score1 不行 ????  虚拟机运行时找不到类
     val scoreDataSet: DataSet[Score1] = env.readCsvFile[Score1]("dataset/score.csv")
-    val subjectDataSet: DataSet[Subject] = env.readCsvFile[Subject]("dataset/subject.csv")
+    val subjectDataSet: DataSet[Subject2] = env.readCsvFile[Subject2]("dataset/subject.csv")
 
     // join
     // A.join(B).where(A的哪一个元素).equalTo(和B的哪个元素相等)
-    val joinDataSet: JoinDataSet[Score1, Subject] = scoreDataSet.join(subjectDataSet).where(2).equalTo(0)
+    val joinDataSet: JoinDataSet[Score1, Subject2] = scoreDataSet.join(subjectDataSet).where(2).equalTo(0)
 
-    val function = (sc: Score1, su: Subject) => (sc.id, sc.name, sc.subjecid, sc.score, su.id, sc.name);
+    val function = (sc: Score1, su: Subject2) => (sc.id, sc.name, sc.subjecid, sc.score, su.id, sc.name);
     //    val map = joinDataSet.map()
 
     val applyDataSet: DataSet[(String, String, String, String, String, String)] = joinDataSet.apply((sc, su) => (sc.id, sc.name, sc.subjecid, sc.score, su.id, sc.name))

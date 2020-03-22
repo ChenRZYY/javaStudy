@@ -19,3 +19,9 @@ spark2.2
  <component name="PropertiesComponent">
 在标签里加一行 即可
 <property name="dynamic.classpath" value="true" />	  
+
+    import scala.collection.JavaConversions._
+
+
+
+.option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")

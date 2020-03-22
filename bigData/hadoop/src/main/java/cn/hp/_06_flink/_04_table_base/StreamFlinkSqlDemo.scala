@@ -11,6 +11,7 @@ import org.apache.flink.streaming.api.watermark.Watermark
 import org.apache.flink.table.api.scala.StreamTableEnvironment
 import org.apache.flink.table.api.{Table, TableEnvironment}
 import org.apache.flink.types.Row
+import org.apache.log4j.{Level, Logger}
 
 import scala.util.Random
 
@@ -19,6 +20,8 @@ import scala.util.Random
   * @create 2020/3/19 10:31
   */
 object treamFlinkSqlDemo {
+
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   //  4. 创建一个订单样例类`OrderSql`，包含四个字段（订单ID、用户ID、订单金额、时间戳）
   case class Order(id: String, userId: Int, money: Int, createTime: Long)

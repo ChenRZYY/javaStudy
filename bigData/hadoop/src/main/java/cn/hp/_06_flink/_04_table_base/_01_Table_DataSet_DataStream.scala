@@ -5,9 +5,12 @@ import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironm
 import org.apache.flink.table.api.scala._
 import org.apache.flink.table.api.{Table, TableEnvironment}
 import org.apache.flink.types.Row
+import org.apache.log4j.{Level, Logger}
 import org.junit.Test
 
 class _01_Table_DataSet_DataStream {
+
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   val env = ExecutionEnvironment.getExecutionEnvironment //    1. 获取批处理环境
   env.setParallelism(1) //    2. 设置并行度

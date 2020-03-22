@@ -36,7 +36,7 @@ public class JobMain extends Configured implements Tool {
 
         //第一步:指定文件的读取方式和读取路径
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job, new Path("dataSet/globalParameter.txt"));
+        TextInputFormat.addInputPath(job, new Path("dataSet/wordcount.txt"));
 //        TextInputFormat.addInputPath(job, HdfsUtil.getHdfsInputputPath(JobMain.class));
         //TextInputFormat.addInputPath(job, new Path("file:///D:\\mapreduce\\input"));
 

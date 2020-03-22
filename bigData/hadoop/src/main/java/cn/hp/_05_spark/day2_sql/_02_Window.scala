@@ -1,11 +1,13 @@
 package cn.hp._05_spark.day2_sql
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.junit.Test
 
 class _02_Window {
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
-  val spark = SparkSession.builder().master("local[4]").appName("window").getOrCreate()
+  val spark: SparkSession = SparkSession.builder().master("local[4]").appName("window").getOrCreate()
   /**
     * 常用开窗函数：（最常用的应该是1.2.3 的排序）
     * --排序函数
@@ -29,7 +31,10 @@ class _02_Window {
   @Test
   def rowNumber(): Unit = {
     //需求:获取班级的前三名的学生信息
-    val source = spark.read.json("data/window.json")
+    //TODO https://blog.csdn.net/lds_include/article/details/89329139 读取json报错 必须加上option() 2.3版本
+    val source = spark.read
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      .json("dataset/window.json")
 
     source.createOrReplaceTempView("student")
     //source.show()

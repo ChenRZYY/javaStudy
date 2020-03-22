@@ -3,6 +3,7 @@ package cn.hp._06_flink._01_batch_base
 import org.apache.flink.api.common.operators.Order
 import org.apache.flink.api.scala.{DataSet, ExecutionEnvironment, _}
 import org.apache.flink.configuration.Configuration
+import org.apache.log4j.{Level, Logger}
 import org.junit.Test
 
 case class subject(id: String, subjectName: String, sored: String, score: String)
@@ -10,6 +11,8 @@ case class subject(id: String, subjectName: String, sored: String, score: String
 //case class subject(id: Int, subjectName: String, sored: Int, score: Int)
 
 class BatchSource {
+
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   @Test
   def fromElement: Unit = {
@@ -40,7 +43,7 @@ class BatchSource {
   def readFile = {
     // 创建env
     val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
-    val filePath: String = "dataset/globalParameter.txt" // hdfs文件是一样的,换个地址就行
+    val filePath: String = "dataset/score.csv" // hdfs文件是一样的,换个地址就行
     // 加载文件
     val textDataSet: DataSet[String] = env.readTextFile(filePath, charsetName = "UTF-8")
     // 打印

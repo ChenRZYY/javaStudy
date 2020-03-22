@@ -4,10 +4,13 @@ import java.util.Date
 
 import org.apache.flink.api.common.operators.Order
 import org.apache.flink.api.scala._
+import org.apache.log4j.{Level, Logger}
 import org.junit.Test
 
 class _04_Env {
 
+  Logger.getLogger("org").setLevel(Level.ERROR)
+  
   @Test
   def remoteEnv(): Unit = {
     // 1. 创建远程执行环境
