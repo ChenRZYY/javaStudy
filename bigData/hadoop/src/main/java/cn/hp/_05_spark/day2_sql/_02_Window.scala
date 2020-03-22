@@ -80,7 +80,9 @@ class _02_Window {
   @Test
   def rank(): Unit = {
     //需求:获取班级的前三名的学生信息
-    val source = spark.read.json("data/window.json")
+    val source = spark.read
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      .json("dataset/window.json")
     source.createOrReplaceTempView("student")
     spark.sql(
       """
@@ -109,7 +111,9 @@ class _02_Window {
   @Test
   def descerank(): Unit = {
     //需求:获取班级的前三名的学生信息
-    val source = spark.read.json("data/window.json")
+    val source = spark.read
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      .json("dataset/window.json")
 
     source.createOrReplaceTempView("student")
 
@@ -146,7 +150,9 @@ class _02_Window {
   @Test
   def max(): Unit = {
 
-    val source = spark.read.json("data/window.json")
+    val source = spark.read
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      .json("dataset/window.json")
 
     source.createOrReplaceTempView("student")
 
