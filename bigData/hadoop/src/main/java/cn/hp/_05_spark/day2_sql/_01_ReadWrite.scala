@@ -70,7 +70,7 @@ class _01_ReadWrite {
     // 写入的时候, 默认格式就是 parquet
     // 写入模式, 报错, 覆盖, 追加, 忽略
     df.write
-      .mode(SaveMode.Overwrite)  //SaveMode.Append
+      .mode(SaveMode.Overwrite) //SaveMode.Append
       .save("datasetOut/beijing_pm4")
 
     // 3. 读取 Parquet 格式文件
@@ -87,15 +87,15 @@ class _01_ReadWrite {
   @Test
   def parquetPartitions(): Unit = {
     // 1. 读取数据
-        val df = sparkSession.read
-          .option("header", value = true)
-          .csv("dataset/BeijingPM_header.csv")
+    val df = sparkSession.read
+      .option("header", value = true)
+      .csv("dataset/BeijingPM_header.csv")
 
     // 2. 写文件, 表分区
-        df.write
-          .mode(SaveMode.Overwrite)  //SaveMode.Append
-          .partitionBy("year", "month")
-          .save("datasetOut/beijing_pm4")
+    df.write
+      .mode(SaveMode.Overwrite) //SaveMode.Append
+      .partitionBy("year", "month")
+      .save("datasetOut/beijing_pm4")
 
     // 3. 读文件, 自动发现分区
     // 写分区表的时候, 分区列不会包含在生成的文件中
@@ -146,5 +146,15 @@ class _01_ReadWrite {
     val jsonRDD: RDD[String] = df.toJSON.rdd
 
     sparkSession.read.json(jsonRDD).show()
+  }
+
+  @Test
+  def read_json(): Unit = {
+    val df = sparkSession.read
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      //fixme json("") 可以直接是文件,也可以是json文件夹
+      .json("dataset/pmt.json")
+
+    df.show()
   }
 }
