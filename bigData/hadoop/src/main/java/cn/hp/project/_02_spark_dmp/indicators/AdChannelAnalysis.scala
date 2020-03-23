@@ -38,11 +38,11 @@ object AdChannelAnalysis {
     //2、读取数据
     import org.apache.kudu.spark.kudu._
     val source: DataFrame = spark.read
-      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
       //      .option("kudu.master","")
       //      .option("kudu.table", SOURCE_TABLE)
       //      .kudu
-      .json("dataSetOut/" + EtlProcess.SINK_TABLE)
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      .json("dataSetOut/" + SOURCE_TABLE)
 
     val filterDF: DataFrame = source.filter("channelid is not null and channelid != ''")
       .selectExpr("adplatformproviderid", "requestmode", "processnode", "iseffective", "isbilling", "isbid", "iswin", "adorderid", "adcreativeid", "channelid", "winprice", "adpayment")
