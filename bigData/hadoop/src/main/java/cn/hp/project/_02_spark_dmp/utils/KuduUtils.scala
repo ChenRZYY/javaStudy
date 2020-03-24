@@ -31,4 +31,22 @@ object KuduUtils {
       .option("kudu.table", tableName)
       .kudu
   }
+
+  def businessWrite(context: KuduContext, tableName: String,
+                    schema: StructType,
+                    keys: Seq[String],
+                    options: CreateTableOptions, data: DataFrame) = {
+    //如果表存在，删除
+    if (!context.tableExists(tableName)) {
+      context.createTable(tableName, schema, keys, options)
+    }
+
+    //写入数据
+    import org.apache.kudu.spark.kudu._
+    data.write
+      .mode(SaveMode.Append)
+      .option("kudu.master", ConfigUtils.MASTER_ADDRESS)
+      .option("kudu.table", tableName)
+      .kudu
+  }
 }

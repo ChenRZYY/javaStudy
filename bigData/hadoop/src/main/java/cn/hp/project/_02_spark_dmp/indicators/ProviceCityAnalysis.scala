@@ -68,6 +68,6 @@ object ProviceCityAnalysis {
 
     result.coalesce(1).write.mode(SaveMode.Overwrite)
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("dataSetOut/" + SINK_TABLE)
+      .json("datasetOut/" + SINK_TABLE)
   }
 }

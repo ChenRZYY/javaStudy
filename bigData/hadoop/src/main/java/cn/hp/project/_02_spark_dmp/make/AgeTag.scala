@@ -1,0 +1,13 @@
+package cn.hp.project._02_spark_dmp.make
+
+import org.apache.spark.sql.Row
+
+object AgeTag {
+
+  def make(row: Row) = {
+    //1、取出年龄的字段值
+    val age = row.getAs[String]("age")
+    //3、数据返回
+    Map[String, Double](s"AGE_${age}" -> 1.0)
+  }
+}

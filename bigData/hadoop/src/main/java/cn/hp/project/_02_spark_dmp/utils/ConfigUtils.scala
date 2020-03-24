@@ -52,6 +52,8 @@ object ConfigUtils {
   val MASTER_ADDRESS = conf.getString("master_address")
   //设置商圈库的获取的url
   val BUSINESS_AREA=conf.getString("BUSINESS_AREA_URL")
+  //衰减系数
+  val ATTNU = conf.getString("attnu")
   /**
     * spark.speculation="true"
     * #设置推测机制的启动时机

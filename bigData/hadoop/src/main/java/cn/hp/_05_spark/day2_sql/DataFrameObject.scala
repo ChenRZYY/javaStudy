@@ -1,6 +1,6 @@
 package cn.hp._05_spark.day2_sql
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.junit.Test
 
 class DataFrameObject {
@@ -29,6 +29,6 @@ class DataFrameObject {
       .show
 
     //3、通过createDataFrame
-    val df5 = spark.createDataset(data)
+    val df5: Dataset[Person] = spark.createDataset(data)
   }
 }

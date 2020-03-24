@@ -26,7 +26,7 @@ class RDDIntro {
   }
 
   @Test
-  def dsIntro(): Unit = {
+  def rdd_dataset(): Unit = {
     val spark: SparkSession = new SparkSession.Builder()
       .appName("ds intro")
       .master("local[6]")
@@ -44,7 +44,29 @@ class RDDIntro {
   }
 
   @Test
-  def dfIntro(): Unit = {
+  def rdd_dataset2(): Unit = {
+    // 1. 创建 SparkSession
+    val spark = new sql.SparkSession.Builder()
+      .master("local[6]")
+      .appName("dataset1")
+      .getOrCreate()
+
+    // 2. 导入隐式转换
+    import spark.implicits._
+
+    // 3. 演示
+    val sourceRDD = spark.sparkContext.parallelize(Seq(Person("zhangsan", 10), Person("lisi", 15)))
+    val dataset: Dataset[Person] = sourceRDD.toDS()
+
+    dataset.filter(item => item.age > 10).show() // Dataset 支持强类型的 API
+    // Dataset 支持弱类型 API
+    dataset.filter('age > 10).show()
+    dataset.filter($"age" > 10).show()
+    dataset.filter("age > 10").show() // Dataset 可以直接编写 SQL 表达式
+  }
+
+  @Test
+  def rdd_dataframe(): Unit = {
     val spark: SparkSession = new SparkSession.Builder()
       .appName("ds intro")
       .master("local[6]")
@@ -59,50 +81,7 @@ class RDDIntro {
   }
 
   @Test
-  def dataset1(): Unit = {
-    // 1. 创建 SparkSession
-    val spark = new sql.SparkSession.Builder()
-      .master("local[6]")
-      .appName("dataset1")
-      .getOrCreate()
-
-    // 2. 导入隐式转换
-    import spark.implicits._
-
-    // 3. 演示
-    val sourceRDD = spark.sparkContext.parallelize(Seq(Person("zhangsan", 10), Person("lisi", 15)))
-    val dataset = sourceRDD.toDS()
-
-    dataset.filter(item => item.age > 10).show() // Dataset 支持强类型的 API
-    // Dataset 支持弱类型 API
-    dataset.filter('age > 10).show()
-    dataset.filter($"age" > 10).show()
-
-    dataset.filter("age > 10").show() // Dataset 可以直接编写 SQL 表达式
-  }
-
-  @Test
-  def dataset2(): Unit = {
-    // 1. 创建 SparkSession
-    val spark: SparkSession = new sql.SparkSession.Builder()
-      .master("local[6]")
-      .appName("dataset1")
-      .getOrCreate()
-
-    // 2. 导入隐式转换
-    import spark.implicits._
-
-    // 3. 演示
-    val sourceRDD = spark.sparkContext.parallelize(Seq(Person("zhangsan", 10), Person("lisi", 15)))
-    val dataset = sourceRDD.toDS()
-
-    //    dataset.explain(true)
-    // 无论Dataset中放置的是什么类型的对象, 最终执行计划中的RDD上都是 InternalRow
-    val executionRdd: RDD[InternalRow] = dataset.queryExecution.toRdd
-  }
-
-  @Test
-  def dataset3(): Unit = {
+  def dataset_rdd(): Unit = {
     // 1. 创建 SparkSession
     val sparkSession: SparkSession = new sql.SparkSession.Builder()
       .master("local[6]")
@@ -120,6 +99,7 @@ class RDDIntro {
     //    dataset.explain(true)
     // 无论Dataset中放置的是什么类型的对象, 最终执行计划中的RDD上都是 InternalRow
     // 直接获取到已经分析和解析过的 Dataset 的执行计划, 从中拿到 RDD
+    // fixme 这种效果好,但是要重新转换类型,下面不用重新转换类型,  .rdd也是通过上面的转换过来的
     val executionRdd: RDD[InternalRow] = dataset.queryExecution.toRdd
 
     // 通过将 Dataset 底层的 RDD[InternalRow] 通过 Decoder 转成了和 Dataset 一样的类型的 RDD
@@ -145,8 +125,6 @@ class RDDIntro {
     val dataFrame: DataFrame = Seq(Person("zhangsan", 15), Person("lisi", 20)).toDF()
     val products: Seq[Product] = Seq(Person("张三", 20), ("李四", 70))
     products.toDF
-
-
     // 3. 看看 DataFrame 可以玩出什么花样
     // select name from ... t where t.age > 10
     dataFrame.where('age > 10)
@@ -156,22 +134,19 @@ class RDDIntro {
 
   //创建df三种方式
   @Test
-  def dataframe2(): Unit = {
+  def dataframe_create(): Unit = {
     val sparkSession: SparkSession = SparkSession.builder()
       .appName("dataframe1")
       .master("local[6]")
       .getOrCreate()
 
     import sparkSession.implicits._
-
     val personList = Seq(Person("zhangsan", 15), Person("lisi", 20))
-
     // 1. toDF
-    val df1 = personList.toDF()
-    val df2 = sparkSession.sparkContext.parallelize(personList).toDF()
-
+    val df1: DataFrame = personList.toDF()
+    val df2: DataFrame = sparkSession.sparkContext.parallelize(personList).toDF()
     // 2. createDataFrame
-    val df3 = sparkSession.createDataFrame(personList)
+    val df3: DataFrame = sparkSession.createDataFrame(personList)
 
     // 3. read
     val df4: DataFrame = sparkSession.read.csv("dataset/BeijingPM.csv")
@@ -221,17 +196,16 @@ class RDDIntro {
 
   @Test
   //dataframe 和 dataset关系
-  def dataframe4(): Unit = {
+  def dataset_trans(): Unit = {
     val spark = SparkSession.builder()
       .appName("dataframe1")
       .master("local[6]")
       .getOrCreate()
 
     import spark.implicits._
+    val personList: Seq[Person] = Seq(Person("zhangsan", 15), Person("lisi", 20))
 
-    val personList = Seq(Person("zhangsan", 15), Person("lisi", 20))
-
-    // DataFrame 是弱类型的
+    // DataFrame 是弱类型的  row转换的时候必须指定强类型
     val df: DataFrame = personList.toDF()
     df.map((row: Row) => Row(row.get(0), row.getAs[Int](1) * 2))(RowEncoder.apply(df.schema)) //必须指定一个类型
       .show()
@@ -241,9 +215,8 @@ class RDDIntro {
 
     // Dataset 是强类型的 比DataFrame更强
     val ds: Dataset[Person] = personList.toDS()
-    ds.map((person: Person) => Person(person.name, person.age * 2))
-      .show()
-
+    val psDataset: Dataset[Person] = ds.map((person: Person) => Person(person.name, person.age * 2))
+    psDataset.show()
     // Dataset 所代表的操作, 是类型安全的, 编译时安全的
     //    ds.filter( person => person.school )
   }
@@ -263,8 +236,18 @@ class RDDIntro {
     row match {
       case Row(name, age) => println(name, age)
     }
+  }
+
+  @Test
+  def filter(): Unit = {
 
   }
+
+  @Test
+  def select(): Unit = {
+
+  }
+
 
 }
 

@@ -1,4 +1,4 @@
-package cn.hp.project._02_spark_dmp.pro
+package cn.hp.project._02_spark_dmp
 
 import ch.hsr.geohash.GeoHash
 import cn.hp.project._02_spark_dmp.utils.HttpUtils
@@ -6,16 +6,14 @@ import com.alibaba.fastjson.JSON
 import org.apache.kudu.client.CreateTableOptions
 import org.apache.spark.sql.{DataFrame, Dataset, Row, SaveMode, SparkSession}
 import cn.hp.project._02_spark_dmp.utils.{ConfigUtils, DateUtils, KuduUtils}
-import org.apache.log4j.{Level, Logger}
 
 import scala.util.Try
 
 /**
-  * 生成商圈库
+  * @Author 陈振东
+  * @create 2020/3/24 10:17
   */
-object BusinessAreaProcess {
-  Logger.getLogger("org").setLevel(Level.ERROR)
-
+object BusinessAreaProcess2 {
   val SOURCE_TABLE = s"ODS_${DateUtils.getNow()}"
   //商圈库表名
   val SINK_TABLE = "business_area"
@@ -40,31 +38,62 @@ object BusinessAreaProcess {
     import spark.implicits._
     //2、读取ODS表的数据
     import org.apache.kudu.spark.kudu._
-    val source = spark.read
-      //      .option("kudu.master", ConfigUtils.MASTER_ADDRESS)
-      //      .option("kudu.table", SOURCE_TABLE)
-      //      .kudu
-      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("dataSetOut/" + SOURCE_TABLE)
+    val source = spark.read.option("kudu.master", ConfigUtils.MASTER_ADDRESS)
+      .option("kudu.table", SOURCE_TABLE)
+      .kudu
     //3、列裁剪、去重、过滤
     val filterDF: Dataset[Row] = source.selectExpr("longitude", "latitude")
       .filter("longitude is not null and latitude is not null")
       .distinct()
     //4、读取商圈库的表，与现在的数据进行对比，将商圈库中不存在经纬度进行生成商圈
-    //    val context = new KuduContext(ConfigUtils.MASTER_ADDRESS, spark.sparkContext)
-    val context = null
+    val context = new KuduContext(ConfigUtils.MASTER_ADDRESS, spark.sparkContext)
     var result: DataFrame = null
     //判断表是否存在，如果表不存在，当天所有的经纬度都需要生成商圈库
-    if (context == null) {
-      //    if (!context.tableExists(SINK_TABLE)) {
+    if (!context.tableExists(SINK_TABLE)) {
       result = getBusinessAreas(filterDF, spark)
     } else {
       //如果表存在,
       //1、读取商圈表数据
+      /*val businessDF =spark.read.option("kudu.master",ConfigUtils.MASTER_ADDRESS)
+        .option("kudu.table",SINK_TABLE)
+        .kudu
+        //.as[(String,String)]
+
+      /*val businessCollect: Array[(String, String)] = businessDS.collect()
+
+      val businessDF = businessCollect.toList.toDF("geoCode","areas")*/
+      //2、定义udf函数，注册udf函数
+      spark.udf.register("geoHash",geoHashStringWithCharacterPrecision _)
+
+      filterDF.createOrReplaceTempView("source")
+
+      businessDF.createOrReplaceTempView("business")
+
+      val whereDF = spark.sql(
+        """
+          |select s.longitude,s.latitude,b.geoCode,b.areas,b.date
+          | from source s left join business b
+          | on geoHash(s.longitude,s.latitude) = b.geoCode
+        """.stripMargin)
+      //没有生成过商圈的geocode ，需要生成
+      val notExistsDF = whereDF.filter("geoCode is null").selectExpr("longitude","latitude")
+      //生成过的需要重新插入，因为在插入数据的时候，有一个删除表过程，导致以前的数据不在
+      val existsDF = whereDF.filter("geoCode is not null").selectExpr("geoCode","areas","date")
+      result = existsDF.union(getBusinessAreas(notExistsDF,spark))
+
+      val currentDayData = businessDF.filter(s"date='${DateUtils.getNow()}'").selectExpr("geoCode","areas")
+      //删除当天的生成的数据，避免任务执行报错之后再执行导致重复数据的产生
+      context.deleteRows(currentDayData,SINK_TABLE)*/
+
+
       val businessDF = spark.read.option("kudu.master", ConfigUtils.MASTER_ADDRESS)
         .option("kudu.table", SINK_TABLE)
         .kudu
+      //.as[(String,String)]
 
+      /*val businessCollect: Array[(String, String)] = businessDS.collect()
+
+      val businessDF = businessCollect.toList.toDF("geoCode","areas")*/
       //2、定义udf函数，注册udf函数
       spark.udf.register("geoHash", geoHashStringWithCharacterPrecision _)
 
@@ -74,19 +103,25 @@ object BusinessAreaProcess {
 
       val whereDF = spark.sql(
         """
-          |select s.longitude,s.latitude,b.geoCode,b.areas
+          |select s.longitude,s.latitude,b.geoCode,b.areas,b.date
           | from source s left join business b
           | on geoHash(s.longitude,s.latitude) = b.geoCode
         """.stripMargin)
-      //没有生成过商圈的geocode ，需要重新生成
+      //没有生成过商圈的geocode ，需要生成
       val notExistsDF = whereDF.filter("geoCode is null").selectExpr("longitude", "latitude")
-      //生成过的需要冲入插入，因为在插入数据的时候，有一个删除表过程，导致以前的数据不在
-      val existsDF = whereDF.filter("geoCode is not null").selectExpr("geoCode", "areas")
-      result = existsDF.union(getBusinessAreas(notExistsDF, spark))
+      //生成过的需要重新插入，因为在插入数据的时候，有一个删除表过程，导致以前的数据不在
+      //val existsDF = whereDF.filter("geoCode is not null").selectExpr("geoCode","areas","date")
+      result = getBusinessAreas(notExistsDF, spark)
+
+      /*val currentDayData = businessDF.filter(s"date='${DateUtils.getNow()}'").selectExpr("geoCode","areas")
+      //删除当天的生成的数据，避免任务执行报错之后再执行导致重复数据的产生
+      context.deleteRows(currentDayData,SINK_TABLE)*/
     }
+
+    //result.show
     //5、将结果写入商圈表中
     val schema = result.schema
-    println(result.printSchema())
+    result.printSchema()
     //指定主键
     val keys = Seq[String]("geoCode", "areas")
     //指定表属性
@@ -94,11 +129,7 @@ object BusinessAreaProcess {
     import scala.collection.JavaConversions._
     options.addHashPartitions(keys, 3)
     options.setNumReplicas(1)
-    //    KuduUtils.write(context, SINK_TABLE, schema, keys, options, result)
-    result.coalesce(1).write.mode(SaveMode.Overwrite)
-      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("datasetOut/" + SINK_TABLE)
-
+    KuduUtils.businessWrite(context, SINK_TABLE, schema, keys, options, result)
   }
 
   /**
@@ -110,7 +141,7 @@ object BusinessAreaProcess {
     */
   def getBusinessAreas(data: DataFrame, spark: SparkSession): DataFrame = {
     import spark.implicits._
-    data.as[(Double, Double)].map(item => {
+    data.as[(Float, Float)].map(item => {
       //获取http请求的url
       val longitude = item._1 //经度
       val latitude = item._2 //纬度
@@ -122,10 +153,10 @@ object BusinessAreaProcess {
       //17.123456  23.456789   中关村,西苑
       //17.123455  23.456788   中关村,西苑
       //将经纬度进行geo编码，比较近的经纬度生成的geo编码是一样的
-      val geoCode = geoHashStringWithCharacterPrecision(longitude.asInstanceOf[Float], latitude.asInstanceOf[Float])
+      val geoCode = geoHashStringWithCharacterPrecision(longitude, latitude)
 
-      (geoCode, areas)
-    }).toDF("geoCode", "areas")
+      (geoCode, areas, DateUtils.getNow())
+    }).toDF("geoCode", "areas", "date")
       //解析json有可能报错出现area为空，这些数据不用保存
       .filter("areas !='' and areas is not null and geoCode is not null and geoCode!=''")
       //比较进度经纬度生成的geoCode是一样的，商圈列表应该也是一样的，只需要保存一份就可以了
