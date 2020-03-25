@@ -8,6 +8,9 @@ import cn.hp.project._02_spark_dmp.utils.{ConfigUtils, DateUtils, KuduUtils}
   * @Author 陈振东
   * @create 2020/3/23 17:47
   *         广告投放的地域分布情况统计
+  *         作用表:ods
+  *         分组字段:group by region,city
+  *         统计字段;sum
   */
 object AdRegionAnalysis {
   //定义数据的原表

@@ -4,7 +4,9 @@ import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.sql.Row
 
 /**
-  * 生成app标签
+  * @Author 陈振东
+  * @create 2020/3/23 18:00
+  *        生成app标签
   */
 object AppTag {
 

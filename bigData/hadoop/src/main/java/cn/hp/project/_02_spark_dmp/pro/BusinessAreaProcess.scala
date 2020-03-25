@@ -12,6 +12,7 @@ import scala.util.Try
 
 /**
   * 生成商圈库
+  * 商圈，是指商店以其所在地点为中心,以key:ip  value: 地点 存储数据
   */
 object BusinessAreaProcess {
   Logger.getLogger("org").setLevel(Level.ERROR)
@@ -69,7 +70,6 @@ object BusinessAreaProcess {
       spark.udf.register("geoHash", geoHashStringWithCharacterPrecision _)
 
       filterDF.createOrReplaceTempView("source")
-
       businessDF.createOrReplaceTempView("business")
 
       val whereDF = spark.sql(

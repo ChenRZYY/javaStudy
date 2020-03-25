@@ -7,6 +7,10 @@ import cn.hp.project._02_spark_dmp.utils.{ConfigUtils, DateUtils, KuduUtils}
 /**
   * @Author 陈振东
   * @create 2020/3/23 18:00
+  *        统计各省市的地域分布情况
+  *        作用表:ods
+  *        分组字段:group by region,city
+  *        统计字段;count(1)
   */
 object ProviceCityAnalysis {
 
@@ -59,9 +63,11 @@ object ProviceCityAnalysis {
     val keys = Seq[String]("region", "city")
     //定义表的属性
     val options = new CreateTableOptions
-    //指定分区规则 分区字段 分区数
-    import scala.collection.JavaConversions._
-    options.addHashPartitions(keys, 3)
+    //指定分区规则 分区字段 分区数 转换成java的2种方式
+//    import scala.collection.JavaConversions._
+//    options.addHashPartitions(keys, 3)
+    import scala.collection.JavaConverters._
+    options.addHashPartitions(keys.asJava, 3)
     //指定副本数
     options.setNumReplicas(1)
     //    KuduUtils.write(context, SINK_TABLE, schema, keys, options, result)

@@ -8,6 +8,9 @@ import cn.hp.project._02_spark_dmp.utils.{ConfigUtils, DateUtils, KuduUtils}
   * @Author Haishi
   * @create 2020/3/23 17:55
   *         广告投放的APP分布情况统计
+  *         作用表:ods
+  *         分组字段:group by appid,appname
+  *         统计字段;sum
   */
 object AppAnaylysis {
 

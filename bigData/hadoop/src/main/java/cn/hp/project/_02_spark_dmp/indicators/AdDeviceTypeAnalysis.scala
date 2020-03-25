@@ -8,6 +8,10 @@ import org.apache.spark.sql.{DataFrame, Dataset, Row, SaveMode, SparkSession}
 /**
   * @Author 陈振东
   * @create 2020/3/23 16:50
+  *        统计广告投放设备类型分布情况
+  *        作用表:ods
+  *        分组字段:group by client,device
+  *        统计字段;sum
   */
 object AdDeviceTypeAnalysis {
   Logger.getLogger("org").setLevel(Level.ERROR)

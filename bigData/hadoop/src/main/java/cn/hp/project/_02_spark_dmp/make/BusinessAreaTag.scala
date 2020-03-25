@@ -6,6 +6,10 @@ import ch.hsr.geohash.GeoHash
 import org.apache.commons.lang3.StringUtils
 import org.apache.spark.sql.Row
 
+/**
+  * @Author 陈振东
+  * @create 2020/3/23 18:00
+  */
 object BusinessAreaTag {
 
   /*def make(row:Row)={

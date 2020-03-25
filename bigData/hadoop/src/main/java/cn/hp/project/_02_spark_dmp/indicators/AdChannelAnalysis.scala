@@ -9,6 +9,10 @@ import org.apache.spark.sql.{DataFrame, Dataset, Row, SaveMode, SparkSession}
 /**
   * @Author 陈振东
   * @create 2020/3/23 15:59
+  *         广告投放的渠道分布情况统计
+  *         作用表:ods
+  *         分组字段:group by channelid
+  *         统计字段;sum
   */
 object AdChannelAnalysis {
   Logger.getLogger("org").setLevel(Level.ERROR)

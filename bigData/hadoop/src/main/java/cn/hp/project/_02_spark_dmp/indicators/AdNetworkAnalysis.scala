@@ -8,6 +8,10 @@ import org.apache.spark.sql.{DataFrame, Dataset, Row, SaveMode, SparkSession}
 /**
   * @Author 陈振东
   * @create 2020/3/23 17:31
+  *         统计广告投放的网络设备分布情况
+  *         作用表:ods
+  *         分组字段:group by networkmannerid,networkmannername
+  *         统计字段;sum
   */
 object AdNetworkAnalysis {
   //定义数据的原表

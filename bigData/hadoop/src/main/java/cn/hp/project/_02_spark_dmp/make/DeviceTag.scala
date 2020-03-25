@@ -3,6 +3,10 @@ package cn.hp.project._02_spark_dmp.make
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.sql.Row
 
+/**
+  * @Author 陈振东
+  * @create 2020/3/23 18:00
+  */
 object DeviceTag {
 
   def make(row: Row, deviceBc: Broadcast[Map[String, String]]) = {
