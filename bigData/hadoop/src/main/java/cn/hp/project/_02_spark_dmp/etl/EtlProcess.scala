@@ -3,6 +3,8 @@ package cn.hp.project._02_spark_dmp.etl
 import cn.hp.project._02_spark_dmp.utils.{ConfigUtils, DateUtils, HttpUtils, IPAddressUtils, IPLocation, KuduUtils}
 import com.alibaba.fastjson.{JSON, JSONObject}
 import com.maxmind.geoip.{Location, LookupService}
+import com.sun.jersey.server.impl.provider.RuntimeDelegateImpl
+import javax.ws.rs.ext.RuntimeDelegate
 import org.apache.kudu.client.CreateTableOptions
 import org.apache.kudu.spark.kudu.KuduContext
 import org.apache.log4j.{Level, Logger}
@@ -17,9 +19,10 @@ import scala.util.Try
   * 解析ip获取经纬度 补充道数据中
   */
 object EtlProcess {
-  Logger.getLogger("org").setLevel(Level.ERROR)
+//  Logger.getLogger("org").setLevel(Level.ERROR)
   //定义数据存储的表名
   val SINK_TABLE = s"ODS_${DateUtils.getNow()}"
+  RuntimeDelegate.setInstance(new RuntimeDelegateImpl)
 
   def main(args: Array[String]): Unit = {
     val spark: SparkSession = SparkSession.builder().master("local[4]").appName("EtlProcess")

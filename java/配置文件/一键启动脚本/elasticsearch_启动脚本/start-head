@@ -1,0 +1,3 @@
+source /etc/profile
+cd /export/servers/es/elasticsearch-head/node_modules/grunt/bin/
+./grunt server >/home/es/logs/head.log 2>&1 &

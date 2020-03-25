@@ -230,7 +230,7 @@ object TagProcess {
       //用户唯一标识
       val id = ids.head
       //所有标签
-      val allTags = appTags ++ deviceTags ++ regionTags ++ keywordTags ++ channelTag ++ sexTags ++ ageTags ++ areaTags
+      val allTags: Map[String, Double] = appTags ++ deviceTags ++ regionTags ++ keywordTags ++ channelTag ++ sexTags ++ ageTags ++ areaTags
       (id, (ids, allTags))
     }).repartition(1).saveAsTextFile("datasetOut/tags")
 
