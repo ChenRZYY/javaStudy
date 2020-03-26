@@ -3,7 +3,7 @@ package cn.sdrfengmi.flink._03_stream_base.stream.watermark
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
-import org.apache.commons.lang.time.FastDateFormat
+import org.apache.commons.lang3.time.FastDateFormat
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks

@@ -43,7 +43,7 @@ class BatchSource {
   def readFile = {
     // 创建env
     val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
-    val filePath: String = "dataset/score.csv" // hdfs文件是一样的,换个地址就行
+    val filePath: String = "../dataset/score.csv" // hdfs文件是一样的,换个地址就行
     // 加载文件
     val textDataSet: DataSet[String] = env.readTextFile(filePath, charsetName = "UTF-8")
     // 打印
@@ -55,7 +55,7 @@ class BatchSource {
     //设置环境变量
     val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
     //创建样例类
-    val filePath: String = "dataset/score.csv"
+    val filePath: String = "../dataset/score.csv"
 
     //加载csv文件 TODO 为什么对象不能????  设置类型可以转换成 样例类 元组
     val csvDataSet1: DataSet[subject] = env.readCsvFile[subject](filePath)
@@ -74,7 +74,7 @@ class BatchSource {
     def params: Configuration = new Configuration()
     params.setBoolean("recursive.file.enumeration", true) //设置递归读取文件
 
-    val folderDataSet: DataSet[String] = env.readTextFile("datasetOut/").withParameters(params)
+    val folderDataSet: DataSet[String] = env.readTextFile("../datasetOut/").withParameters(params)
     folderDataSet.printToErr()
   }
 

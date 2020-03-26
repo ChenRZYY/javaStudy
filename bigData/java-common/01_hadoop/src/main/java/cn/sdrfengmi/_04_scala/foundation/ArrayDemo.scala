@@ -24,7 +24,7 @@ object ArrayDemo {
       println("arr2 " + arr2.toBuffer)
 
     //定义一个长度为3的定长数组
-    var arr3 = Array("hadoop", "storm", "_05_spark")
+    var arr3 = Array("hadoop", "storm", "spark")
     //使用()来访问元素
     println(arr3(2))
     println("tobuffer " + arr3.toBuffer)

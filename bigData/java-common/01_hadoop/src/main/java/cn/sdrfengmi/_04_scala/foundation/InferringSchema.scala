@@ -8,12 +8,12 @@
 //  def main(args: Array[String]): Unit = {
 //
 //    // 设置Spark的序列化方式
-//    //    System.setProperty("_05_spark.serializer", "org.apache._05_spark.serializer.KryoSerializer")
+//    //    System.setProperty("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
 //
 //    //创建sparkContext
 //    val conf = new SparkConf().setAppName("SQL_1")
 //      .setMaster("local")
-//    //      .set("_05_spark.executor.memory", "1g")
+//    //      .set("spark.executor.memory", "1g")
 //    val sc = new SparkContext(conf)
 //    val sqlContext = new SQLContext(sc) //创建sqlContext
 //

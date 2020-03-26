@@ -2,7 +2,7 @@ package cn.sdrfengmi.flink._03_stream_base.stream.sink
 
 import java.util.Properties
 
-import cn.hp._06_flink._03_stream_base.stream.datasource.DataSource_MySql_181.MySql_Source_181
+import cn.sdrfengmi.flink._03_stream_base.stream.datasource.DataSource_MySql_181.MySql_Source_181
 import org.apache.flink.api.common.serialization.SimpleStringSchema
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}

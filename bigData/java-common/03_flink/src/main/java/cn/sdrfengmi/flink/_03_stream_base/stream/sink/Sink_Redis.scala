@@ -1,7 +1,7 @@
 package cn.sdrfengmi.flink._03_stream_base.stream.sink
 
 //import com.itheima.utils.{RedisUtil, WordCountData}
-import cn.hp._06_flink._03_stream_base.utils.{RedisUtil, WordCountData}
+import cn.sdrfengmi.flink._03_stream_base.utils.{RedisUtil, WordCountData}
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.api.scala._

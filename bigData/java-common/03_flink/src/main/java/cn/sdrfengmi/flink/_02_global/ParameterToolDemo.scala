@@ -1,6 +1,6 @@
 package cn.sdrfengmi.flink._02_global
 
-import cn.hp._06_flink._03_stream_base.utils.WordCountData
+import cn.sdrfengmi.flink._03_stream_base.utils.WordCountData
 import org.apache.flink.api.common.functions.RichFilterFunction
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.api.scala.createTypeInformation
@@ -61,7 +61,7 @@ object ParameterToolDemo {
 
     //第一种方法获取
     val text = if (params.has("input")) {
-      env.readTextFile(params.get("input", "dataset/wordcount.txt"))
+      env.readTextFile(params.get("input", "../dataset/wordcount.txt"))
     } else {
       env.fromElements(WordCountData.WORDS: _*)
     }
@@ -85,7 +85,7 @@ object ParameterToolDemo {
 
 
     if (params.has("output")) {
-      result.writeAsText(params.get("output", "datasetOut/globalParameter"))
+      result.writeAsText(params.get("output", "../datasetOut/globalParameter"))
     } else {
       result.print()
     }
