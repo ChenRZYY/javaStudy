@@ -66,7 +66,8 @@
             <artifactId>ImpalaJDBC41</artifactId>
             <version>2.6.12</version>
             <scope>system</scope>
-            <systemPath>${parent.basedir}/lib/ImpalaJDBC41.jar</systemPath>
+<!--            <systemPath>${parent.basedir}/lib/ImpalaJDBC41.jar</systemPath>-->
+            <systemPath>${project.basedir}/lib/ImpalaJDBC41.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -74,7 +75,8 @@
             <artifactId>sshxcute</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${parent.basedir}/lib/sshxcute-1.0.jar</systemPath>
+            <!--            <systemPath>${parent.basedir}/lib/sshxcute-1.0.jar</systemPath>-->
+            <systemPath>${project.basedir}/lib/sshxcute-1.0.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -117,23 +119,44 @@
             <artifactId>commons-beanutils</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>2.2.5.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-slf4j-impl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-log4j2</artifactId>-->
+        <!--            <version>2.2.5.RELEASE</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.apache.logging.log4j</groupId>-->
+        <!--                    <artifactId>log4j-slf4j-impl</artifactId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.slf4j</groupId>-->
+        <!--                    <artifactId>slf4j-api</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
     </dependencies>
 
+    <build>
+        <finalName>01_hadoop</finalName>
+        <plugins>
+            <!-- scala编译插件 -->
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- java编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- 打jar包插件(会包含所有依赖) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

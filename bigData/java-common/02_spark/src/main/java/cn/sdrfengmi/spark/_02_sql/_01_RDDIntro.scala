@@ -17,7 +17,7 @@ class RDDIntro {
     val conf = new SparkConf().setMaster("local[6]").setAppName("rdd intro")
     val sc = new SparkContext(conf)
 
-    sc.textFile("dataset/globalParameter.txt")
+    sc.textFile("../dataset/wordcount.txt")
       .flatMap(_.split(","))
       .map((_, 1))
       .reduceByKey(_ + _)
@@ -149,7 +149,7 @@ class RDDIntro {
     val df3: DataFrame = sparkSession.createDataFrame(personList)
 
     // 3. read
-    val df4: DataFrame = sparkSession.read.csv("dataset/BeijingPM.csv")
+    val df4: DataFrame = sparkSession.read.csv("../dataset/BeijingPM.csv")
     println(df4.count())
     df4.show()
   }
@@ -167,7 +167,7 @@ class RDDIntro {
     // 2. 读取数据集
     val sourceDF: DataFrame = sparkSession.read
       .option("header", value = true) //第一行为header信息
-      .csv("dataset/BeijingPM_header.csv")
+      .csv("../dataset/BeijingPM_header.csv")
 
     // 查看 DataFrame 的 Schema 信息, 要意识到 DataFrame 中是有结构信息的, 叫做 Schema
     sourceDF.printSchema()

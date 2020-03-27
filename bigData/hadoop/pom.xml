@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.xiaomifeng</groupId>
-    <artifactId>hadoop</artifactId>
+    <artifactId>ecfTrade2</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>kafkaDemo</module>
-    </modules>
-    <packaging>pom</packaging>
+    <!--    <modules>-->
+    <!--        <module>kafkaDemo</module>-->
+    <!--    </modules>-->
+    <packaging>jar</packaging>
 
     <name>hadoop Maven Webapp</name>
     <url>http://www.example.com</url>
@@ -55,6 +55,9 @@
         <slf4j.version>1.7.16</slf4j.version>
     </properties>
 
+    <dependencyManagement>
+    </dependencyManagement>
+
     <dependencies>
         <!--        <dependency>
                     <groupId>com.cloudera</groupId>
@@ -69,6 +72,15 @@
             <version>2.6.12</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/ImpalaJDBC41.jar</systemPath>
+        </dependency>
+
+        <!--kudu impala本地jar引入-->
+        <dependency>
+            <groupId>net.neoremind</groupId>
+            <artifactId>sshxcute</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/sshxcute-1.0.jar</systemPath>
         </dependency>
 
 
@@ -222,6 +234,7 @@
             </exclusions>
         </dependency>
 
+        <!--TODO 有什么用???-->
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-framework</artifactId>
@@ -695,7 +708,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
-            <scope>provided</scope>
+            <!-- <scope>provided</scope>-->
         </dependency>
 
         <!--批处理-->

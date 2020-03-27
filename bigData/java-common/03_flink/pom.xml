@@ -7,7 +7,9 @@
         <groupId>cn.sdrfengmi</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <artifactId>03_flink</artifactId>
     <modelVersion>4.0.0</modelVersion>
+    
     <dependencies>
         <!--批处理-->
         <dependency>
@@ -111,6 +113,26 @@
         <!--        </dependency>-->
     </dependencies>
 
-    <artifactId>03_flink</artifactId>
+    <build>
+        <finalName>03_flink</finalName>
+        <plugins>
+            <!-- scala编译插件 -->
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+            </plugin>
 
+            <!-- java编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- 打jar包插件(会包含所有依赖) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
