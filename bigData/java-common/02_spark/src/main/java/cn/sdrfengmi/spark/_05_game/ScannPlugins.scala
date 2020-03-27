@@ -1,10 +1,10 @@
 //package cn.hp.spark._05_game
 //
-////import kafka.serializer.StringDecoder
+////import _05_kafka.serializer.StringDecoder
 //import org.apache.commons.lang3.time.FastDateFormat
 //import org.apache.spark.storage.StorageLevel
 //import org.apache.spark.streaming.dstream.DStream
-////import org.apache.spark.streaming.kafka.KafkaUtils
+////import org.apache.spark.streaming._05_kafka.KafkaUtils
 //import org.apache.spark.streaming.kafka010._
 //import org.apache.spark.streaming.{Milliseconds, StreamingContext}
 //import org.apache.spark.{SparkConf, SparkContext}

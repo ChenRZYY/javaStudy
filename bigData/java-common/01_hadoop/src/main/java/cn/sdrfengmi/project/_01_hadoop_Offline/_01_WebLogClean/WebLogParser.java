@@ -1,4 +1,4 @@
-package cn.sdrfengmi.project._01_hadoop_Offline.WebLogClean;
+package cn.sdrfengmi.project._01_hadoop_Offline._01_WebLogClean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

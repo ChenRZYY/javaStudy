@@ -1,4 +1,4 @@
-package cn.sdrfengmi.project._01_hadoop_Offline.WebLogClean;
+package cn.sdrfengmi.project._01_hadoop_Offline._01_WebLogClean;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;

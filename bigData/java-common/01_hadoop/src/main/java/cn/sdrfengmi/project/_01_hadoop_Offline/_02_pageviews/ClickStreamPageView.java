@@ -1,6 +1,6 @@
-package cn.sdrfengmi.project._01_hadoop_Offline.pageviews;
+package cn.sdrfengmi.project._01_hadoop_Offline._02_pageviews;
 
-import cn.sdrfengmi.project._01_hadoop_Offline.WebLogClean.WebLogBean;
+import cn.sdrfengmi.project._01_hadoop_Offline._01_WebLogClean.WebLogBean;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -47,8 +47,9 @@ public class ClickStreamPageView {
 //		FileInputFormat.setInputPaths(job, new Path(args[0]));
 //		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        FileInputFormat.setInputPaths(job, new Path("C:\\学习\\data\\WebLogJobMainOut"));
-        FileOutputFormat.setOutputPath(job, new Path("C:\\学习\\data\\ClickStreamPageViewOut"));
+        FileInputFormat.setInputPaths(job, new Path("datasetOut/accesslogClean"));
+//        FileInputFormat.setInputPaths(job, new Path("C:\\学习\\data\\accesslogClean"));
+        FileOutputFormat.setOutputPath(job, new Path("datasetOut/ClickStreamPageViewOut"));
 
         job.waitForCompletion(true);
 

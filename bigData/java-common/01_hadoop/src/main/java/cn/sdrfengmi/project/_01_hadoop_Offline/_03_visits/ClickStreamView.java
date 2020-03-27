@@ -1,6 +1,6 @@
-package cn.sdrfengmi.project._01_hadoop_Offline.visits;
+package cn.sdrfengmi.project._01_hadoop_Offline._03_visits;
 
-import cn.sdrfengmi.project._01_hadoop_Offline.pageviews.PageViewsBean;
+import cn.sdrfengmi.project._01_hadoop_Offline._02_pageviews.PageViewsBean;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -26,8 +26,8 @@ import java.util.Comparator;
 public class ClickStreamView {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
-        Path input = new Path("C:\\学习\\data\\ClickStreamPageViewOut");
-        Path output = new Path("C:\\学习\\data\\ClickStreamViewOut");
+        Path input = new Path("datasetOut/ClickStreamPageViewOut");
+        Path output = new Path("datasetOut/ClickStreamViewOut");
 
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "ClickStreamView");

@@ -6,7 +6,7 @@ import cn.hp.spark._03_flume_kafka.LoggerLevels
 
 //import org.apache.spark.storage.StorageLevel
 //import org.apache.spark.{HashPartitioner, SparkConf}
-//import org.apache.spark.streaming.kafka.KafkaUtils
+//import org.apache.spark.streaming._05_kafka.KafkaUtils
 //import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 import org.apache.spark.SparkConf

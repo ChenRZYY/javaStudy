@@ -1,11 +1,11 @@
 /*
 package com.hello.spark._05_game
 
-import kafka.serializer.StringDecoder
+import _05_kafka.serializer.StringDecoder
 import org.apache.commons.lang3.time.FastDateFormat
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
-import org.apache.spark.streaming.kafka.KafkaManager
+import org.apache.spark.streaming._05_kafka.KafkaManager
 import org.apache.spark.streaming.{Milliseconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
 import redis.clients.jedis.Jedis
@@ -34,7 +34,7 @@ object PlugsScanner {
     //val Array(zkQuorum, group, topics, numThreads) = Array("node-1.itcast.cn:2181,node-2.itcast.cn:2181,node-3.itcast.cn:2181", "g3", "gamelogs", "2")
     val dateFormat = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss")
     val conf = new SparkConf().setAppName("PlugsScanner").setMaster("local[2]")
-    conf.set("spark.streaming.kafka.maxRatePerPartition", "100")
+    conf.set("spark.streaming._05_kafka.maxRatePerPartition", "100")
     conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
     val sc = new SparkContext(conf)
     val ssc = new StreamingContext(sc, Milliseconds(10000))
@@ -42,7 +42,7 @@ object PlugsScanner {
 //    val topicMap = topics.split(",").map((_, numThreads.toInt)).toMap
 //    val dstream = KafkaUtils.createStream(ssc, zkQuorum, group, topicMap, StorageLevel.MEMORY_AND_DISK_SER)
 
-    // Create direct kafka stream with brokers and topics
+    // Create direct _05_kafka stream with brokers and topics
     val topicsSet = topics.split(",").toSet
     val kafkaParams = Map[String, String](
       "metadata.broker.list" -> brokers,

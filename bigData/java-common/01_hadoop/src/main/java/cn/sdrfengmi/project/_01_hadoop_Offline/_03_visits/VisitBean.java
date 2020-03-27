@@ -1,4 +1,4 @@
-package cn.sdrfengmi.project._01_hadoop_Offline.visits;
+package cn.sdrfengmi.project._01_hadoop_Offline._03_visits;
 
 import lombok.Data;
 import org.apache.hadoop.io.Writable;

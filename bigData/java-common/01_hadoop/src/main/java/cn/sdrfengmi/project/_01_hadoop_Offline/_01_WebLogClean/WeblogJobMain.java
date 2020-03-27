@@ -1,4 +1,4 @@
-package cn.sdrfengmi.project._01_hadoop_Offline.WebLogClean;
+package cn.sdrfengmi.project._01_hadoop_Offline._01_WebLogClean;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -20,7 +20,7 @@ public class WeblogJobMain {
 
         //1 设置输入
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.setInputPaths(job, new Path("file:///C:\\学习\\accesslog.dat"));
+        TextInputFormat.setInputPaths(job, new Path("dataset/accesslog.dat"));
 
         //2 设置map
         job.setMapperClass(WebLogMap.class);
@@ -33,9 +33,10 @@ public class WeblogJobMain {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(NullWritable.class);
 
-        //8 设置输出
+        //8 设置输出  生成文件夹
         job.setOutputFormatClass(TextOutputFormat.class);
-        TextOutputFormat.setOutputPath(job, new Path("file:///C:\\学习\\accesslogClean.dat"));
+        TextOutputFormat.setOutputPath(job, new Path("datasetOut/accesslogClean"));
+//        TextOutputFormat.setOutputPath(job, new Path("file:///C:\\学习\\accesslogClean.dat"));
 
         boolean b = job.waitForCompletion(true);
         System.exit(b ? 0 : 1);

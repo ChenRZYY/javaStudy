@@ -68,8 +68,8 @@ public class HdfsApiDemo {
         //        job.addCacheFile(new URI("file:///C:\\学习\\study\\bigData\\hadoop\\src\\main\\java\\cn\\hp\\_01_mapReduce\\_06_common_friends\\_06_map_join\\product.txt"));
 //        job.addCacheFile(new URI("hdfs://node01:8020/cache_file/product.txt"));
 //        fileSystem.copyFromLocalFile(new Path("file:///C:\\学习\\data\\WebLogJobMainOut\\part-m-00000"), new Path("/weblog/preprocessed/part-m-00000"));
-        fileSystem.copyFromLocalFile(new Path("file:///C:\\学习\\data\\ClickStreamPageViewOut\\part-r-00000"), new Path("/weblog/clickstream/pageviews/part-r-00000"));
-//        fileSystem.copyFromLocalFile(new Path("file:///C:\\学习\\data\\ClickStreamViewOut\\part-r-00000"), new Path("/weblog/clickstream/visits/part-r-00000"));
+        fileSystem.copyFromLocalFile(new Path("file:///C:\\学习\\data\\ClickStreamPageViewOut\\part-r-00000"), new Path("/weblog/clickstream/_02_pageviews/part-r-00000"));
+//        fileSystem.copyFromLocalFile(new Path("file:///C:\\学习\\data\\ClickStreamViewOut\\part-r-00000"), new Path("/weblog/clickstream/_03_visits/part-r-00000"));
 //        fileSystem.copyFromLocalFile(new Path("file:///D:\\11期全部东西\\离线日志\\2019-网站流量日志分析项目讲义&资料\\2、网站流量日志分析-项目资料\\step1-数据采集--埋点\\dim_time.dat"), new Path("/weblog/dim_time/dim_time.dat"));
 
         //3:关闭FileSystem
@@ -127,12 +127,12 @@ public class HdfsApiDemo {
         //boolean bl = fileSystem.mkdirs(new Path("/aaa/bbb/ccc"));
         fileSystem.mkdirs(new Path("/weblog/preprocessed"));
         fileSystem.mkdirs(new Path("/weblog/preprocessed"));
-        fileSystem.mkdirs(new Path("/weblog/clickstream/visits"));
+        fileSystem.mkdirs(new Path("/weblog/clickstream/_03_visits"));
         fileSystem.mkdirs(new Path("/weblog/dim_time"));
 
 //        fileSystem.create(new Path("/weblog/preprocessed"));
 //        fileSystem.create(new Path("/weblog/preprocessed"));
-//        fileSystem.create(new Path("/weblog/clickstream/visits"));
+//        fileSystem.create(new Path("/weblog/clickstream/_03_visits"));
 //        fileSystem.create(new Path("/weblog/dim_time"));
 
 

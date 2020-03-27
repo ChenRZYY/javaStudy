@@ -1,11 +1,11 @@
 /*
 package com.hello.spark.day5
 
-import kafka.serializer.StringDecoder
+import _05_kafka.serializer.StringDecoder
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
-import org.apache.spark.streaming.kafka.{KafkaManager, KafkaUtils}
+import org.apache.spark.streaming._05_kafka.{KafkaManager, KafkaUtils}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 
@@ -30,7 +30,7 @@ object DirectKafkaWordCount {
         s"""
            |Usage: DirectKafkaWordCount <brokers> <topics> <groupid>
            |  <brokers> is a list of one or more Kafka brokers
-           |  <topics> is a list of one or more kafka topics to consume from
+           |  <topics> is a list of one or more _05_kafka topics to consume from
            |  <groupid> is a consume group
            |
         """.stripMargin)
@@ -44,12 +44,12 @@ object DirectKafkaWordCount {
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("DirectKafkaWordCount")
     sparkConf.setMaster("local[*]")
-    sparkConf.set("spark.streaming.kafka.maxRatePerPartition", "5")
+    sparkConf.set("spark.streaming._05_kafka.maxRatePerPartition", "5")
     sparkConf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
 
     val ssc = new StreamingContext(sparkConf, Seconds(2))
 
-    // Create direct kafka stream with brokers and topics
+    // Create direct _05_kafka stream with brokers and topics
     val topicsSet = topics.split(",").toSet
     val kafkaParams = Map[String, String](
       "metadata.broker.list" -> brokers,

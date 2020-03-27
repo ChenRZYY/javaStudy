@@ -225,7 +225,7 @@ class _02_tableApi {
     * StreamTableSink (org.apache.flink.table.sinks)
     * --RetractStreamTableSink (org.apache.flink.table.sinks)
     * --AppendStreamTableSink (org.apache.flink.table.sinks)
-    * ----KafkaTableSinkBase (org.apache.flink.streaming.connectors.kafka)
+    * ----KafkaTableSinkBase (org.apache.flink.streaming.connectors._05_kafka)
     * ----CsvTableSink (org.apache.flink.table.sinks)
     * --UpsertStreamTableSink (org.apache.flink.table.sinks)
     */

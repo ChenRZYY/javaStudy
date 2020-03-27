@@ -8,7 +8,7 @@ import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer011
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer011.Semantic
-//import org.apache.flink.streaming.connectors.kafka.internals.KeyedSerializationSchemaWrapper //1.8.0
+//import org.apache.flink.streaming.connectors._05_kafka.internals.KeyedSerializationSchemaWrapper //1.8.0
 import org.apache.flink.streaming.util.serialization.KeyedSerializationSchemaWrapper  //1.7.2版本
 import org.apache.kafka.clients.producer.ProducerConfig
 

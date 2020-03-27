@@ -26,8 +26,8 @@ object DataSource_Kafka {
     val props = new Properties()
     props.setProperty(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,kafkaCluster)
     props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "metrics-group")
-    props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer")
-    props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer")
+    props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache._05_kafka.common.serialization.StringDeserializer")
+    props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache._05_kafka.common.serialization.StringDeserializer")
     props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest")
 
     //4 .设置数据源
