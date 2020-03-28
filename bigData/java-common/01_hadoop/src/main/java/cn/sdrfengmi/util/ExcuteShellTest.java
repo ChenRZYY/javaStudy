@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressWarnings("all")
 public class ExcuteShellTest {
 
     //   private ConnBean connBean =null;
@@ -100,6 +101,19 @@ public class ExcuteShellTest {
         out(result2);
     }
 
+    @Test
+    public void reportRun() throws Exception {
+        //執行多個命令
+//        CustomTask sampleTask = new ExecCommand("echo 123", "echo 456", "echo 789");
+//        ssh.uploadSingleDataToServer("C:/study/javaStudy/bigData/java-common/flink_pyg/report/target/report.jar", "/export/servers");
+        CustomTask task2 = new ExecCommand(
+                "cd /export/servers/",
+                "source /etc/profile",
+                "nohup java -jar report.jar >>report.log 2>&1 &");
+
+        Result result2 = ssh.exec(task2);
+        out(result2);
+    }
 
     public static void out(Result result) {
 //        if (result.isSuccess) {

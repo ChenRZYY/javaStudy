@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>report</module>
+        <module>real_process</module>
     </modules>
 
 

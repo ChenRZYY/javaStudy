@@ -411,6 +411,13 @@
                 <artifactId>flink-cep-scala_${scala.v}</artifactId>
                 <version>${flink.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-kafka-0.10_${scala.v}</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>net.sf.ezmorph</groupId>
                 <artifactId>ezmorph</artifactId>
@@ -547,13 +554,17 @@
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
+                <version>0.10.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_${scala.v}</artifactId>
                 <version>0.10.0.0</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-streams</artifactId>
-                <version>0.10.0.0</version>
+                <version>0.10.1.0</version>
 <!--                <scope>compile</scope>-->
             </dependency>
 

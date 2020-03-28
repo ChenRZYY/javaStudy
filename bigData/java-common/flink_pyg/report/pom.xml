@@ -74,6 +74,7 @@
     </dependencies>
 
     <build>
+        <finalName>report</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
