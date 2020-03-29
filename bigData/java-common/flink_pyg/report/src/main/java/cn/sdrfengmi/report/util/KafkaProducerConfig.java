@@ -39,7 +39,7 @@ public class KafkaProducerConfig {
     public KafkaTemplate kafkaTemplate() {
 
         // 构建工厂需要的配置
-        Map<String, Object> configs = new HashMap<>();
+        Map<String, Object> configs = new HashMap<String, Object>();
 
         configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap_servers_config);
         configs.put(ProducerConfig.RETRIES_CONFIG, retries_config);

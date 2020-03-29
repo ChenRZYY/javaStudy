@@ -20,19 +20,20 @@ public class KafkaTest {
 
     @Test
     public void sendMsg() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
 //            kafkaTemplate.send("pyg", "this is test msg");
 //            kafkaTemplate.send("pyg", "水电费是否是的");
-            ListenableFuture send = kafkaTemplate.send("pyg", "key", "第二次测试了");
-            if (send.isDone()) {
-                System.err.println("成功了");
-            } else {
-                try {
+            ListenableFuture send = kafkaTemplate.send("pyg", "key", "水电费水电费水电费");
+            try {
+                Thread.sleep(1000);
+                if (send.isDone()) {
+                    System.err.println("成功了");
+                } else {
+                    System.err.println("失败了");
                     //不设置时间 main线程直接关闭,消息不能发送成功
-                    Thread.sleep(1000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -6,7 +6,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 object GlobalConfigUtil {
 
   // 通过工厂加载配置
-  val config:Config = ConfigFactory.load()
+  val config: Config = ConfigFactory.load()
 
   val bootstrapServers = config.getString("bootstrap.servers")
   val zookeeperConnect = config.getString("zookeeper.connect")

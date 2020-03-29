@@ -24,7 +24,6 @@ public class ReportController {
 
         try {
             // 构建Message
-
             Message msg = new Message();
             msg.setMessage(json);
             msg.setCount(1);
@@ -39,9 +38,6 @@ public class ReportController {
             ex.printStackTrace();
             map.put("sucess", "false");
         }
-
-
         return map;
-
     }
 }
