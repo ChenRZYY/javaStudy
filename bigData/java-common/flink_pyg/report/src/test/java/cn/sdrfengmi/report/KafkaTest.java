@@ -9,6 +9,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.concurrent.ListenableFuture;
 
+import java.util.Date;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 //@Transactional //支持事物，@SpringBootTest 事物默认自动回滚
@@ -23,7 +25,7 @@ public class KafkaTest {
         for (int i = 0; i < 5; i++) {
 //            kafkaTemplate.send("pyg", "this is test msg");
 //            kafkaTemplate.send("pyg", "水电费是否是的");
-            ListenableFuture send = kafkaTemplate.send("pyg", "key", "水电费水电费水电费");
+            ListenableFuture send = kafkaTemplate.send("pyg", "key",new Date().toString());
             try {
                 Thread.sleep(1000);
                 if (send.isDone()) {

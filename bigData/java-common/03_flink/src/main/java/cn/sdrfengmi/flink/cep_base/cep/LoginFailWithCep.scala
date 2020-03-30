@@ -25,7 +25,7 @@ object LoginFailWithCep {
       LoginEvent(1, "192.168.0.2", "fail", 1558430843),
       LoginEvent(1, "192.168.0.3", "fail", 1558430844),
       LoginEvent(2, "192.168.10.10", "success", 1558430845)
-    )).assignAscendingTimestamps(_.eventTime * 1000)  //指定那个时间是 eventTime
+    )).assignAscendingTimestamps(_.eventTime * 1000) //指定那个时间是 eventTime
 
     //定义匹配模式
     val loginFailPattern: Pattern[LoginEvent, LoginEvent] = Pattern.begin[LoginEvent]("begin")
@@ -40,14 +40,17 @@ object LoginFailWithCep {
     import org.apache.flink.api.scala._
     import org.apache.flink.streaming.api.scala._
 
-//        val loginFailDataStream: Any = patternStream.select[TypeInformation[(Int,String,String)]((pattern: Map[String, Iterable[LoginEvent]]) => {
-//          val first: LoginEvent = pattern.getOrElse("begin", null).iterator.next()
-//          val second: LoginEvent = pattern.getOrElse("next", null).iterator.next()
-//          (second.userId, second.ip, second.eventType)
-//        })
+    //fixme https://blog.csdn.net/haibucuoba/article/details/97051972 参考
+
+    //        val loginFailDataStream: Any = patternStream.select[TypeInformation[(Int,String,String)]((pattern: Map[String, Iterable[LoginEvent]]) => {
+    //          val first: LoginEvent = pattern.getOrElse("begin", null).iterator.next()
+    //          val second: LoginEvent = pattern.getOrElse("next", null).iterator.next()
+    //          (second.userId, second.ip, second.eventType)
+    //        })
 
     //将匹配到的复合条件的事件打印出来
     //    loginFailDataStream.print()
+    //    patternStream.flatSelect()
     env.execute("Login Fail Detect job")
 
   }

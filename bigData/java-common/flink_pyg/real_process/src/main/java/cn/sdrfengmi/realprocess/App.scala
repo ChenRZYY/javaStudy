@@ -2,14 +2,18 @@ package cn.sdrfengmi.realprocess
 
 import java.util.Properties
 
-import cn.sdrfengmi.realprocess.bean.{ClickLog, Message}
+import cn.sdrfengmi.realprocess.bean.{ClickLog, ClickLogWide, Message}
+import cn.sdrfengmi.realprocess.task.{ChannelBrowserTask, PreprocessTask}
 import cn.sdrfengmi.realprocess.util.GlobalConfigUtil
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.serialization.SimpleStringSchema
+import org.apache.flink.runtime.state.StateBackend
 import org.apache.flink.runtime.state.filesystem.FsStateBackend
 import org.apache.flink.streaming.api.environment.CheckpointConfig
+import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks
 import org.apache.flink.streaming.api.{CheckpointingMode, TimeCharacteristic}
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.flink.streaming.api.watermark.Watermark
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
 
 
@@ -30,7 +34,7 @@ object App {
     env.getCheckpointConfig.setMaxConcurrentCheckpoints(1)
     env.getCheckpointConfig.enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION)
     // 设置checkpoint的地址
-    env.setStateBackend(new FsStateBackend("hdfs://node01:8020/flink-checkpoint/"))
+    env.setStateBackend(new FsStateBackend("hdfs://server02:8020/flink-checkpoint/"))
 
     // 本地测试 加载本地集合 成为一个DataStream 打印输出
     import org.apache.flink.api.scala._
@@ -59,7 +63,7 @@ object App {
     val kafkaDatastream: DataStream[String] = env.addSource(consumer)
     //    kafkaDatastream.print()
 
-    kafkaDatastream.map(msgJson => {
+    val tupleDataStream: DataStream[Message] = kafkaDatastream.map(msgJson => {
       val jsonObject: JSONObject = JSON.parseObject(msgJson)
       val message = jsonObject.getString("message")
       val count = jsonObject.getLong("count")
@@ -69,7 +73,36 @@ object App {
       Message(ClickLog(message), count, timeStamp)
     })
 
-    env.execute()
+    //添加水印
+    val watermarkDataStream: DataStream[Message] = tupleDataStream.assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks[Message] {
+      //当前时间,每次,每条数据处理后的时间
+      var currentTimeStamp = 0L;
+      //延迟时间
+      var maxDelayTime = 2000L;
+
+      override def getCurrentWatermark: Watermark = {
+        new Watermark(currentTimeStamp - maxDelayTime)
+      }
+
+      // 获取事件时间
+      override def extractTimestamp(element: Message, previousElementTimestamp: Long): Long = {
+        currentTimeStamp = Math.max(element.timeStamp, previousElementTimestamp)
+        currentTimeStamp
+      }
+    })
+    // 数据的预处理
+    val clickLogWideDataStream: DataStream[ClickLogWide] = PreprocessTask.process(watermarkDataStream)
+
+    clickLogWideDataStream.print()
+    //    ChannelRealHotTask.process(clickLogWideDataStream)
+    //    ChannelPvUvTask.process(clickLogWideDataStream)
+    //    ChannelFreshnessTask.process(clickLogWideDataStream)
+    //    ChannelAreaTask.process(clickLogWideDataStream)
+    //    ChannelNetWorkTask.process(clickLogWideDataStream)
+    //    ChannelBrowserTask.process(clickLogWideDataStream)
+
+    // 执行任务
+    env.execute("real-process")
   }
 
 }

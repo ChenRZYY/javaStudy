@@ -13,6 +13,8 @@
     <modules>
         <module>report</module>
         <module>real_process</module>
+        <module>canal_kafka</module>
+        <module>sync_db</module>
     </modules>
 
 

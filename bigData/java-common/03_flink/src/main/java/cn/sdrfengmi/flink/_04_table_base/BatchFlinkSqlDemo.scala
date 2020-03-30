@@ -6,7 +6,7 @@ import org.apache.flink.types.Row
 import org.apache.log4j.{Level, Logger}
 
 /**
-  * @Author Haishi
+  * @Author 陈振东
   * @create 2020/3/19 10:32
   */
 object BatchFlinkSqlDemo {
