@@ -7,7 +7,7 @@ import com.typesafe.config.ConfigFactory
   */
 object ConfigUtils {
   //加载配置参数
-  val conf  = ConfigFactory.load("dev/application.conf")
+  val conf = ConfigFactory.load("dev/application.conf")
 
   //spark sql shuffle的分区数设置
   val SPARK_SQL_SHUFFLE_PARTITIONS = conf.getString("spark.sql.shuffle.partitions")
@@ -22,7 +22,7 @@ object ConfigUtils {
   //设置广播数据是否压缩
   val SPARK_BROADCAST_COMPRESS = conf.getString("spark.broadcast.compress")
   //设置spark的序列化方式
-  val SPARK_SERIALIZER =  conf.getString("spark.serializer")
+  val SPARK_SERIALIZER = conf.getString("spark.serializer")
   //设置执行与存储的内存比例
   val SPARK_MEMORY_FRACTION = conf.getString("spark.memory.fraction")
   //设置存储的内存比例
@@ -51,7 +51,7 @@ object ConfigUtils {
   //设置kudu集群的master地址
   val MASTER_ADDRESS = conf.getString("master_address")
   //设置商圈库的获取的url
-  val BUSINESS_AREA=conf.getString("BUSINESS_AREA_URL")
+  val BUSINESS_AREA = conf.getString("BUSINESS_AREA_URL")
   //衰减系数
   val ATTNU = conf.getString("attnu")
   /**
@@ -60,12 +60,12 @@ object ConfigUtils {
     * spark.speculation.multiplier="1.5"
     *
     * class Spark{
-    *   private val speculation:Speculation
+    * private val speculation:Speculation
     * }
     *
     * class Speculation{
-    *  private String multiplier;
-    *  private String flag
+    * private String multiplier;
+    * private String flag
     * }
     *
     * val spark = new Spark
@@ -73,5 +73,4 @@ object ConfigUtils {
     * spark.speculation.flag
     *
     */
-
 }

@@ -36,6 +36,7 @@ object AdDeviceTypeAnalysis {
       .config("spark.default.parallelism", ConfigUtils.SPARK_DEFAULT_PARALLELISM)
       .config("spark.speculation", ConfigUtils.SPARK_SPECULATION)
       .config("spark.speculation.multiplier", ConfigUtils.SPARK_SPECULATION_MULTIPLIER)
+      .config("spark.ui.enabled", false)
       .getOrCreate()
 
     //读取数据

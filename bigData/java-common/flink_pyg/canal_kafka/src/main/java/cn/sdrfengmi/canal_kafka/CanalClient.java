@@ -1,13 +1,13 @@
 package cn.sdrfengmi.canal_kafka;
 
+import cn.sdrfengmi.canal_kafka.util.GlobalConfigUtil;
+import cn.sdrfengmi.canal_kafka.util.KafkaSender;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
-import com.itheima.canal_kafka.util.GlobalConfigUtil;
-import com.itheima.canal_kafka.util.KafkaSender;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;

@@ -1,18 +1,25 @@
 package cn.sdrfengmi.spark.project._01_spark_dmp.tag
 
 import ch.hsr.geohash.GeoHash
+import cn.sdrfengmi.spark.project._01_spark_dmp.agg.AggTag
+import cn.sdrfengmi.spark.project._01_spark_dmp.graphx.UserGraphx
+import cn.sdrfengmi.spark.project._01_spark_dmp.history.HistoryUnionCurrent
 import cn.sdrfengmi.spark.project._01_spark_dmp.make.{AgeTag, AppTag, BusinessAreaTag, ChannelTag, DeviceTag, KeywordTag, RegionTag, SexTag}
-import cn.sdrfengmi.spark.project._01_spark_dmp.utils.{ConfigUtils, DateUtils}
+import cn.sdrfengmi.spark.project._01_spark_dmp.utils.{ConfigUtils, DateUtils, KuduUtils}
 import org.apache.commons.lang3.StringUtils
+import org.apache.kudu.client.CreateTableOptions
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.broadcast.Broadcast
-import org.apache.spark.sql.{Row, SparkSession}
+import org.apache.spark.graphx.VertexId
+import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.{Row, SaveMode, SparkSession}
 
 import scala.collection.mutable.ListBuffer
 
 /**
   * @Author 陈振东
   * @create 2020/3/24 10:24
+  *         标签生成
   */
 object TagProcess {
   Logger.getLogger("org").setLevel(Level.ERROR)
@@ -20,6 +27,8 @@ object TagProcess {
   //定义数据读取的表
   val SOURCE_TABLE = s"ODS_${DateUtils.getNow()}"
   val BUSINESS_TABLE = "business_area"
+
+  val SINK_TABLE = s"tags_${DateUtils.getNow()}"
 
   def main(args: Array[String]): Unit = {
     //标签列表:App[APP_]、
@@ -92,7 +101,7 @@ object TagProcess {
          spark.sql("cache table app_info")*/
 
     //5、将设备的字段文件广播出去
-    val deviceData = spark.read.textFile(ConfigUtils.DEVICEDIC)
+    val deviceData: Map[String, String] = spark.read.textFile(ConfigUtils.DEVICEDIC)
       .map(line => {
         val arr = line.split("##")
         val device = arr(0)
@@ -208,7 +217,7 @@ object TagProcess {
       """.stripMargin)
     //生成标签
     //生成标签
-    joinDF.rdd.map(row => {
+    val tags: RDD[(String, (List[String], Map[String, Double]))] = joinDF.rdd.map(row => {
       //1、生成app标签
       val appTags = AppTag.make(row, appBc)
       //2、生成设备标签
@@ -232,9 +241,47 @@ object TagProcess {
       //所有标签
       val allTags: Map[String, Double] = appTags ++ deviceTags ++ regionTags ++ keywordTags ++ channelTag ++ sexTags ++ ageTags ++ areaTags
       (id, (ids, allTags))
-    }).repartition(1).saveAsTextFile("datasetOut/tags")
-
-
+    })
+    //      tags.repartition(1).saveAsTextFile("datasetOut/tags") 打印出标签
+    //7,统一用户识别
+    val graph: RDD[(VertexId, (VertexId, (List[String], Map[String, Double])))] = UserGraphx.graph(tags)
+    //8,标签聚合
+    val currentTags: RDD[(String, (List[String], Map[String, Double]))] = AggTag.agg(graph)
+    //9、历史数据与当天数据的操作
+    //    val context = new KuduContext(ConfigUtils.MASTER_ADDRESS, spark.sparkContext)
+    //    val result: RDD[(String, (List[String], Map[String, Double]))] = HistoryUnionCurrent.union(currentTags, spark, context)
+    val resultDF = currentTags.map {
+      f: (String, (List[String], Map[String, Double]))
+      => {
+        val idsStr = f._2._1.mkString("#")
+        val tagStr = f._2._2.mkString("#")
+        (f._1, idsStr, tagStr)
+      }
+    }.toDF("userid", "ids", "tags")
+    //   fixme case 用法
+    //    val resultDF = result.map{
+    //      case (userid,(alluserids,tags))=>
+    //        val idsStr = alluserids.mkString("#")
+    //        val tagStr = tags.mkString("#")
+    //        (userid,idsStr,tagStr)
+    //    }.toDF("userid","ids","tags")
+    //指定表的schema信息
+    val schema = resultDF.schema
+    //指定表的主键
+    val keys = Seq[String]("userid")
+    //指定表的属性
+    val options = new CreateTableOptions
+    //指定分区规则 分区字段 分区数
+    import scala.collection.JavaConversions._
+    options.addHashPartitions(keys, 3)
+    //指定副本数
+    options.setNumReplicas(1)
+    //    KuduUtils.write(context, SINK_TABLE, schema, keys, options, resultDF)
+    resultDF.write
+      .mode(SaveMode.Overwrite)
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      .json(s"datasetOut/${SINK_TABLE}")
+        Thread.sleep(10000000)
   }
 
   def genGeoHashCode(longitude: Float, latitude: Float): String = {
@@ -258,27 +305,11 @@ object TagProcess {
     val openudid = row.getAs[String]("openudid")
     val androidid = row.getAs[String]("androidid")
 
-    if (StringUtils.isNotBlank(imei)) {
-      ids = ids.+:(imei)
-    }
-
-    if (StringUtils.isNotBlank(mac)) {
-      ids = ids.+:(mac)
-    }
-
-    if (StringUtils.isNotBlank(idfa)) {
-
-      ids = ids.+:(idfa)
-    }
-
-    if (StringUtils.isNotBlank(openudid)) {
-      ids = ids.+:(openudid)
-    }
-
-    if (StringUtils.isNotBlank(androidid)) {
-      ids = ids.+:(androidid)
-    }
-
+    if (StringUtils.isNotBlank(imei)) ids = ids.+:(imei)
+    if (StringUtils.isNotBlank(mac)) ids = ids.+:(mac)
+    if (StringUtils.isNotBlank(idfa)) ids = ids.+:(idfa)
+    if (StringUtils.isNotBlank(openudid)) ids = ids.+:(openudid)
+    if (StringUtils.isNotBlank(androidid)) ids = ids.+:(androidid)
     ids
   }
 }

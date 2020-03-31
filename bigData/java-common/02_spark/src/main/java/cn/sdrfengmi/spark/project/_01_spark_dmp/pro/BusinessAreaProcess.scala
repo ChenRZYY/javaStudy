@@ -45,7 +45,7 @@ object BusinessAreaProcess {
       //      .option("kudu.table", SOURCE_TABLE)
       //      .kudu
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("dataSetOut/" + SOURCE_TABLE)
+      .json("datasetOut/" + SOURCE_TABLE)
     //3、列裁剪、去重、过滤
     val filterDF: Dataset[Row] = source.selectExpr("longitude", "latitude")
       .filter("longitude is not null and latitude is not null")

@@ -33,6 +33,7 @@ object AdOperatorAnalysis {
       .config("spark.default.parallelism", ConfigUtils.SPARK_DEFAULT_PARALLELISM)
       .config("spark.speculation", ConfigUtils.SPARK_SPECULATION)
       .config("spark.speculation.multiplier", ConfigUtils.SPARK_SPECULATION_MULTIPLIER)
+      .config("spark.ui.enabled", false)
       .getOrCreate()
     //2、读取数据
     import org.apache.kudu.spark.kudu._

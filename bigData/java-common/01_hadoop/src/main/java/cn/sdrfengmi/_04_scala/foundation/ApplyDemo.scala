@@ -117,7 +117,7 @@ class ApplyDemo {
 
     hsReq(HsReq_613)
     indexParamNew(IndexParamNew_613)
-    combination(HsAns_613, ReturnGrid_613, DisplayFormat_613)
+    responseMapping(HsAns_613, ReturnGrid_613, DisplayFormat_613)
   }
 
   //  val HsReq_613 =
@@ -137,7 +137,7 @@ class ApplyDemo {
     hsReq(HsReq_345)
     indexParamNew(IndexParamNew_345)
     request(Request_345)
-    combination(HsAns_345, ReturnGrid_345, DisplayFormat_345)
+    responseMapping(HsAns_345, ReturnGrid_345, DisplayFormat_345)
   }
 
   @Test
@@ -152,7 +152,35 @@ class ApplyDemo {
     hsReq(HsReq)
     request(Request)
     indexParamNew(IndexParamNew)
-    combination(HsAns, ReturnGrid, DisplayFormat)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
+  def get618(): Unit = {
+
+    val HsReq = "CUST_CODE|ACCOUNT|CURRENCY|FLAG|BRANCHES|R_LAST_SN|R_COUNT|K_CUST_CODE|K_ACCOUNT|AUTHORITY_FLAG|"
+    val HsAns = "CUST_CODE|CUST_NAME|OPEN_BRANCH|ACCOUNT|CURRENCY|EXT_ACC|TRDINAMT|OTHERAMT|FLAG|ISMAIN|REMARK|"
+    val Request = "USERCODE||MONEYTYPE||||999|||1|"
+    val ReturnGrid = "客户代码|客户姓名|开户分支|账户|货币代码|外部账户|本行转入资金|他行转入资金|是否开通内转|是否主资金账户|备注|"
+    val IndexParamNew = "fundaccountIndex=0&bankIndex=6&banknameIndex=7&CurrencyCodeIndex=2&CurrencyIndex=3&UsableIndex=5&AvailableIndex=4&passwordidentifyindex=8&"
+    val DisplayFormat = "客户代码|客户姓名|开户分支|账户|货币代码|外部账户|本行转入资金|他行转入资金|是否开通内转|是否主资金账户|备注|"
+
+    //    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  def requestMapping(request: String, hsReq: String) = {
+    System.err.println("++++++++++++++++++++++++requestMapping++++++++++++++++++++++++++++")
+    val requests: Array[String] = request.split("\\|")
+    val hsReqs: Array[String] = hsReq.split("\\|")
+    var i = -1;
+    requests.map(req => {
+      i = i + 1
+      println((req, hsReqs(i)))
+    })
   }
 
   def hsReq(attribute: String): Unit = {
@@ -163,13 +191,15 @@ class ApplyDemo {
       }
       upperCase
     }
-
     val hsReq: Array[String] = attribute.split("\\|").map(func)
+    System.err.println("++++++++++++++++++++++++hsReq++++++++++++++++++++++++++++")
     hsReq.map(println(_))
   }
 
 
   def indexParamNew(str: String): Unit = {
+    System.err.println("++++++++++++++++++++++++indexParamNew++++++++++++++++++++++++++++")
+    //    System.err.println(s"public  String grid = ${str}")
     str.split("&").map(x => {
       val y = x.toLowerCase
       "public  String " + y.substring(0, y.lastIndexOf("=") + 1) + "\"" + y.substring(y.lastIndexOf("=") + 1) + "\"" + ";"
@@ -177,14 +207,16 @@ class ApplyDemo {
   }
 
   def request(str: String): Unit = {
-    System.err.println("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    System.err.println("++++++++++++++++++++++++request++++++++++++++++++++++++++++")
     str.split("\\|").map(x => {
       val y = x.toLowerCase
       "public  String " + y.substring(0, y.lastIndexOf("=") + 1) + "\"" + y.substring(y.lastIndexOf("=") + 1) + "\"" + ";"
     }).foreach(println(_))
   }
 
-  def combination(hsAns: String, grid: String, format: String): Unit = {
+  def responseMapping(hsAns: String, grid: String, format: String): Unit = {
+    System.err.println()
+    System.err.println("++++++++++++++++++++++++responseMapping++++++++++++++++++++++++++++")
     val hsAnss: Array[String] = hsAns.split("\\|")
     val grids: Array[String] = grid.split("\\|")
     val formats: Array[String] = format.split("\\|")
@@ -195,7 +227,6 @@ class ApplyDemo {
     for (i <- 0 to hsAnss.length - 1) {
       map += grids(i) -> hsAnss(i)
     }
-
     val combinations: Array[Any] = formats.map(x => {
       if (map.contains(x)) {
         println((x, x, map(x)))

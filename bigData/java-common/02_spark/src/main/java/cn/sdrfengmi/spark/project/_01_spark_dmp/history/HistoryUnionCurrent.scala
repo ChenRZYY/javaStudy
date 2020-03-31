@@ -2,11 +2,12 @@ package cn.sdrfengmi.spark.project._01_spark_dmp.history
 
 import cn.sdrfengmi.spark.project._01_spark_dmp.agg.AggTag
 import cn.sdrfengmi.spark.project._01_spark_dmp.graphx.UserGraphx
+import cn.sdrfengmi.spark.project._01_spark_dmp.tag.TagProcess.{BUSINESS_TABLE, SINK_TABLE}
 import cn.sdrfengmi.spark.project._01_spark_dmp.utils.{ConfigUtils, DateUtils}
 import org.apache.kudu.client.CreateTableOptions
 import org.apache.kudu.spark.kudu.KuduContext
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /**
   * @Author 陈振东
@@ -52,9 +53,13 @@ object HistoryUnionCurrent {
     KuduUtils.write(context,SINK_TABLE,schema,keys,options,currentDF)*/
     //2、将历史数据读取出来
     import org.apache.kudu.spark.kudu._
-    val historyDF = spark.read.option("kudu.master", ConfigUtils.MASTER_ADDRESS)
-      .option("kudu.table", SINK_TABLE)
-      .kudu
+    val historyDF: DataFrame = spark.read
+      //      .option("kudu.master", ConfigUtils.MASTER_ADDRESS)
+      //      .option("kudu.table", SINK_TABLE)
+      //      .kudu
+      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
+      .json(s"datasetOut/${SINK_TABLE}")
+
     //3、对历史数据进行标签衰减
     val historyData = historyDF.rdd.map(row => {
       val userid = row.getAs[String]("userid")

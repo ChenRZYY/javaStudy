@@ -17,10 +17,10 @@ import scala.util.Try
 /**
   * @Author 陈振东
   * @create 2020/3/23 15:59
-  * 解析ip获取经纬度 补充道数据中
+  *         解析ip获取经纬度 补充道数据中
   */
 object EtlProcess {
-//  Logger.getLogger("org").setLevel(Level.ERROR)
+  Logger.getLogger("org").setLevel(Level.ERROR)
   //定义数据存储的表名
   val SINK_TABLE = s"ODS_${DateUtils.getNow()}"
   RuntimeDelegate.setInstance(new RuntimeDelegateImpl)
