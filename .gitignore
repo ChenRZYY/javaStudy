@@ -4,6 +4,8 @@ datasetOut/
 spark-warehouse/
 target/
 *.iml
+.idea
+logs
 
 #helloSpark
 bigData/HelloSpark/.idea/

@@ -11,6 +11,8 @@ package cn.sdrfengmi._04_scala
   *         (2)isInstanceOf[T]: 判断对象是否为T类型的实例。
   *         (3)asInstanceOf[T]: 强制类型转换
   *
+  * 1.> Mainfest上下文界定 1. 在Scala中数组必须是有类型的,如果直接是泛型的话将会报错,这时候引入了Manifest上下文界定,需要一个Mainfest[T]对象,而mainifest[T]有...
+  * 2.> ClassTag 1. 源码中的解释,在泛型中,type T是被擦除的。这个是非常有用的,在我们构建数组的时候,但是数组的类型我们也不知道,编译的时候不知道,但是运行的时候要知道,ClassT...
   */
 object CastClass {
 
