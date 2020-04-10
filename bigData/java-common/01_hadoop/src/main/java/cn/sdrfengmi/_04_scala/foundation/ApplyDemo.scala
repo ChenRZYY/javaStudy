@@ -172,6 +172,23 @@ class ApplyDemo {
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
 
+  @Test
+  def get122(): Unit = {
+
+    val HsReq = "USER_CODE|MARKET|SECU_ACC|"
+    val HsAns = "USER_CODE|MARKET|SECU_ACC|SECU_ACC_NAME|DFT_ACC|MAIN_FLAG|BIND_SEAT|BIND_STATUS|STATUS|EXT_CLS|MARKET|MARKET|"
+    val Request = "USERCODE|WTACCOUNTTYPE|WTACCOUNT|"
+    val ReturnGrid = "客户代码|市场类别|股东代码|股东姓名|缺省资产账户|主副标志|指定席位|指定交易状态|帐户状态|外部类型|市场名称|市场代码|"
+    val IndexParamNew = "WtAccountTypeIndex=0&ACCOUNTINDEX=1&mainflag=2&holderstatus=3&SeatNoIndex=5&marketCodeIndex=6&bindStatusIndex=7&"
+    val DisplayFormat = "市场类别|股东代码|主副标志|帐户状态|市场名称|指定席位|市场代码|指定交易状态|"
+
+    //    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
   def requestMapping(request: String, hsReq: String) = {
     System.err.println("++++++++++++++++++++++++requestMapping++++++++++++++++++++++++++++")
     val requests: Array[String] = request.split("\\|")
