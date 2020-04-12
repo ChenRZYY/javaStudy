@@ -11,9 +11,9 @@
     <artifactId>real_process</artifactId>
 
     <properties>
-<!--        <scala.version>2.11</scala.version>-->
-<!--        <flink.version>1.6.1</flink.version>-->
-<!--        <hadoop.version>2.7.5</hadoop.version>-->
+        <!--        <scala.version>2.11</scala.version>-->
+        <!--        <flink.version>1.6.1</flink.version>-->
+        <!--        <hadoop.version>2.7.5</hadoop.version>-->
         <hbase.version>2.0.0</hbase.version>
     </properties>
 
@@ -30,32 +30,32 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.10_${scala.v}</artifactId>
-<!--            <version>${flink.version}</version>-->
+            <!--            <version>${flink.version}</version>-->
         </dependency>
 
         <!--批处理-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table_${scala.v}</artifactId>
-<!--            <version>${flink.version}</version>-->
+            <!--            <version>${flink.version}</version>-->
         </dependency>
         <!--导入scala的依赖-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-scala_${scala.v}</artifactId>
-<!--            <version>${flink.version}</version>-->
+            <!--            <version>${flink.version}</version>-->
         </dependency>
 
         <!--模块二 流处理-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-scala_${scala.v}</artifactId>
-<!--            <version>${flink.version}</version>-->
+            <!--            <version>${flink.version}</version>-->
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_${scala.v}</artifactId>
-<!--            <version>${flink.version}</version>-->
+            <!--            <version>${flink.version}</version>-->
         </dependency>
 
         <!--数据落地flink和hbase的集成依赖-->
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-client</artifactId>
-<!--            <version>${hbase.version}</version>-->
+            <!--            <version>${hbase.version}</version>-->
         </dependency>
 
 
@@ -83,13 +83,13 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
-<!--            <version>${hadoop.version}</version>-->
+            <!--            <version>${hadoop.version}</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
-<!--            <version>${hadoop.version}</version>-->
+            <!--            <version>${hadoop.version}</version>-->
             <!--xml.parser冲突 flink hdfs-->
             <exclusions>
                 <exclusion>
@@ -102,7 +102,7 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-<!--            <version>${hadoop.version}</version>-->
+            <!--            <version>${hadoop.version}</version>-->
             <!--数据同步：canal 和 hadoop protobuf-->
             <exclusions>
                 <exclusion>
@@ -117,7 +117,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-<!--            <version>1.2.44</version>-->
+            <!--            <version>1.2.44</version>-->
         </dependency>
     </dependencies>
 
