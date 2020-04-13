@@ -189,6 +189,39 @@ class ApplyDemo {
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
 
+  @Test
+  def get5846(): Unit = {
+
+    val HsReq = "INT_ORG|CUST_CODE|PRV_SERIAL_NO|BIZ_TYPE|TRUST_TYPE|STK_CODE|TRDACCT|STKPBU|CRP_ACT_CODE|ETTLM_TYPE|ETTLM_NO|ANN_NO|PRXY_NO|APPROVE_QTY|OPPOSE_QTY|ABANDON_QTY|S_STKPBU|LIST_STATUS|SALE_FLAG|EXE_ORG|SHARE_ATTR|FREEZE_MON|CASE_NO|ORG_FREEZE_SN|LINK_DEPTH|DECLARE_QTY|NOTE_TYPE|CUST_TYPE|REMARK|"
+    val HsAns = "SERIAL_NO|"
+    val Request = "BRANCH|usercode|tradeNo|sgtTradeId|declareType|secuIntl|WTACCOUNT||bhNo|||meetingSeq|vid|agreeNum|rejectNum|giveUpNum||||||||||qualtity|noteType|||"
+    val ReturnGrid = "业务序号|"
+    val IndexParamNew = ""
+    val DisplayFormat = "业务序号|"
+
+    //    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
+  def get5850(): Unit = {
+    val HsReq = "SETTNO|STK_CODE|ISIN_NO|PUB_NO|BILL_NO|UP_NO|DOWN_NO|FREE_NO|TRDACCT|INT_ORG|CUST_CODE|STKEX|SERVICE_NAME|SERVICE_TYPE|STKBD|DECLARE_TYPE|HK_TYPE|F_FUNCTION|F_RUNTIME|"
+    val HsAns = "SERIAL_NO|"
+    val Request = "JS990|secuIntl||pubNo|billNo|agreeNo|rejectNo|giveUpNo|wtaccount|KHBranch|UserCode|||||||||"
+    val ReturnGrid = "流水序号|"
+    val DisplayFormat = "流水序号|"
+    val IndexParamNew = "SerialNoIndex=0&"
+
+    //    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
   def requestMapping(request: String, hsReq: String) = {
     System.err.println("++++++++++++++++++++++++requestMapping++++++++++++++++++++++++++++")
     val requests: Array[String] = request.split("\\|")
@@ -196,7 +229,7 @@ class ApplyDemo {
     var i = -1;
     requests.map(req => {
       i = i + 1
-      println((req, hsReqs(i)))
+      if (req != "") println((hsReqs(i), req))
     })
   }
 
@@ -227,8 +260,10 @@ class ApplyDemo {
     System.err.println("++++++++++++++++++++++++request++++++++++++++++++++++++++++")
     str.split("\\|").map(x => {
       val y = x.toLowerCase
-      "public  String " + y.substring(0, y.lastIndexOf("=") + 1) + "\"" + y.substring(y.lastIndexOf("=") + 1) + "\"" + ";"
-    }).foreach(println(_))
+      //      "public  String " + y.substring(0, y.lastIndexOf("=") + 1) + "\"" + y.substring(y.lastIndexOf("=") + 1) + "\"" + ";"
+      val str = if (y != "") "public  String " + y + "=\"\";" else ""
+      str
+    }).foreach(str => if (str != "") println(str))
   }
 
   def responseMapping(hsAns: String, grid: String, format: String): Unit = {
