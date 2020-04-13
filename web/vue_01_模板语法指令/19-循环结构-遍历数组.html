@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>水果列表</div>
+        <ul>
+            <li v-for="item in fruits">{{item}}</li>
+            <li v-for="(item, index) in fruits">{{item + '---' + index}}</li>
+            <li :key="item.id" v-for="(item, index) in myFruits">
+                <span>{{item.ename}}</span>
+                <span>-----</span>
+                <span>{{item.cname}}</span>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        /*
+         * 循环结构-遍历数组 v-for会遍历整个标签,标签下的字标签也都遍历
+         * 循环指令：v-for=""
+         * 值是一个数组 (item,index) in 数组名
+         * 值是一个对象 (value,key) in 对象名 value是属性值，key是属性
+         * 
+         * 在v-for中key的使用注意事项：
+            v-for 循环的时候，key属性只能使用 number 或string，且是惟一的
+            key在使用的时候，必须使用 v-bind 属性绑定的形式，指定key的值
+         */
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                fruits: ["apple", "orange", "banana"],
+                myFruits: [{
+                    id: 1,
+                    ename: "apple",
+                    cname: "苹果"
+                }, {
+                    id: 2,
+                    ename: "orange",
+                    cname: "橘子"
+                }, {
+                    id: 3,
+                    ename: "banana",
+                    cname: "香蕉"
+                }]
+            }
+        })
+    </script>
+</body>
+
+</html>

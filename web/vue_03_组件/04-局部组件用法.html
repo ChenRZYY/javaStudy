@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <hello-world></hello-world>
+        <hello-tom></hello-tom>
+        <hello-jerry></hello-jerry>
+        <test-com> </test-com>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        /*
+         * 局部组件注册
+         * 局部组件只能在注册他的父组件中使用,下面为局部组件,只能在*id="app"中直接使用,不能在其他组件中使用,比如在test-com中不能使用
+         * 'hello-world': HelloWorld,
+         * 'hello-tom': HelloTom,
+         * 'hello-jerry': HelloJerry
+         *
+         * 这时候test-com中的hello-world不能用,hello-chen是自己局部定义的可以使用
+         * var helloChen定义的变量必须放到'hello-chen': HelloChen上面否则找不到
+        */
+        var HelloChen = {
+            data: function () {
+                return {
+                    msg: 'HelloChen'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        };
+
+        Vue.component('test-com', {
+            template: `
+            <div>
+                <hello-world></hello-world>
+                <hello-chen></hello-chen>
+            </div>
+            `,
+            components: {
+                'hello-chen': HelloChen
+            }
+        });
+
+        var HelloWorld = {
+            data: function () {
+                return {
+                    msg: 'HelloWorld'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        };
+        var HelloTom = {
+            data: function () {
+                return {
+                    msg: 'HelloTom'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        };
+        var HelloJerry = {
+            data: function () {
+                return {
+                    msg: 'HelloJerry'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        };
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            //上面定义的组件通过components引入进来
+            components: {
+                'hello-world': HelloWorld,
+                'hello-tom': HelloTom,
+                'hello-jerry': HelloJerry
+            }
+        });
+    </script>
+</body>
+
+</html>

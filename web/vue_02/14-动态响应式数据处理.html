@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for='item in list'>{{item}}</li>
+        </ul>
+        <div>
+            <div>{{info.name}}</div>
+            <div>{{info.age}}</div>
+            <div>{{info.gender}}</div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        /*
+         * 动态处理响应式数据
+        */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: ['apple', 'orange', 'banana'],
+                info: {
+                    name: 'lisi',
+                    age: 12
+                }
+            },
+        });
+        // vm.list[1] = 'lemon'; //1不会动态更新到界面上
+        // Vue.set(vm.list, 2, 'lemon'); //2会动态更新到界面上
+        vm.$set(vm.list, 1, 'lemon'); //3会动态更新到界面上,2和3只是语法不同
+
+        // vm.info.gender = 'male';
+        vm.$set(vm.info, 'gender', 'female');
+
+
+    </script>
+</body>
+
+</html>

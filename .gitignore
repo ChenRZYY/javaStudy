@@ -38,3 +38,7 @@ bigData/hadoop/spark-warehouse
 /bigData/hadoop/*.iws
 /bigData/doc/
 /bigData/bigData.doc
+
+#web
+.vscode/
+/java/~$va2-升级总结.doc
