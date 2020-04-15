@@ -657,4 +657,51 @@ docker start registry
 ```
 docker push 192.168.184.141:5000/jdk1.8
 ```
+# 8 docker安装 配置
+##0 修改镜像仓库地址
+```
+vi /etc/docker/daemon.json
+{
+    "registry-mirrors": ["https://hub.c.163.com","https://xeef9z9x.mirror.aliyuncs.com"],
+    "live-restore": true,
+    "hosts": ["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]
+}
+```
+## 1 oracle dockerfile
+```dockerfile
+FROM zhangde/dataflow-oracle-source:v8
+MAINTAINER chenzhendong "631665415@@qq.com"
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
+WORKDIR /usr/local/docker
+```
+
+## 2 rancher dockerfile
+```dockerfile
+FROM rancher/server
+MAINTAINER chenzhendong "631665415@@qq.com"
+WORKDIR /root/rancher/dockerlog
+```
+
+## 3 redis dockerfile
+```dockerfile
+# FROM hub.c.163.com/public/redis:2.8.4
+FROM hub.c.163.com/library/redis:latest
+MAINTAINER chenzhendong "631665415@@qq.com"
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
+WORKDIR /root/redis_docker/workspace
+```
+## 4 vhr dockerfile
+1 先把hrserver-0.0.1-SNAPSHOT.jar 放到当前文件夹
+```dockerfile
+FROM dwyane/openjdk:8
+MAINTAINER chenzhendong "631665415@@qq.com"
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
+WORKDIR /usr/local/docker
+COPY hrserver-0.0.1-SNAPSHOT.jar /root
+CMD java -jar /root/hrserver-0.0.1-SNAPSHOT.jar
+```
+
 

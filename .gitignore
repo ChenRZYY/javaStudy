@@ -1,4 +1,4 @@
-*.class
+﻿*.class
 checkpoint/
 datasetOut/
 spark-warehouse/
@@ -6,6 +6,8 @@ target/
 *.iml
 .idea
 logs
+01_dataSetOut
+v3.1.1
 
 #helloSpark
 bigData/HelloSpark/.idea/

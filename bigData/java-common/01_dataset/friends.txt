@@ -1,0 +1,4 @@
+A:B,C,D,F,E,O
+   B:F,E,Z,O
+   G:C,F
+   Q:S

@@ -222,6 +222,24 @@ class ApplyDemo {
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
 
+  @Test
+  def get5028(): Unit = {
+    val HsReq = "CUST_CODE|AGENT_BIZ_TYPE|BRANCH|"
+    val HsAns = "CUSTOMER|AGENT_BIZ_TYPE|BEGIN_DATE|EXPIRY_DATE|"
+    val Request = "USERCODE|ContractType|KHBranch|"
+    val ReturnGrid = "客户代码|签约类型|协议生效日|协议到期日|"
+    val DisplayFormat = "客户代码|签约类型|协议生效日|协议到期日|"
+    val IndexParamNew = "startDateIndex=2&endDateIndex=3&"
+
+    //    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+
+
   def requestMapping(request: String, hsReq: String) = {
     System.err.println("++++++++++++++++++++++++requestMapping++++++++++++++++++++++++++++")
     val requests: Array[String] = request.split("\\|")
@@ -229,7 +247,8 @@ class ApplyDemo {
     var i = -1;
     requests.map(req => {
       i = i + 1
-      if (req != "") println((hsReqs(i), req))
+      //req.setTrdacct(requests.getWtAccount());
+      if (req != "") println(s"req.set${hsReqs(i).charAt(0) + hsReqs(i).substring(1).toLowerCase}(requests.get${req.charAt(0).toString.toUpperCase() + req.substring(1)}());")
     })
   }
 

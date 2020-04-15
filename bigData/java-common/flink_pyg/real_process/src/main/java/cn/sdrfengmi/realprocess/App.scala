@@ -3,7 +3,7 @@ package cn.sdrfengmi.realprocess
 import java.util.Properties
 
 import cn.sdrfengmi.realprocess.bean.{ClickLog, ClickLogWide, Message}
-import cn.sdrfengmi.realprocess.task.{ChannelBrowserTask, PreprocessTask}
+import cn.sdrfengmi.realprocess.task.{ChannelBrowserTask, ChannelNetWorkTask, ChannelRealHotTask, PreprocessTask}
 import cn.sdrfengmi.realprocess.util.GlobalConfigUtil
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.serialization.SimpleStringSchema
@@ -98,7 +98,7 @@ object App {
     //    ChannelPvUvTask.process(clickLogWideDataStream)
     //    ChannelFreshnessTask.process(clickLogWideDataStream)
     //    ChannelAreaTask.process(clickLogWideDataStream)
-    //    ChannelNetWorkTask.process(clickLogWideDataStream)
+        ChannelNetWorkTask.process(clickLogWideDataStream)
     //    ChannelBrowserTask.process(clickLogWideDataStream)
 
     // 执行任务

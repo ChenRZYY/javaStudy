@@ -14,7 +14,7 @@ module.exports = {
     'semi': 0, // 不检查结尾分号
     'no-unused-vars': 'off', //定义的没有使用的变量不报错
     'eslint eol-last': 0,
-    'no-console': 'off', // 禁止console报错检查
+    'no-console': 'off', //禁止console报错检查
     'generator-star-spacing': 'off',
     'no-irregular-whitespace': 'off', //禁止 空格报错检查
     'no-trailing-spaces': 'off', //禁用行尾空格

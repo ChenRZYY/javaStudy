@@ -25,7 +25,8 @@ public class JobMain extends Configured implements Tool {
         //第一步:设置输入类和输入路径
         job.setInputFormatClass(TextInputFormat.class);
 //            TextInputFormat.addInputPath(job, new Path("file:///E:\\out\\common_friends_step1_out"));
-        TextInputFormat.addInputPath(job,getLocalInputSourcePath(JobMain.class));
+//        TextInputFormat.addInputPath(job,getLocalInputSourcePath(JobMain.class));
+        TextInputFormat.addInputPath(job, new Path("01_datasetOut/friendsOut.txt"));
 
         //第二步:设置Mapper类和数据类型
         job.setMapperClass(Step2Mapper.class);
@@ -44,7 +45,8 @@ public class JobMain extends Configured implements Tool {
             TextOutputFormat.setOutputPath(job, new Path("file:///E:\\out\\common_friends_step3_out"));*/
         /*TextOutputFormat.setOutputPath(job, new Path("file:///E:\\out\\common_friends_step4_out"));*/
 //        FileOutputFormat.setOutputPath(job, new Path("file:///E:\\out\\common_friends_step5_out"));
-        FileOutputFormat.setOutputPath(job, new Path("file:///C:\\out\\flowpartiton_out" + Math.random()));
+//        FileOutputFormat.setOutputPath(job, new Path("file:///C:\\out\\flowpartiton_out" + Math.random()));
+        FileOutputFormat.setOutputPath(job, new Path("01_datasetOut/friendsOut.txt" + Math.random()));
 
 
         //3:等待job任务结束
