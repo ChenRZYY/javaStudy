@@ -18,6 +18,9 @@ public class HdfsUtil {
     public static String serverInputPath = "hdfs://server02:8020/study/";
     public static String serverOutputPath = "hdfs://server02:8020/study/";
 
+    public static String inputFile = "01_dataset/";
+    public static String outputFile = "01_datasetOut/";
+
     public static void deleteHDFSfile(String url) throws IOException, URISyntaxException {
         //获取FileSystem
         FileSystem fileSystem = FileSystem.get(new URI("hdfs://server02:8020"), new Configuration());
@@ -33,7 +36,7 @@ public class HdfsUtil {
 
     public static void deleteHdfsInputSourceFile(Class clazz) throws IOException, URISyntaxException {
         String[] split = clazz.getName().split("\\.");
-        String path = serverOutputPath + "hadoop"+split[split.length - 2] + "_input";
+        String path = serverOutputPath + "hadoop" + split[split.length - 2] + "_input";
         deleteHDFSfile(path);
     }
 
@@ -66,13 +69,13 @@ public class HdfsUtil {
 
     public static Path getHdfsOutputPath(Class clazz) throws IOException, URISyntaxException {
         String[] split = clazz.getName().split("\\.");
-        String path = serverOutputPath + "hadoop"+split[split.length - 2] + "_output";
+        String path = serverOutputPath + "hadoop" + split[split.length - 2] + "_output";
         return new Path(path);
     }
 
     public static Path getHdfsInputputPath(Class clazz) throws IOException, URISyntaxException {
         String[] split = clazz.getName().split("\\.");
-        String path = serverInputPath + "hadoop"+split[split.length - 2] + "_input";
+        String path = serverInputPath + "hadoop" + split[split.length - 2] + "_input";
         return new Path(path);
     }
 
@@ -82,9 +85,16 @@ public class HdfsUtil {
         return new Path(url);
     }
 
-    public static Path getLocalInputSourcePath(Class clazz,String name) throws UnsupportedEncodingException {
+    public static Path getLocalInputSourcePath(Class clazz, String name) throws UnsupportedEncodingException {
         String url = URLDecoder.decode(clazz.getResource("").getPath() + name, "utf-8");
         url = url.replace("/target/classes", "/src/main/java");
         return new Path(url);
+    }
+
+    public static Path getInputputFile(String filename) {
+        return new Path(inputFile + filename);
+    }
+    public static Path getOutputputFile(String filename) {
+        return new Path(outputFile + filename);
     }
 }

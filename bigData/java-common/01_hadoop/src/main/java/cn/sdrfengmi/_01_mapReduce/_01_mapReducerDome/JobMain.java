@@ -1,8 +1,8 @@
 package cn.sdrfengmi._01_mapReduce._01_mapReducerDome;
 
+import cn.sdrfengmi._01_mapReduce.HdfsUtil;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -13,7 +13,7 @@ import org.apache.hadoop.util.ToolRunner;
 
 public class JobMain extends Configured implements Tool {
 
-    static{
+    static {
         try {
 //            deleteHdfsInputSourceFile(JobMain.class); //TODO 每次创建之前都先删除原来结果
 //            uploadHdfsInputSourceFile(JobMain.class); //TODO 上传resource文件
@@ -35,8 +35,8 @@ public class JobMain extends Configured implements Tool {
 
         //第一步:指定文件的读取方式和读取路径
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job, new Path("dataset/wordcount.txt"));
-//        TextInputFormat.addInputPath(job, HdfsUtil.getHdfsInputputPath(JobMain.class));
+//        TextInputFormat.addInputPath(job, new Path("dataset/wordcount.txt"));
+        TextInputFormat.addInputPath(job, HdfsUtil.getInputputFile("wordcount.txt"));
         //TextInputFormat.addInputPath(job, new Path("file:///D:\\mapreduce\\input"));
 
         //第二步:指定Map阶段的处理方式和数据类型
@@ -60,7 +60,7 @@ public class JobMain extends Configured implements Tool {
         job.setOutputFormatClass(TextOutputFormat.class);
         //设置输出的路径
 //        Path path = HdfsUtil.getHdfsOutputPath(JobMain.class);
-        TextOutputFormat.setOutputPath(job, new Path("dataSetOut/"+Math.random()));
+        TextOutputFormat.setOutputPath(job, HdfsUtil.getOutputputFile(Math.random() + ""));
 //        TextOutputFormat.setOutputPath(job, new Path("file:///C:\\out\\flowpartiton_out"+Math.random()));
 //        TextOutputFormat.setOutputPath(job, getHdfsOutputPath(JobMain.class));
 //        TextOutputFormat.setOutputPath(job, new Path("hdfs://server02:8020/wordcount_out"));
@@ -69,14 +69,14 @@ public class JobMain extends Configured implements Tool {
         //等待任务结束
         boolean bl = job.waitForCompletion(true);
 
-        return bl ? 0:1;
+        return bl ? 0 : 1;
     }
 
 
     public static void main(String[] args) throws Exception {
         Configuration configuration = new Configuration();
-        configuration.set("mapreduce.framework.name","local");
-        configuration.set(" yarn.resourcemanager.hostname","local");
+        configuration.set("mapreduce.framework.name", "local");
+        configuration.set(" yarn.resourcemanager.hostname", "local");
         //启动job任务
         int run = ToolRunner.run(configuration, new JobMain(), args);
         System.exit(run);
