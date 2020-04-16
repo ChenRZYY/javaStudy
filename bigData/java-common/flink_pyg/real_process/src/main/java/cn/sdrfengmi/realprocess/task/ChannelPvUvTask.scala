@@ -49,7 +49,7 @@ object ChannelPvUvTask {
       channelPvUv => channelPvUv.channelId + channelPvUv.yearDayMonthHour
     }
     // 3. 窗口
-    val windowedStream: WindowedStream[ChannelPvUv, String, TimeWindow] = keyedStream.timeWindow(Time.seconds(3))
+    val windowedStream: WindowedStream[ChannelPvUv, String, TimeWindow] = keyedStream.timeWindow(Time.seconds(15))
 
     // 4. 聚合
     val reduceDataStream: DataStream[ChannelPvUv] = windowedStream.reduce((t1, t2) => ChannelPvUv(t1.channelId, t1.yearDayMonthHour, t1.pv + t2.pv, t1.uv + t2.uv))

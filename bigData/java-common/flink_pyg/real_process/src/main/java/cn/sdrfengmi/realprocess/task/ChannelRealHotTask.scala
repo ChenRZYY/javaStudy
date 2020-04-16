@@ -12,6 +12,13 @@ import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 /**
   * @Author 陈振东
   * @create 2020/3/30 13:58
+  *
+  *         频道热点分析
+  * 1. 字段转换
+  * 2. 分组
+  * 3. 时间窗口
+  * 4. 聚合
+  * 5. 落地HBase
   */
 case class ChannelRealHot(var channelid: String, var visited: Long)
 

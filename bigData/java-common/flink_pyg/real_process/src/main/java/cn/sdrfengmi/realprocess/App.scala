@@ -3,7 +3,7 @@ package cn.sdrfengmi.realprocess
 import java.util.Properties
 
 import cn.sdrfengmi.realprocess.bean.{ClickLog, ClickLogWide, Message}
-import cn.sdrfengmi.realprocess.task.{ChannelBrowserTask, ChannelNetWorkTask, ChannelRealHotTask, PreprocessTask}
+import cn.sdrfengmi.realprocess.task.{ChannelAreaTask, ChannelBrowserTask, ChannelFreshnessTask, ChannelNetWorkTask, ChannelPvUvTask, ChannelRealHotTask, PreprocessTask}
 import cn.sdrfengmi.realprocess.util.GlobalConfigUtil
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.serialization.SimpleStringSchema
@@ -34,12 +34,13 @@ object App {
     env.getCheckpointConfig.setMaxConcurrentCheckpoints(1)
     env.getCheckpointConfig.enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION)
     // 设置checkpoint的地址
-    env.setStateBackend(new FsStateBackend("hdfs://server02:8020/flink-checkpoint/"))
+    //    env.setStateBackend(new FsStateBackend("hdfs://server02:8020/flink-checkpoint/"))
+    //    env.setStateBackend(new FsStateBackend("file:///D:/flink-checkpoint/"))
 
     // 本地测试 加载本地集合 成为一个DataStream 打印输出
     import org.apache.flink.api.scala._
-    val localDataStream: DataStream[String] = env.fromCollection(List("hadoop", "hive", "hbase", "flink"))
-    localDataStream.print()
+    //    val localDataStream: DataStream[String] = env.fromCollection(List("hadoop", "hive", "hbase", "flink"))
+    //    localDataStream.print()
 
     // -------------整合Kafka----------
     val properties = new Properties()
@@ -92,14 +93,14 @@ object App {
     })
     // 数据的预处理
     val clickLogWideDataStream: DataStream[ClickLogWide] = PreprocessTask.process(watermarkDataStream)
+    //    clickLogWideDataStream.print()
 
-    clickLogWideDataStream.print()
-    //    ChannelRealHotTask.process(clickLogWideDataStream)
-    //    ChannelPvUvTask.process(clickLogWideDataStream)
-    //    ChannelFreshnessTask.process(clickLogWideDataStream)
-    //    ChannelAreaTask.process(clickLogWideDataStream)
-        ChannelNetWorkTask.process(clickLogWideDataStream)
-    //    ChannelBrowserTask.process(clickLogWideDataStream)
+//    ChannelRealHotTask.process(clickLogWideDataStream)
+    ChannelPvUvTask.process(clickLogWideDataStream)
+//    ChannelFreshnessTask.process(clickLogWideDataStream)
+//    ChannelAreaTask.process(clickLogWideDataStream)
+//    ChannelNetWorkTask.process(clickLogWideDataStream)
+//    ChannelBrowserTask.process(clickLogWideDataStream)
 
     // 执行任务
     env.execute("real-process")

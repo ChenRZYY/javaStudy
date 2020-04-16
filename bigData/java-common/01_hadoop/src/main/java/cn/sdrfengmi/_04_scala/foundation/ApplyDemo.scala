@@ -109,11 +109,11 @@ class ApplyDemo {
 
   @Test
   def get613(): Unit = {
-    val HsReq_613 = "USER_CODE|MARKET|SECU_ACC|ACCOUNT|SECU_CODE|TRD_ID|PRICE|EXT_INST|ORDER_TYPE|CAL_QTY_FLAG|LINK_SECU_ACC|SEAT|REMARK|VID||CommBatchEntrustInfo|"
-    val HsAns_613 = "TRD_DATE|CURRENCY|EXT_INST|EXT_FUNC|USER_CODE|USER_NAME|ACCOUNT|TRD_ACC|EXT_ACC|CPTL_FLOW|INITIATOR|CPTL_AMT|EXT_PROCESS_TIME|CHANNEL|SERIAL_NO|EXT_MSG_TEXT|REMARK|"
-    val ReturnGrid_613 = "交易日期|币种|银行代码|外部功能号|客户代码|客户姓名|资产帐户|交易帐户1|交易帐户|资金流向|发起方向|转账资金|成交时间|渠道|流水号|返回信息|备注|"
-    val IndexParamNew_613 = "businessdate=1&moneytypeindex=4&occurbalance=5&remark=6&dateFormIndex=0&ISJERG=11&ZZPINDEX=5&ENTRUSTTYPENAME=3&BuydirectionIndex=3&CPTL_FLOWIndex=12&extFuncIndex=13&"
-    val DisplayFormat_613 = "交易日期|成交时间|银行代码|发起方向|币种|转账资金|返回信息|渠道|备注|流水号|资产帐户|交易帐户|资金流向|外部功能号|"
+    val HsReq_613: String = "USER_CODE|MARKET|SECU_ACC|ACCOUNT|SECU_CODE|TRD_ID|PRICE|EXT_INST|ORDER_TYPE|CAL_QTY_FLAG|LINK_SECU_ACC|SEAT|REMARK|VID||CommBatchEntrustInfo|"
+    val HsAns_613: String = "TRD_DATE|CURRENCY|EXT_INST|EXT_FUNC|USER_CODE|USER_NAME|ACCOUNT|TRD_ACC|EXT_ACC|CPTL_FLOW|INITIATOR|CPTL_AMT|EXT_PROCESS_TIME|CHANNEL|SERIAL_NO|EXT_MSG_TEXT|REMARK|"
+    val ReturnGrid_613: String = "交易日期|币种|银行代码|外部功能号|客户代码|客户姓名|资产帐户|交易帐户1|交易帐户|资金流向|发起方向|转账资金|成交时间|渠道|流水号|返回信息|备注|"
+    val IndexParamNew_613: String = "businessdate=1&moneytypeindex=4&occurbalance=5&remark=6&dateFormIndex=0&ISJERG=11&ZZPINDEX=5&ENTRUSTTYPENAME=3&BuydirectionIndex=3&CPTL_FLOWIndex=12&extFuncIndex=13&"
+    val DisplayFormat_613: String = "交易日期|成交时间|银行代码|发起方向|币种|转账资金|返回信息|渠道|备注|流水号|资产帐户|交易帐户|资金流向|外部功能号|"
 
     hsReq(HsReq_613)
     indexParamNew(IndexParamNew_613)
@@ -127,12 +127,12 @@ class ApplyDemo {
   //  val DisplayFormat_613 =
   @Test
   def get345(): Unit = {
-    val HsReq_345 = "TRD_DATE|MARKET|BOARD|SEAT|CUST_CODE|ACCOUNT|SECU_ACC|BRANCH|SECU_INTL|SECU_CODE|ORDER_ID|TAKE_DATE|R_LAST_SN|R_COUNT|K_TRD_DATE|K_MARKET|K_BOARD|K_ORDER_ID|DATE_BGN|DATE_END|"
-    val HsAns_345 = "TRD_DATE|MARKET|BOARD|SEAT|CUST_CODE|ACCOUNT|SECU_ACC|BRANCH|SECU_INTL|SECU_CODE|SECU_NAME|ORDER_ID|TAKE_DATE|TAKE_QTY|ORDER_PRICE|PAY_DATE|PAY_QTY|PAY_AMT|GIVE_UP_QTY|MKT_CFM_QTY|PREPAY_AMT|REMARK|MARKET|({13}*{14})|MARKET|BOARD|SECU_CLS|SECU_CLS|"
-    val Request_345 = "DEALDATE|WTACCOUNTTYPE|||USERCODE|FUNDACCOUNT|WTACCOUNT|KHBranch||STOCKCODE||LUCKYDATE||R_COUNT|||||begindate|enddate|"
-    val ReturnGrid_345 = "交易日期|市场|板块|席位|客户号|资产账号|股东账户|分支机构|证券内码|证券代码|证券名称|委托序号|中签日期|中签数量|申购价格|缴款日期|缴款数量|缴款金额|放弃数量|交易所确认数量|应缴款金额|备注|市场类别|中签金额|市场编码|板块编码|证券类别编码|单位|"
-    val IndexParamNew_345 = "HideSegmentIndex=7&STOCKNAMEINDEX=0&BUSINESSPRICE=17&STOCKCODEINDEX=1&PurchasedateIndex=7&ballotnumberIndex=16&PurchasepriceIndex=17&PaidamountIndex=3&PaidDateIndex=2&PaidPriceIndex=4&WTACCOUNTTYPEINDEX=21&DATEFORMINDEX=7&PAYMENTAMOUNTINDEX=22&luckydateIndex=18&marketcodeindex=23&boardcodeindex=24&orderIdIndex=15&remarkIndex=25&"
-    val DisplayFormat_345 = "证券名称|证券代码|缴款日期|缴款数量|缴款金额|放弃数量|市场|交易日期|板块|席位|客户号|资产账号|股东账户|分支机构|证券内码|委托序号|中签数量|申购价格|中签日期|交易所确认数量|应缴款金额|市场类别|中签金额|市场编码|板块编码|备注|证券类别编码|单位|"
+    val HsReq_345: String = "TRD_DATE|MARKET|BOARD|SEAT|CUST_CODE|ACCOUNT|SECU_ACC|BRANCH|SECU_INTL|SECU_CODE|ORDER_ID|TAKE_DATE|R_LAST_SN|R_COUNT|K_TRD_DATE|K_MARKET|K_BOARD|K_ORDER_ID|DATE_BGN|DATE_END|"
+    val HsAns_345: String = "TRD_DATE|MARKET|BOARD|SEAT|CUST_CODE|ACCOUNT|SECU_ACC|BRANCH|SECU_INTL|SECU_CODE|SECU_NAME|ORDER_ID|TAKE_DATE|TAKE_QTY|ORDER_PRICE|PAY_DATE|PAY_QTY|PAY_AMT|GIVE_UP_QTY|MKT_CFM_QTY|PREPAY_AMT|REMARK|MARKET|({13}*{14})|MARKET|BOARD|SECU_CLS|SECU_CLS|"
+    val Request_345: String = "DEALDATE|WTACCOUNTTYPE|||USERCODE|FUNDACCOUNT|WTACCOUNT|KHBranch||STOCKCODE||LUCKYDATE||R_COUNT|||||begindate|enddate|"
+    val ReturnGrid_345: String = "交易日期|市场|板块|席位|客户号|资产账号|股东账户|分支机构|证券内码|证券代码|证券名称|委托序号|中签日期|中签数量|申购价格|缴款日期|缴款数量|缴款金额|放弃数量|交易所确认数量|应缴款金额|备注|市场类别|中签金额|市场编码|板块编码|证券类别编码|单位|"
+    val IndexParamNew_345: String = "HideSegmentIndex=7&STOCKNAMEINDEX=0&BUSINESSPRICE=17&STOCKCODEINDEX=1&PurchasedateIndex=7&ballotnumberIndex=16&PurchasepriceIndex=17&PaidamountIndex=3&PaidDateIndex=2&PaidPriceIndex=4&WTACCOUNTTYPEINDEX=21&DATEFORMINDEX=7&PAYMENTAMOUNTINDEX=22&luckydateIndex=18&marketcodeindex=23&boardcodeindex=24&orderIdIndex=15&remarkIndex=25&"
+    val DisplayFormat_345: String = "证券名称|证券代码|缴款日期|缴款数量|缴款金额|放弃数量|市场|交易日期|板块|席位|客户号|资产账号|股东账户|分支机构|证券内码|委托序号|中签数量|申购价格|中签日期|交易所确认数量|应缴款金额|市场类别|中签金额|市场编码|板块编码|备注|证券类别编码|单位|"
 
     hsReq(HsReq_345)
     indexParamNew(IndexParamNew_345)
@@ -142,12 +142,12 @@ class ApplyDemo {
 
   @Test
   def get617(): Unit = {
-    val HsReq = "CUST_CODE|ACC_PWD|IN_ACCOUNT|CURRENCY|OP_REMARK|"
-    val HsAns = "SERIAL_NO|ACCOUNT|BALANCE|AVAILABLE|USER_CODE|BIZ_NO|"
-    val Request = "usercode|ComPassword|FUNDACCOUNT|MONEYTYPE||"
-    val ReturnGrid = "流水号|资产账户|余额|可用数|客户代码|业务序号|"
-    val IndexParamNew = ""
-    val DisplayFormat = "流水号|资产账户|余额|可用数|客户代码|业务序号|"
+    val HsReq: String = "CUST_CODE|ACC_PWD|IN_ACCOUNT|CURRENCY|OP_REMARK|"
+    val HsAns: String = "SERIAL_NO|ACCOUNT|BALANCE|AVAILABLE|USER_CODE|BIZ_NO|"
+    val Request: String = "usercode|ComPassword|FUNDACCOUNT|MONEYTYPE||"
+    val ReturnGrid: String = "流水号|资产账户|余额|可用数|客户代码|业务序号|"
+    val IndexParamNew: String = ""
+    val DisplayFormat: String = "流水号|资产账户|余额|可用数|客户代码|业务序号|"
 
     hsReq(HsReq)
     request(Request)
@@ -158,12 +158,12 @@ class ApplyDemo {
   @Test
   def get618(): Unit = {
 
-    val HsReq = "CUST_CODE|ACCOUNT|CURRENCY|FLAG|BRANCHES|R_LAST_SN|R_COUNT|K_CUST_CODE|K_ACCOUNT|AUTHORITY_FLAG|"
-    val HsAns = "CUST_CODE|CUST_NAME|OPEN_BRANCH|ACCOUNT|CURRENCY|EXT_ACC|TRDINAMT|OTHERAMT|FLAG|ISMAIN|REMARK|"
-    val Request = "USERCODE||MONEYTYPE||||999|||1|"
-    val ReturnGrid = "客户代码|客户姓名|开户分支|账户|货币代码|外部账户|本行转入资金|他行转入资金|是否开通内转|是否主资金账户|备注|"
-    val IndexParamNew = "fundaccountIndex=0&bankIndex=6&banknameIndex=7&CurrencyCodeIndex=2&CurrencyIndex=3&UsableIndex=5&AvailableIndex=4&passwordidentifyindex=8&"
-    val DisplayFormat = "客户代码|客户姓名|开户分支|账户|货币代码|外部账户|本行转入资金|他行转入资金|是否开通内转|是否主资金账户|备注|"
+    val HsReq: String = "CUST_CODE|ACCOUNT|CURRENCY|FLAG|BRANCHES|R_LAST_SN|R_COUNT|K_CUST_CODE|K_ACCOUNT|AUTHORITY_FLAG|"
+    val HsAns: String = "CUST_CODE|CUST_NAME|OPEN_BRANCH|ACCOUNT|CURRENCY|EXT_ACC|TRDINAMT|OTHERAMT|FLAG|ISMAIN|REMARK|"
+    val Request: String = "USERCODE||MONEYTYPE||||999|||1|"
+    val ReturnGrid: String = "客户代码|客户姓名|开户分支|账户|货币代码|外部账户|本行转入资金|他行转入资金|是否开通内转|是否主资金账户|备注|"
+    val IndexParamNew: String = "fundaccountIndex=0&bankIndex=6&banknameIndex=7&CurrencyCodeIndex=2&CurrencyIndex=3&UsableIndex=5&AvailableIndex=4&passwordidentifyindex=8&"
+    val DisplayFormat: String = "客户代码|客户姓名|开户分支|账户|货币代码|外部账户|本行转入资金|他行转入资金|是否开通内转|是否主资金账户|备注|"
 
     //    hsReq(HsReq)
     request(Request)
@@ -175,12 +175,12 @@ class ApplyDemo {
   @Test
   def get122(): Unit = {
 
-    val HsReq = "USER_CODE|MARKET|SECU_ACC|"
-    val HsAns = "USER_CODE|MARKET|SECU_ACC|SECU_ACC_NAME|DFT_ACC|MAIN_FLAG|BIND_SEAT|BIND_STATUS|STATUS|EXT_CLS|MARKET|MARKET|"
-    val Request = "USERCODE|WTACCOUNTTYPE|WTACCOUNT|"
-    val ReturnGrid = "客户代码|市场类别|股东代码|股东姓名|缺省资产账户|主副标志|指定席位|指定交易状态|帐户状态|外部类型|市场名称|市场代码|"
-    val IndexParamNew = "WtAccountTypeIndex=0&ACCOUNTINDEX=1&mainflag=2&holderstatus=3&SeatNoIndex=5&marketCodeIndex=6&bindStatusIndex=7&"
-    val DisplayFormat = "市场类别|股东代码|主副标志|帐户状态|市场名称|指定席位|市场代码|指定交易状态|"
+    val HsReq: String = "USER_CODE|MARKET|SECU_ACC|"
+    val HsAns: String = "USER_CODE|MARKET|SECU_ACC|SECU_ACC_NAME|DFT_ACC|MAIN_FLAG|BIND_SEAT|BIND_STATUS|STATUS|EXT_CLS|MARKET|MARKET|"
+    val Request: String = "USERCODE|WTACCOUNTTYPE|WTACCOUNT|"
+    val ReturnGrid: String = "客户代码|市场类别|股东代码|股东姓名|缺省资产账户|主副标志|指定席位|指定交易状态|帐户状态|外部类型|市场名称|市场代码|"
+    val IndexParamNew: String = "WtAccountTypeIndex=0&ACCOUNTINDEX=1&mainflag=2&holderstatus=3&SeatNoIndex=5&marketCodeIndex=6&bindStatusIndex=7&"
+    val DisplayFormat: String = "市场类别|股东代码|主副标志|帐户状态|市场名称|指定席位|市场代码|指定交易状态|"
 
     //    hsReq(HsReq)
     request(Request)
@@ -192,12 +192,12 @@ class ApplyDemo {
   @Test
   def get5846(): Unit = {
 
-    val HsReq = "INT_ORG|CUST_CODE|PRV_SERIAL_NO|BIZ_TYPE|TRUST_TYPE|STK_CODE|TRDACCT|STKPBU|CRP_ACT_CODE|ETTLM_TYPE|ETTLM_NO|ANN_NO|PRXY_NO|APPROVE_QTY|OPPOSE_QTY|ABANDON_QTY|S_STKPBU|LIST_STATUS|SALE_FLAG|EXE_ORG|SHARE_ATTR|FREEZE_MON|CASE_NO|ORG_FREEZE_SN|LINK_DEPTH|DECLARE_QTY|NOTE_TYPE|CUST_TYPE|REMARK|"
-    val HsAns = "SERIAL_NO|"
-    val Request = "BRANCH|usercode|tradeNo|sgtTradeId|declareType|secuIntl|WTACCOUNT||bhNo|||meetingSeq|vid|agreeNum|rejectNum|giveUpNum||||||||||qualtity|noteType|||"
-    val ReturnGrid = "业务序号|"
-    val IndexParamNew = ""
-    val DisplayFormat = "业务序号|"
+    val HsReq: String = "INT_ORG|CUST_CODE|PRV_SERIAL_NO|BIZ_TYPE|TRUST_TYPE|STK_CODE|TRDACCT|STKPBU|CRP_ACT_CODE|ETTLM_TYPE|ETTLM_NO|ANN_NO|PRXY_NO|APPROVE_QTY|OPPOSE_QTY|ABANDON_QTY|S_STKPBU|LIST_STATUS|SALE_FLAG|EXE_ORG|SHARE_ATTR|FREEZE_MON|CASE_NO|ORG_FREEZE_SN|LINK_DEPTH|DECLARE_QTY|NOTE_TYPE|CUST_TYPE|REMARK|"
+    val HsAns: String = "SERIAL_NO|"
+    val Request: String = "BRANCH|usercode|tradeNo|sgtTradeId|declareType|secuIntl|WTACCOUNT||bhNo|||meetingSeq|vid|agreeNum|rejectNum|giveUpNum||||||||||qualtity|noteType|||"
+    val ReturnGrid: String = "业务序号|"
+    val IndexParamNew: String = ""
+    val DisplayFormat: String = "业务序号|"
 
     //    hsReq(HsReq)
     request(Request)
@@ -208,12 +208,12 @@ class ApplyDemo {
 
   @Test
   def get5850(): Unit = {
-    val HsReq = "SETTNO|STK_CODE|ISIN_NO|PUB_NO|BILL_NO|UP_NO|DOWN_NO|FREE_NO|TRDACCT|INT_ORG|CUST_CODE|STKEX|SERVICE_NAME|SERVICE_TYPE|STKBD|DECLARE_TYPE|HK_TYPE|F_FUNCTION|F_RUNTIME|"
-    val HsAns = "SERIAL_NO|"
-    val Request = "JS990|secuIntl||pubNo|billNo|agreeNo|rejectNo|giveUpNo|wtaccount|KHBranch|UserCode|||||||||"
-    val ReturnGrid = "流水序号|"
-    val DisplayFormat = "流水序号|"
-    val IndexParamNew = "SerialNoIndex=0&"
+    val HsReq: String = "SETTNO|STK_CODE|ISIN_NO|PUB_NO|BILL_NO|UP_NO|DOWN_NO|FREE_NO|TRDACCT|INT_ORG|CUST_CODE|STKEX|SERVICE_NAME|SERVICE_TYPE|STKBD|DECLARE_TYPE|HK_TYPE|F_FUNCTION|F_RUNTIME|"
+    val HsAns: String = "SERIAL_NO|"
+    val Request: String = "JS990|secuIntl||pubNo|billNo|agreeNo|rejectNo|giveUpNo|wtaccount|KHBranch|UserCode|||||||||"
+    val ReturnGrid: String = "流水序号|"
+    val DisplayFormat: String = "流水序号|"
+    val IndexParamNew: String = "SerialNoIndex=0&"
 
     //    hsReq(HsReq)
     request(Request)
@@ -224,12 +224,36 @@ class ApplyDemo {
 
   @Test
   def get5028(): Unit = {
-    val HsReq = "CUST_CODE|AGENT_BIZ_TYPE|BRANCH|"
-    val HsAns = "CUSTOMER|AGENT_BIZ_TYPE|BEGIN_DATE|EXPIRY_DATE|"
-    val Request = "USERCODE|ContractType|KHBranch|"
-    val ReturnGrid = "客户代码|签约类型|协议生效日|协议到期日|"
-    val DisplayFormat = "客户代码|签约类型|协议生效日|协议到期日|"
-    val IndexParamNew = "startDateIndex=2&endDateIndex=3&"
+    val HsReq: String = "CUST_CODE|AGENT_BIZ_TYPE|BRANCH|"
+    val HsAns: String = "CUSTOMER|AGENT_BIZ_TYPE|BEGIN_DATE|EXPIRY_DATE|"
+    val Request: String = "USERCODE|ContractType|KHBranch|"
+    val ReturnGrid: String = "客户代码|签约类型|协议生效日|协议到期日|"
+    val DisplayFormat: String = "客户代码|签约类型|协议生效日|协议到期日|"
+    val IndexParamNew: String = "startDateIndex=2&endDateIndex=3&"
+
+    //    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
+  def get6513(): Unit = {
+    val HsReq: String = "BEGIN_DATE|END_DATE|USER_CODE|ACCOUNT|USE_DZD|CURRENCY|"
+    val HsAns: String = "SETT_DATE|TRD_DATE|OCCUR_DATE|USER_CODE|CUST_NAME|SERIAL_NO|CUST_CLS|ACCOUNT|CURRENCY|ACC_CLS|BRANCH|SECU_ACC|BIZ_CODE|TRD_ID|ORDER_ID|MARKET|BOARD|BOARD|SEAT|SECU_CODE|SECU_NAME|SECU_CLS|PRICE|QTY|ORDER_FRZ_AMT|MATCHED_PRICE|MATCHED_QTY|MATCHED_AMT|MATCHED_TIME|MATCHED_SN|SETT_AMT|SETT_QTY|CPTL_AMT|BALANCE|SHARE_BLN|OP_BRH|OP_USER|OP_NAME|OP_ROLE|EXT_INST|CHANNELS|COMMISSION|STAMP_DUTY|TRADE_FEE|ADMIN_FEE|HANDLE_FEE|TRANS_FEE|XTRANS_FEE|CLEAR_FEE|GZLX|OTHER_FEE|FEE_10C|ORDER_TYPE|REMARK|BIZ_NAME|NET_COMMISSION|HK_RATE|"
+    val Request: String = "BEGINDATE|ENDDATE|USERCODE||||"
+    val ReturnGrid: String = "清算日期|交易日期|发生日期|客户代码|客户姓名|用户流水号|客户分类|资产账户|货币|资产账户分类|分支机构|股东代码|业务代码|交易行为|合同序号|交易市场|板块|板块A|席位|证券代码|证券名称|证券类别|委托价格|委托数量|委托冻结金额|成交价格|成交数量|成交金额|成交时间|成交编号|清算过户金额|清算股份数量|发生金额|资金余额|股份余额|操作分支|操作用户|操作用户名|操作角色|外部机构|交易渠道|手续费|印花税|交易规费|证管费|经手费|过户费|交易所过户费|清算费|国债利息|其它费|限售所得税|委托类型|备注信息|业务名称|净手续费|沪港通汇率|"
+    val DisplayFormat: String = "清算日期|交易日期|发生日期|客户代码|客户姓名|用户流水号|客户分类|资产账户|货币|股东代码|业务代码|交易行为|合同序号|交易市场|证券代码|证券名称|证券类别|委托价格|委托数量|委托冻结金额|成交价格|成交数量|成交金额|成交时间|成交编号|清算过户金额|清算股份数量|发生金额|资金余额|股份余额|手续费|印花税|交易规费|证管费|经手费|过户费|交易所过户费|清算费|国债利息|其它费|限售所得税|委托类型|备注信息|业务名称|净手续费|沪港通汇率|板块A|"
+    val IndexParamNew: String = "InitDateIndex=1&OrderDateIndex=1&UserCodeIndex=3&UserNameIndex=4&FundAccountIndex=7&WtAccountIndex=9&WtAccountIndex=9&refbusicodeindex=10&StockCodeIndex=14&StockNameIndex=15&Stocktypeindex=16&OrderPriceIndex=17&OrderQtyIndex=18&MatchPriceIndex=20&MatchQtyIndex=21&DealMoneyIndex=22&OrderTimeIndex=23&ReportCodeindex=24&MoneyIndex=27&OccurBalanceIndex=27&FareIndex=30&StampDutyIndex=31&TransFeeIndex=35&Otherchargesindex=39&BusinessNameIndex=43&"
+
+    //    HsReq=BEGIN_DATE|END_DATE|USER_CODE|ACCOUNT|USE_DZD|CURRENCY|
+    //      HsAns=SETT_DATE|TRD_DATE|OCCUR_DATE|USER_CODE|CUST_NAME|SERIAL_NO|CUST_CLS|ACCOUNT|CURRENCY|ACC_CLS|BRANCH|SECU_ACC|BIZ_CODE|TRD_ID|ORDER_ID|MARKET|BOARD|BOARD|SEAT|SECU_CODE|SECU_NAME|SECU_CLS|PRICE|QTY|ORDER_FRZ_AMT|MATCHED_PRICE|MATCHED_QTY|MATCHED_AMT|MATCHED_TIME|MATCHED_SN|SETT_AMT|SETT_QTY|CPTL_AMT|BALANCE|SHARE_BLN|OP_BRH|OP_USER|OP_NAME|OP_ROLE|EXT_INST|CHANNELS|COMMISSION|STAMP_DUTY|TRADE_FEE|ADMIN_FEE|HANDLE_FEE|TRANS_FEE|XTRANS_FEE|CLEAR_FEE|GZLX|OTHER_FEE|FEE_10C|ORDER_TYPE|REMARK|BIZ_NAME|NET_COMMISSION|HK_RATE|
+    //      Request=BEGINDATE|ENDDATE|USERCODE||||
+    //      ReturnGrid=清算日期|交易日期|发生日期|客户代码|客户姓名|用户流水号|客户分类|资产账户|货币|资产账户分类|分支机构|股东代码|业务代码|交易行为|合同序号|交易市场|板块|板块A|席位|证券代码|证券名称|证券类别|委托价格|委托数量|委托冻结金额|成交价格|成交数量|成交金额|成交时间|成交编号|清算过户金额|清算股份数量|发生金额|资金余额|股份余额|操作分支|操作用户|操作用户名|操作角色|外部机构|交易渠道|手续费|印花税|交易规费|证管费|经手费|过户费|交易所过户费|清算费|国债利息|其它费|限售所得税|委托类型|备注信息|业务名称|净手续费|沪港通汇率|
+    //      DisplayFormat=清算日期|交易日期|发生日期|客户代码|客户姓名|用户流水号|客户分类|资产账户|货币|股东代码|业务代码|交易行为|合同序号|交易市场|证券代码|证券名称|证券类别|委托价格|委托数量|委托冻结金额|成交价格|成交数量|成交金额|成交时间|成交编号|清算过户金额|清算股份数量|发生金额|资金余额|股份余额|手续费|印花税|交易规费|证管费|经手费|过户费|交易所过户费|清算费|国债利息|其它费|限售所得税|委托类型|备注信息|业务名称|净手续费|沪港通汇率|板块A|
+    //      IndexParamNew=InitDateIndex=1&OrderDateIndex=1&UserCodeIndex=3&UserNameIndex=4&FundAccountIndex=7&WtAccountIndex=9&WtAccountIndex=9&refbusicodeindex=10&StockCodeIndex=14&StockNameIndex=15&Stocktypeindex=16&OrderPriceIndex=17&OrderQtyIndex=18&MatchPriceIndex=20&MatchQtyIndex=21&DealMoneyIndex=22&OrderTimeIndex=23&ReportCodeindex=24&MoneyIndex=27&OccurBalanceIndex=27&FareIndex=30&StampDutyIndex=31&TransFeeIndex=35&Otherchargesindex=39&BusinessNameIndex=43&
+
 
     //    hsReq(HsReq)
     request(Request)
@@ -239,13 +263,12 @@ class ApplyDemo {
   }
 
 
-
-  def requestMapping(request: String, hsReq: String) = {
+  def requestMapping(request: String, hsReq: String): Array[Unit] = {
     System.err.println("++++++++++++++++++++++++requestMapping++++++++++++++++++++++++++++")
     val requests: Array[String] = request.split("\\|")
     val hsReqs: Array[String] = hsReq.split("\\|")
-    var i = -1;
-    requests.map(req => {
+    var i: Int = -1;
+    requests.map((req: String) => {
       i = i + 1
       //req.setTrdacct(requests.getWtAccount());
       if (req != "") println(s"req.set${hsReqs(i).charAt(0) + hsReqs(i).substring(1).toLowerCase}(requests.get${req.charAt(0).toString.toUpperCase() + req.substring(1)}());")
@@ -253,7 +276,7 @@ class ApplyDemo {
   }
 
   def hsReq(attribute: String): Unit = {
-    val func = (param: String) => {
+    val func: String => String = (param: String) => {
       var upperCase: String = param.toLowerCase()
       while (upperCase.contains("_")) {
         upperCase = upperCase.substring(0, upperCase.lastIndexOf("_")) + upperCase.charAt(upperCase.lastIndexOf("_") + 1).toString.toUpperCase + upperCase.substring(upperCase.lastIndexOf("_") + 2)
@@ -262,27 +285,27 @@ class ApplyDemo {
     }
     val hsReq: Array[String] = attribute.split("\\|").map(func)
     System.err.println("++++++++++++++++++++++++hsReq++++++++++++++++++++++++++++")
-    hsReq.map(println(_))
+    hsReq.map(println(_: String))
   }
 
 
   def indexParamNew(str: String): Unit = {
     System.err.println("++++++++++++++++++++++++indexParamNew++++++++++++++++++++++++++++")
     //    System.err.println(s"public  String grid = ${str}")
-    str.split("&").map(x => {
-      val y = x.toLowerCase
+    str.split("&").map((x: String) => {
+      val y: String = x.charAt(0).toString.toLowerCase + x.substring(1)
       "public  String " + y.substring(0, y.lastIndexOf("=") + 1) + "\"" + y.substring(y.lastIndexOf("=") + 1) + "\"" + ";"
-    }).foreach(println(_))
+    }).foreach(println(_: String))
   }
 
   def request(str: String): Unit = {
     System.err.println("++++++++++++++++++++++++request++++++++++++++++++++++++++++")
-    str.split("\\|").map(x => {
-      val y = x.toLowerCase
+    str.split("\\|").map((x: String) => {
+      val y: String = x.toLowerCase
       //      "public  String " + y.substring(0, y.lastIndexOf("=") + 1) + "\"" + y.substring(y.lastIndexOf("=") + 1) + "\"" + ";"
-      val str = if (y != "") "public  String " + y + "=\"\";" else ""
+      val str: String = if (y != "") "public  String " + y + "=\"\";" else ""
       str
-    }).foreach(str => if (str != "") println(str))
+    }).foreach((str: String) => if (str != "") println(str))
   }
 
   def responseMapping(hsAns: String, grid: String, format: String): Unit = {
@@ -296,16 +319,18 @@ class ApplyDemo {
     val map: Map[String, String] = Map()
 
     for (i <- 0 to hsAnss.length - 1) {
-      map += grids(i) -> hsAnss(i)
+      map += grids(i) -> hsAnss(i).toLowerCase
     }
-    val combinations: Array[Any] = formats.map(x => {
+    val combinations: Array[(String, String, String)] = formats.map((x: String) => {
       if (map.contains(x)) {
         println((x, x, map(x)))
-        (x, x, map(x))
+        (x: String, x: String, map(x): String)
       } else {
         print("====================================================")
+        ("": String, "": String, "": String)
       }
     })
+    combinations.foreach(a=>println(s"row.get${a._3.charAt(0).toString.toUpperCase() +a._3.substring(1)}(), // ${a._2}"))
 
     //    val array: Array[(String, String)] = Array()
     //    for (i <- 0 to hsAnss.length) {

@@ -18,11 +18,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 /**
  * 点击流日志模拟器
  */
 public class ClickLogGenerator {
+//    public Logger logger=Logger.getLogger("org"); //.setLevel(Level.ERROR)
     private static Long[] channelID = new Long[]{1l, 2l, 3l, 4l, 5l, 6l, 7l, 8l, 9l, 10l, 11l, 12l, 13l, 14l, 15l, 16l, 17l, 18l, 19l, 20l};//频道id集合
     private static Long[] categoryID = new Long[]{1l, 2l, 3l, 4l, 5l, 6l, 7l, 8l, 9l, 10l, 11l, 12l, 13l, 14l, 15l, 16l, 17l, 18l, 19l, 20l};//产品类别id集合
     private static Long[] produceID = new Long[]{1l, 2l, 3l, 4l, 5l, 6l, 7l, 8l, 9l, 10l, 11l, 12l, 13l, 14l, 15l, 16l, 17l, 18l, 19l, 20l};//产品id集合
@@ -115,8 +117,9 @@ public class ClickLogGenerator {
     }
 
     public static void main(String[] args) {
+        Logger.getLogger("org").setLevel(Level.ERROR);
         Random random = new Random();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             //频道id 类别id 产品id 用户id 打开时间 离开时间 地区 网络方式 来源方式 浏览器
             ClickLog clickLog = new ClickLog();
 

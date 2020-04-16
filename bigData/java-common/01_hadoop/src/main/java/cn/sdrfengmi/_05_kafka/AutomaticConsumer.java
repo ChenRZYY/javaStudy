@@ -16,7 +16,7 @@ public class AutomaticConsumer {
     @SuppressWarnings("all")
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "node01:9092");
+        props.put("bootstrap.servers", "server02:9092");
         props.put("group.id", "test_group");  //消费组
         props.put("enable.auto.commit", "true");//允许自动提交offset
         props.put("auto.commit.interval.ms", "1000");//每隔多久自动提交offset
@@ -28,7 +28,7 @@ public class AutomaticConsumer {
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
 
         //指定消费哪个topic里面的数据
-        kafkaConsumer.subscribe(Arrays.asList("test"));
+        kafkaConsumer.subscribe(Arrays.asList("pyg"));
         //使用死循环来消费test这个topic里面的数据
         while (true){
             //这里面是我们所有拉取到的数据
