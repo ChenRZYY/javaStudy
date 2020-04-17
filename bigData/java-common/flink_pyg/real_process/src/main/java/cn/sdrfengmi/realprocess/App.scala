@@ -3,17 +3,15 @@ package cn.sdrfengmi.realprocess
 import java.util.Properties
 
 import cn.sdrfengmi.realprocess.bean.{ClickLog, ClickLogWide, Message}
-import cn.sdrfengmi.realprocess.task.{ChannelAreaTask, ChannelBrowserTask, ChannelFreshnessTask, ChannelNetWorkTask, ChannelPvUvTask, ChannelRealHotTask, PreprocessTask}
+import cn.sdrfengmi.realprocess.task.{ChannelPvUvTask, PreprocessTask}
 import cn.sdrfengmi.realprocess.util.GlobalConfigUtil
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.serialization.SimpleStringSchema
-import org.apache.flink.runtime.state.StateBackend
-import org.apache.flink.runtime.state.filesystem.FsStateBackend
 import org.apache.flink.streaming.api.environment.CheckpointConfig
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks
-import org.apache.flink.streaming.api.{CheckpointingMode, TimeCharacteristic}
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.streaming.api.watermark.Watermark
+import org.apache.flink.streaming.api.{CheckpointingMode, TimeCharacteristic}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
 
 

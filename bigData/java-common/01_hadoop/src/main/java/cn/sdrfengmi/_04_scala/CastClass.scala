@@ -13,6 +13,16 @@ package cn.sdrfengmi._04_scala
   *
   * 1.> Mainfest上下文界定 1. 在Scala中数组必须是有类型的,如果直接是泛型的话将会报错,这时候引入了Manifest上下文界定,需要一个Mainfest[T]对象,而mainifest[T]有...
   * 2.> ClassTag 1. 源码中的解释,在泛型中,type T是被擦除的。这个是非常有用的,在我们构建数组的时候,但是数组的类型我们也不知道,编译的时候不知道,但是运行的时候要知道,ClassT...
+  *
+  *
+  *
+  *
+  *         Case Class是样例类，能够被优化以用于模式匹配。
+  *
+  *         1 构造器中的参数如果不被声明为var的话，默认是val类型
+  *         2 自动创建伴生对象，实现apply方法，可以不直接显示地new对象
+  *         3 伴生对象实现unapply方法，从而可以将case class应用于模式匹配
+  *         4 实现toString、hashCode、copy、equals方法
   */
 object CastClass {
 
@@ -59,8 +69,12 @@ object CastClass {
       case None => println(None)
     }
     println(parse[Double](dd02)) // 正确的转换方式
-    println(dd02.asInstanceOf[Double]) // 错误的转换方式：强制类型转换：java.lang.String cannot be cast to java.lang.Double
+    println(dd02.toDouble) //正常是用这个
+    println(dd02.asInstanceOf[Double]) // 错误的转换方式：强制类型转换：java.lang.String cannot be cast to java.lang.Double fixme ??? 怎么使用还不知道
     println(dd02.toFloat) // 错误的转换方式，会抛出异常：  java.lang.String cannot be cast to java.lang.Double
+  }
 
+  def main(args: Array[String]): Unit = {
+    test
   }
 }

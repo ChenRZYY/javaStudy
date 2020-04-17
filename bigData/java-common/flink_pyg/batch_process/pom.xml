@@ -8,14 +8,16 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>sync_db</artifactId>
+
+    <artifactId>batch_process</artifactId>
 
     <properties>
-        <!--        <scala.version>2.11</scala.version>-->
+        <scala.version>2.11</scala.version>
         <flink.version>1.6.1</flink.version>
         <hadoop.version>2.7.5</hadoop.version>
         <hbase.version>2.0.0</hbase.version>
     </properties>
+
 
     <dependencies>
         <!--kafka 客户端-->
@@ -25,32 +27,28 @@
             <!--            <version>0.10.1.0</version>-->
         </dependency>
 
-
         <!--flink对接kafka：导入flink使用kafka的依赖-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.10_${scala.v}</artifactId>
-            <!--            <version>${flink.version}</version>-->
         </dependency>
 
         <!--批处理-->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table_${scala.v}</artifactId>
-            <!--            <version>${flink.version}</version>-->
+            <artifactId>flink-table_${scala.version}</artifactId>
+            <version>${flink.version}</version>
         </dependency>
         <!--导入scala的依赖-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-scala_${scala.v}</artifactId>
-            <!--            <version>${flink.version}</version>-->
         </dependency>
 
         <!--模块二 流处理-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-scala_${scala.v}</artifactId>
-            <!--            <version>${flink.version}</version>-->
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -61,35 +59,26 @@
         <!--数据落地flink和hbase的集成依赖-->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-hbase_${scala.v}</artifactId>
-            <!--            <version>${flink.version}</version>-->
+            <artifactId>flink-hbase_${scala.version}</artifactId>
+            <version>${flink.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-client</artifactId>
-            <!--            <version>${hbase.version}</version>-->
+            <version>${hbase.version}</version>
         </dependency>
-
-
-        <!--<dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-server</artifactId>
-            <version>2.0.0</version>
-        </dependency>-->
 
 
         <!--hbase依赖于hadoop-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
-            <!--            <version>${hadoop.version}</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
-            <!--            <version>${hadoop.version}</version>-->
             <!--xml.parser冲突 flink hdfs-->
             <exclusions>
                 <exclusion>
@@ -102,7 +91,6 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-            <!--            <version>${hadoop.version}</version>-->
             <!--数据同步：canal 和 hadoop protobuf-->
             <exclusions>
                 <exclusion>
@@ -116,7 +104,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <!--            <version>1.2.44</version>-->
         </dependency>
     </dependencies>
 
@@ -128,13 +115,11 @@
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
             </plugin>
-
             <!-- java编译插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-
             <!-- 打jar包插件(会包含所有依赖) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

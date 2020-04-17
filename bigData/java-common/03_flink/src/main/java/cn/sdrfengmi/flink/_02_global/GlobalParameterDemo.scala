@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.log4j.{Level, Logger}
 
 /**
-  * @Author Haishi
+  * @Author 陈振东
   * @create 2020/3/20 11:07
   */
 class GlobalParameterDemo {

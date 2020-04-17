@@ -15,6 +15,7 @@
         <module>real_process</module>
         <module>canal_kafka</module>
         <module>sync_db</module>
+        <module>batch_process</module>
     </modules>
 
     <properties>

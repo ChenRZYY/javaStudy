@@ -5,7 +5,7 @@ import org.apache.commons.httpclient.methods.GetMethod
 
 
 /**
-  * @Author Haishi
+  * @Author 陈振东
   * @create 2020/3/23 14:15
   */
 object HttpUtils {

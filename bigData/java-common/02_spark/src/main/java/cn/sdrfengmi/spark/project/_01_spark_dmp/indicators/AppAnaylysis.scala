@@ -5,7 +5,7 @@ import org.apache.spark.sql.{Dataset, SaveMode, SparkSession}
 import cn.sdrfengmi.spark.project._01_spark_dmp.utils.{ConfigUtils, DateUtils}
 
 /**
-  * @Author Haishi
+  * @Author 陈振东
   * @create 2020/3/23 17:55
   *         广告投放的APP分布情况统计
   *         作用表:ods

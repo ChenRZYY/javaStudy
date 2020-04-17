@@ -5,7 +5,7 @@ import java.util.{Calendar, Date}
 import org.apache.commons.lang3.time.FastDateFormat
 
 /**
-  * @Author Haishi
+  * @Author 陈振东
   * @create 2020/3/23 15:11
   */
 object DateUtils {

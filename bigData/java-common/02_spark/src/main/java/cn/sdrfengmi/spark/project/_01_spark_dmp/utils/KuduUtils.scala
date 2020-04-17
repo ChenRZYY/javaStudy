@@ -6,7 +6,7 @@ import org.apache.spark.sql.{DataFrame, SaveMode, Row, SparkSession}
 import org.apache.spark.sql.types.StructType
 
 /**
-  * @Author Haishi
+  * @Author 陈振东
   * @create 2020/3/23 15:07
   */
 object KuduUtils {

@@ -16,6 +16,7 @@ import java.util.UUID;
 
 /**
  * Canal解析binlog日志工具类
+ *
  */
 public class CanalClient {
 

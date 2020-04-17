@@ -4,7 +4,7 @@ import org.apache.flink.api.common.functions.{Partitioner, RichMapFunction}
 import org.apache.flink.api.common.operators.Order
 import org.apache.flink.api.common.operators.base.JoinOperatorBase.JoinHint
 import org.apache.flink.api.java.aggregation.Aggregations
-import org.apache.flink.api.scala._
+import org.apache.flink.api.scala.{DataSet, _}
 import org.apache.flink.core.fs.FileSystem
 import org.apache.flink.util.Collector
 import org.junit.Test
@@ -105,7 +105,8 @@ class TransformationDemo {
     })*/
   }
 
-  //作用于整个 DataSet，合并该数据集的元素。
+  //  通过将两个元素反复组合为一个元素，将一组元素组合为一个元素。Reduce可以应用于完整的DataSet或分组的DataSet。
+  //  如果将reduce应用于分组DataSet，则可以通过向setCombineHint提供一个CombineHint来指定运行时执行reduce的组合阶段的方式。在大多数情况下，基于散列的策略应该更快，特别是具有很多不同键的时候。
   @Test
   def reduce(): Unit = {
     // 2 加载source
@@ -131,6 +132,7 @@ class TransformationDemo {
 
   }
 
+  //可作用于分组的DataSet或整个的DataSet上，通过迭代器访问DataSet中的所有元素。
   @Test
   def reduceGroup(): Unit = {
     // 2 加载source
@@ -139,7 +141,7 @@ class TransformationDemo {
     val groupedDataSet1: DataSet[(String, Int)] = words.reduceGroup {
       iter => iter.reduce((p1, p2) => (p1._1, p1._2 + p2._2))
     }
-    groupedDataSet1.print() //(hadoop,5)
+    groupedDataSet1.print() //(hadoop,5) ??? 后面的元素那
 
     val groupDataSet2: GroupedDataSet[(String, Int)] = words.groupBy(_._1)
     val groupedDataSet2: DataSet[(String, Int)] = groupDataSet2.reduceGroup {
@@ -165,7 +167,7 @@ class TransformationDemo {
     val words: DataSet[(String, Int)] = env.fromCollection(List(("hadoop", 1), ("hadoop", 2), ("hadoop", 2), ("hive", 3), ("spark", 1), ("flink", 1)))
     // 先分组,在reduce TODO _._1 为什么不行???
     val groupDataSet: GroupedDataSet[(String, Int)] = words.groupBy(_._1) //按照字段名称进行分组
-    //    groupDataSet.sum(0).first(2).print() TODO ??? 报错
+//    groupDataSet.sum(1).first(2).print() // TODO ??? 报错
     //    val groupDataSet1: GroupedDataSet[(String, Int)] = words.groupBy(0) //按照字段名称进行分组
     //    groupDataSet1.first(4).print()
     //
@@ -184,6 +186,7 @@ class TransformationDemo {
     val group1: GroupedDataSet[(String, Int)] = words.groupBy(0, 1)
     println(s"group1: ${group1.sum(1).print()}")
 
+    //sortGroup分组并排序：
     val group2: GroupedDataSet[(String, Int)] = words.groupBy(0).sortGroup(1, Order.ASCENDING)
     println(s"group2: ${group2.first(100).print()}")
 
@@ -192,6 +195,10 @@ class TransformationDemo {
 
   }
 
+  //  将一组值聚合为单个值。聚合函数可以看作是内置的reduce函数。聚合可以应用于完整的DataSet，也可以应用于分组的DataSet。
+  //  Aggregate 函数包括求和（SUM）、求最小值（SUM）、求最大值（MAX）。
+  // 1 DataSet
+  // 2 AggregateDataSet
   @Test
   def aggregate(): Unit = {
     // 2 加载source
@@ -211,37 +218,91 @@ class TransformationDemo {
     val input: DataSet[(Int, String, Double)] = env.fromElements((1, "a", 10d), (1, "b", 20d), (2, "a", 30d), (3, "c", 50d))
     val output1: DataSet[(Int, String, Double)] = input.aggregate(Aggregations.SUM, 0).aggregate(Aggregations.MIN, 2)
     output1.print()
+    // and第二种方式
+    val output2: DataSet[(Int, String, Double)] = input.aggregate(Aggregations.SUM, 0).and(Aggregations.MIN, 2)
+    output2.print()
 
     // 简化语法
-    val output2: DataSet[(Int, String, Double)] = input.sum(0).min(2)
-    output2.print()
+    val output3: DataSet[(Int, String, Double)] = input.sum(0).min(2)
+    output3.print()
   }
 
-  //取元组数据集中指定一个或多个字段的值最小（最大）的元组，可以应用于完整数据集或分组数据集。
+  @Test
+  def aggregate_ByGroup(): Unit = {
+
+    //1 作用在个DataSet上
+    val input1: DataSet[(Integer, String, Double)] = env.fromElements(
+      List(
+        (1, "hello", 5.0),
+        (1, "hello", 4.0),
+        (2, "hello", 5.0),
+        (3, "world", 7.0),
+        (4, "world", 6.0)
+      )
+    )
+    val groupByDataSet1: DataSet[(Integer, String, Double)] = input1.aggregate(Aggregations.SUM, 0).and(Aggregations.MIN, 2)
+    groupByDataSet1.print();
+    //(10,world,4.0)
+
+    //作用在分组上
+    val input2: DataSet[(Integer, String, Double)] = env.fromElements(
+      List(
+        (1, "hello", 5.0),
+        (1, "hello", 4.0),
+        (2, "hello", 5.0),
+        (3, "world", 7.0),
+        (4, "world", 6.0)
+      )
+    )
+    val groupByDataSet2: DataSet[(Integer, String, Double)] = input2.groupBy(1).aggregate(Aggregations.SUM, 0).and(Aggregations.MIN, 2)
+    groupByDataSet2.print();
+    //(6,world,6.0)
+    //(4,hello,4.0)
+  }
+
+
+  // 取元组数据集中指定一个或多个字段的值最小（最大）的元组，可以应用于完整数据集或分组数据集。
   // 用于比较的字段必须可比较的。如果多个元组具有最小（最大）字段值，则返回这些元组的任意元组。
+  // 1 GroupedDataSet:根据String分组后，先对Int属性求最小值，若对应最小值存在多个元祖，在根据double求最小值。
+  // 2 DataSet:根据String分组后，先对Int属性求最小值，若对应最小值存在多个元祖，在根据double求最小值。
   @Test
   def minBy_maxBy(): Unit = {
+    //作用整个DataSet
     val input: DataSet[(Int, String, Double)] = env.fromElements((1, "b", 20d), (1, "a", 10d), (2, "a", 30d))
     // 比较元组的第一个字段 输出 (1,b,20.0)
     val output1 = input.minBy(0).print()
-    // 比较元组的第一、三个字段 输出 (1,a,10d)
+    // 比较元组的第一、三个字段 输出 (1,a,10d) 中间元素随机取
     input.minBy(0, 2).print()
 
     input.min(1).print() //最小输出最后面一个
     input.max(1).print() //最大输出最后面一个
 
-//    input.sum(0)
-//    input.sum("key")
-//    input.min(0)
-//    input.min("key")
-//    input.max(0)
-//    input.max("key")
-//    input.minBy(0)
-//    input.minBy("key")
-//    input.maxBy(0)
-//    input.maxBy("key")
+    //    input.sum(0)
+    //    input.sum("key")
+    //    input.min(0)
+    //    input.min("key")
+    //    input.max(0)
+    //    input.max("key")
+    //    input.minBy(0)
+    //    input.minBy("key")
+    //    input.maxBy(0)
+    //    input.maxBy("key")
+
+    //作用在分组上 GroupedDataSet
+    val input2: DataSet[(Integer, String, Double)] = env.fromElements(
+      List(
+        (1, "hello", 5.0),
+        (1, "hello", 4.0),
+        (2, "hello", 5.0),
+        (3, "world", 7.0),
+        (4, "world", 6.0)
+      )
+    )
+    val groupByDataSet: DataSet[(Integer, String, Double)] = input2.groupBy(1).minBy(0, 2)
+    groupByDataSet.print();
   }
 
+  //Flink支持每个元素去重，也支持根据key的位置去重。
   @Test
   def distinct(): Unit = {
     // load list
@@ -252,7 +313,14 @@ class TransformationDemo {
 
     val distinctDataSet2: DataSet[(String, Int)] = list.distinct(0, 1)
     distinctDataSet2.print()
-    //    val output = list.distinct { (x, y) => Math.abs(y) }
+
+    //直接去重
+    val distinctDataSet3: DataSet[(String, Int)] = list.distinct()
+    distinctDataSet3.print()
+
+    //对结果去重
+    val distinctDataSet4 = list.distinct(tunp => (tunp._1.toUpperCase, tunp._2))
+    distinctDataSet4.print()
   }
 
   @Test
@@ -271,8 +339,8 @@ class TransformationDemo {
   //Cross 是一个计算密集型操作，对大型数据集会带来挑战。建议使用 crossWithTiny() 和 crossWithHuge() 优化。
   @Test
   def cross(): Unit = {
-    val scores: DataSet[score] = env.readCsvFile[score]("dataset/score.csv")
-    val subject: DataSet[subject1] = env.readCsvFile[subject1]("dataset/subject.csv")
+    val scores: DataSet[score] = env.readCsvFile[score]("01_dataset/score.csv")
+    val subject: DataSet[subject1] = env.readCsvFile[subject1]("01_dataset/subject.csv")
     val result: CrossDataSet[score, subject1] = scores.cross[subject1](subject)
     result.print()
   }
@@ -313,7 +381,7 @@ class TransformationDemo {
     // 4. 进行分区 总共有3个方法 按照第一参数的toString方法分区  如果是元祖用下标,其他数据输入名称
     val hashDataSet: DataSet[Int] = listDataSet.partitionByHash(_.toString)
     // 5. 写入文件
-    hashDataSet.writeAsText("datasetOut/patitions3",FileSystem.WriteMode.OVERWRITE)
+    hashDataSet.writeAsText("02_datasetOut/patitions3", FileSystem.WriteMode.OVERWRITE)
     // 6. 打印输出
     hashDataSet.print()
   }
@@ -327,7 +395,7 @@ class TransformationDemo {
     // 4. 进行分区
     val hashDataSet: DataSet[(String, Int)] = listDataSet.partitionByHash(0)
     // 5. 写入文件
-    hashDataSet.writeAsText("datasetOut/patitions" + Math.random)
+    hashDataSet.writeAsText("02_datasetOut/patitions" + Math.random)
     // 6. 打印输出
     hashDataSet.print()
   }
@@ -342,7 +410,7 @@ class TransformationDemo {
     val sortDataSet: DataSet[String] = listDataSet.sortPartition((x: String) => x, Order.ASCENDING)
     val value: DataSet[String] = sortDataSet.partitionByHash(_.toString)
     // 4. 写入文件
-    value.writeAsText("datasetOut/sort_output" + Math.random)
+    value.writeAsText("02_datasetOut/sort_output" + Math.random)
     // 5. 打印输出
     value.print()
   }
@@ -350,8 +418,8 @@ class TransformationDemo {
   @Test
   def join_apply(): Unit = {
     // readCsvFile 为什么Score1 不行 ????  虚拟机运行时找不到类
-    val scoreDataSet: DataSet[Score1] = env.readCsvFile[Score1]("dataset/score.csv")
-    val subjectDataSet: DataSet[Subject2] = env.readCsvFile[Subject2]("dataset/subject.csv")
+    val scoreDataSet: DataSet[Score1] = env.readCsvFile[Score1]("01_dataset/score.csv")
+    val subjectDataSet: DataSet[Subject2] = env.readCsvFile[Subject2]("01_dataset/subject.csv")
 
     // join
     // A.join(B).where(A的哪一个元素).equalTo(和B的哪个元素相等)
@@ -368,8 +436,8 @@ class TransformationDemo {
   @Test
   def join_map() = {
     //2.加载本地文件数据
-    val scores: DataSet[score] = env.readCsvFile[score]("dataset/score.csv")
-    val subject: DataSet[subject1] = env.readCsvFile[subject1]("dataset/subject.csv")
+    val scores: DataSet[score] = env.readCsvFile[score]("01_dataset/score.csv")
+    val subject: DataSet[subject1] = env.readCsvFile[subject1]("01_dataset/subject.csv")
     //3.join操作 从0开始按照元组的形式
     val result: JoinDataSet[score, subject1] = scores.join[subject1](subject).where(2).equalTo(0)
     //平常的map怎么不行
@@ -395,8 +463,8 @@ class TransformationDemo {
     // REPARTITION_SORT_MERGE，对两个数据同时进行分区，并对每个输入进行排序（除非数据已经分区或排序）。输入通过已排序输入的流合并来连接。如果已经对一个或两个输入进行过分区排序的情况，则此策略很好。
     // REPARTITION_HASH_FIRST 是系统使用的默认回退策略，如果不能进行大小估计，并且不能重新使用预先存在的分区和排序顺序。
 
-    val scores: DataSet[score] = env.readCsvFile[score]("dataset/score.csv")
-    val subject: DataSet[subject1] = env.readCsvFile[subject1]("dataset/subject.csv")
+    val scores: DataSet[score] = env.readCsvFile[score]("01_dataset/score.csv")
+    val subject: DataSet[subject1] = env.readCsvFile[subject1]("01_dataset/subject.csv")
     // 广播input1，并使用 hash table 的方式
     val joinDataSet: JoinDataSet[score, subject1] = scores.join[subject1](subject, JoinHint.BROADCAST_HASH_FIRST).where(2).equalTo(0)
     joinDataSet.print()
@@ -426,8 +494,8 @@ class TransformationDemo {
   @Test
   def leftOuterJoin_rightOuterJoin_fullOuterJoin() = {
     env.setParallelism(1) //有的必须指定并行度,因为是多线程 sort排序 不能正常
-    val scores: DataSet[score] = env.readCsvFile[score]("dataset/score.csv")
-    val subject: DataSet[subject1] = env.readCsvFile[subject1]("dataset/subject.csv")
+    val scores: DataSet[score] = env.readCsvFile[score]("01_dataset/score.csv")
+    val subject: DataSet[subject1] = env.readCsvFile[subject1]("01_dataset/subject.csv")
     val joinFunc1: JoinFunctionAssigner[score, subject1] = scores.leftOuterJoin[subject1](subject).where(2).equalTo(0)
     val joinFunc2: JoinFunctionAssigner[score, subject1] = scores.rightOuterJoin[subject1](subject).where(2).equalTo(0)
     val joinFunc3: JoinFunctionAssigner[score, subject1] = scores.fullOuterJoin[subject1](subject).where(2).equalTo(0)

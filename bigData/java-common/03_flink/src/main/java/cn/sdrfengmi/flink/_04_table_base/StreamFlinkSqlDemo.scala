@@ -16,7 +16,7 @@ import org.apache.log4j.{Level, Logger}
 import scala.util.Random
 
 /**
-  * @Author Haishi
+  * @Author 陈振东
   * @create 2020/3/19 10:31
   */
 object treamFlinkSqlDemo {
