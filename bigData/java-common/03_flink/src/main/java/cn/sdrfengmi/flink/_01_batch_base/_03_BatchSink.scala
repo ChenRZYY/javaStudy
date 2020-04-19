@@ -37,8 +37,8 @@ class _03_BatchSink {
     // 3. write as text setParallelism(4) 如果并行度大于1 会输出多个文件,test就是一个目录,如果并行度为1,那么test就是文件
 
     //writeAsText() / TextOutputFormat，将元素以字符串形式写入文件。字符串通过调用每个元素的 toString() 方法获得。FIXME 对象类型要写toString方法
-    mapDataSet.setParallelism(4).writeAsText("dataSetOut/writeFile", FileSystem.WriteMode.OVERWRITE)
-    mapDataSet.writeAsCsv("file:///dataSetOut/writeCSV", "\n", "|", FileSystem.WriteMode.OVERWRITE)
+    mapDataSet.setParallelism(4).writeAsText("01_datasetOut/writeFile", FileSystem.WriteMode.OVERWRITE)
+    mapDataSet.writeAsCsv("file:///01_datasetOut/writeCSV", "\n", "|", FileSystem.WriteMode.OVERWRITE)
     // 4. 执行程序  只能有一个sink
     mapDataSet.print()
     //    env.execute("sinkFile")
@@ -55,16 +55,16 @@ class _03_BatchSink {
     tData.sortPartition(1, Order.ASCENDING).print()
 
     // sort output on Double field in descending and Int field in ascending order
-    tData.sortPartition(2, Order.DESCENDING).sortPartition(0, Order.ASCENDING).writeAsText("file:///dataSetOut/writeFile1", FileSystem.WriteMode.OVERWRITE)
+    tData.sortPartition(2, Order.DESCENDING).sortPartition(0, Order.ASCENDING).writeAsText("file:///01_datasetOut/writeFile1", FileSystem.WriteMode.OVERWRITE)
 
     // sort output on the "author" field of nested BookPojo in descending order
-    pData.sortPartition("_1.author", Order.DESCENDING).writeAsText("file:///dataSetOut/writeFile1", FileSystem.WriteMode.OVERWRITE)
+    pData.sortPartition("_1.author", Order.DESCENDING).writeAsText("file:///01_datasetOut/writeFile1", FileSystem.WriteMode.OVERWRITE)
 
     // sort output on the full tuple in ascending order  Order.DESCENDING
-    tData.sortPartition("_", Order.ASCENDING).writeAsText("file:///dataSetOut/writeFile2", FileSystem.WriteMode.OVERWRITE)
+    tData.sortPartition("_", Order.ASCENDING).writeAsText("file:///01_datasetOut/writeFile2", FileSystem.WriteMode.OVERWRITE)
 
     // sort atomic type (String) output in descending order
-    sData.sortPartition("_", Order.DESCENDING).writeAsText("file:///dataSetOut/writeFile3", FileSystem.WriteMode.OVERWRITE)
+    sData.sortPartition("_", Order.DESCENDING).writeAsText("file:///01_datasetOut/writeFile3", FileSystem.WriteMode.OVERWRITE)
     env.execute()
   }
 

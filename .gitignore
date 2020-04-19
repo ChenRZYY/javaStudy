@@ -8,6 +8,7 @@ target/
 logs
 01_dataSetOut
 v3.1.1
+java-project
 
 #helloSpark
 bigData/HelloSpark/.idea/

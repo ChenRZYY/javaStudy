@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: eureka-server
+#开启链路追踪
+  zipkin:
+      base-url: http://192.19.23.7:9411 
+      sleuth:
+          sampler:
+          percentage: 1.0
+              
+server:
+  port: 1025
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false
+
+#全局超时连接
+ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 60000    
+
+       

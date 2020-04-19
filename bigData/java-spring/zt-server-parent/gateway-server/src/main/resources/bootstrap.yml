@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: gateway-server  # application 很重要 及时服务名称，也是config的请求的名称
+  cloud:
+    config:
+      profile: ${spring.profiles.active}
+      label: trunk
+      discovery:
+        enabled: true
+        service-id: config-server
+        
+#开启链路追踪
+  zipkin:
+      base-url: http://192.19.23.7:9411 
+  sleuth:
+    sampler:
+      probability: 1.0       
+        
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1025/eureka/
+  instance:
+   prefer-ip-address: true  
+   

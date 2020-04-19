@@ -1,0 +1,54 @@
+#logging:
+#  level:
+#    ROOT: DEBUG
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      enabled: true
+      server:
+        svn:
+          uri: http://10.60.18.80/repos/doc/工程类项目/01_工程项目/P2018021_MAC版页面交易项目/源码/中间件源码/config-server
+          username: chenzhendong
+          password: 123444
+          default-label: trunk
+#          search-paths: configuration-variables/quotes-service;configuration-variables/information-service
+  profiles:
+    active: subversion   
+
+#暴露所有端点 请求的端点
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#         include: bus-refresh
+#        include: "*"    
+    
+#  --1 本地配置  -读取多个文件
+#  profiles:
+#    active: native
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations:
+#           - classpath:/**
+#           - classpath:/configuration-variables/information-service/
+#           - classpath:/configuration-variables/gateway-server/
+#           - classpath:/configuration-variables/quotes-service/
+#           - classpath:/configuration-variables/trade-service/
+           
+server:
+  port: 8889
+eureka:
+  client:
+     serviceUrl:
+      defaultZone: http://127.0.0.1:1025/eureka/
+  instance: 
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}
+    
+    
+    

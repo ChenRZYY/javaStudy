@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: quotes-service
+  cloud:
+    config:
+#      uri: http://localhost:1026/
+      profile: ${spring.profiles.active}
+      label: trunk
+      discovery:
+        service-id: config-server
+        enabled: true
+        
+#开启链路追踪
+#  zipkin:
+#      base-url: http://192.19.23.7:9411 
+#      sleuth:
+#          sampler:
+#          percentage: 1.0
+  zipkin:
+    base-url: http://localhost:9411 
+  sleuth:
+    sampler:
+      probability: 1.0  
+                
+logging:
+  file: ${spring.application.name}
+  path: ./logs/info
+  level:
+    ROOT: DEBUG
+    
+#  instance:
+#    instanceId: ${spring.application.name):${random.int}
+management:  #actuator
+#  server:
+#    port: 8084
+  endpoints:
+    web:
+#      base-path: /  #修改/actuator前缀
+      exposure:
+        include: "*"
+#        include: refresh,health,info
+#    endpoint:
+#      health:
+#        show-details: always #默认是never      
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1025/eureka/
+  instance:
+   prefer-ip-address: true
+#   instance-id: ${spring.cloud.client.ip-address}:${server.port}
+#   hostname: ${spring.cloud.client.ip-address}   
+
+
+      

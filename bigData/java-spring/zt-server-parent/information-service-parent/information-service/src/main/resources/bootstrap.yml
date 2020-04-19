@@ -1,0 +1,84 @@
+#server:
+#  port: 10001
+#debug: false
+spring:
+  cloud:
+    config:
+      profile: ${spring.profiles.active} #dev #{spring.profiles.active}
+      label: trunk
+      # uri: http://localhost:1026/
+      failFast: true       #设为true，如果无法连接config server，启动时会抛异常，并停止服务
+      discovery:
+        enabled: true  # 这里必须配置为true，否则还是会取默认的localhost:8888端口
+        service-id: config-server
+    
+        
+#    bus: 
+#      trace: 
+#        enabled: true
+        
+#    rabbitmq:
+#        host: localhost
+#        port: 5672
+#        username: guest
+#        password: guest
+
+##开启链路追踪
+#  zipkin:
+#      base-url: http://192.19.23.7:9411 
+#      sleuth:
+#          sampler:
+#          percentage: 1.0
+
+  zipkin:
+    base-url: http://localhost:9411 
+  sleuth:
+    sampler:
+      probability: 1.0  #2.0后percentage改为probability
+      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1025/eureka/
+  instance:
+   prefer-ip-address: true  
+foo: foo   
+#management:
+#  security: 
+#    enabled: false
+#management:
+#  health:
+#    mail:
+#      enabled: false
+#  endpoints:
+#    web:
+#      base-path: /manage
+#      exposure:
+#        include: "*"  
+# 安全监测配置
+management:  #actuator
+#  server:
+#    port: 8089
+  endpoints:
+    web:
+#      base-path: /  #修改/actuator前缀
+      exposure:
+        include: '*'
+#        include: refresh,health,info,hystrix.stream 
+#    endpoint:
+#      health:
+#        show-details: always #默认是never           
+  endpoint:
+    health:
+      show-details: always #ALWAYS
+      
+#management.endpoints.enabled-by-default = false
+#management.endpoint.info.enabled = true
+# management:metrics:web:server:auto-time-requests=false
+
+feign:
+  httpclient:
+    enabled: true  #开启feign注解
+    connection-timeout: 30000 #连接超时
+  trade-service: trade-service #需要调用那些微服务名称
+  

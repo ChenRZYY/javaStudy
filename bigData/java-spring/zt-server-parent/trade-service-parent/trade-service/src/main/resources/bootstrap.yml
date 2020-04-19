@@ -1,0 +1,64 @@
+server:
+  port: 1050
+spring:
+  application:
+    name: trade-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+#     uri: http://localhost:1026/ #直接用url的方式指定config注册中心
+      profile: ${spring.profiles.active}
+      label: trunk
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: config-server
+        
+#  zipkin:
+#      base-url: http://localhost:9411 
+#      sleuth:
+#          sampler:
+#          percentage: 1.0
+  zipkin:
+    base-url: http://127.168.23.7:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+                  
+   
+#logging:
+#  level:
+#    ROOT: DEBUG
+#  instance:
+#    instanceId: ${spring.application.name):${random.int}
+management:  #actuator
+#  server:
+#    port: 10550
+  endpoints:
+    web:
+#      base-path: /  #修改/actuator前缀
+      exposure:
+        include: "*"
+#        include: refresh,health,info,hystrix.stream 
+#    endpoint:
+#      health:
+#        show-details: always #默认是never      
+        
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1025/eureka/
+  instance:
+   prefer-ip-address: true
+   instance-id: ${spring.cloud.client.ip-address}:${server.port}
+   hostname: ${spring.cloud.client.ip-address}   
+   
+feign:
+  httpclient:
+    enabled: true  #开启feign注解
+    connection-timeout: 30000 #连接超时
+  information-service: information-service #需要调用那些微服务名称   
+  hystrix:
+    enabled: true   
+   
