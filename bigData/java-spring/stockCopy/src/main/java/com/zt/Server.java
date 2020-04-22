@@ -15,14 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Server {
 
-	public static void main(String[] args) {
-		// 判断服务器类型
-		ClientUtil.init((args == null || args.length == 0) ? null : args[0]);
-		run();
-	}
+    public static void main(String[] args) {
+        // 判断服务器类型,初始化client
+        ClientUtil.init((args == null || args.length == 0) ? null : args[0]);
+        run();
+    }
 
     public static void run() {
-      //启动一个spring上下文环境
+        //启动一个spring上下文环境
         log.info("==========netty服务端启动==========");
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workGroup = new NioEventLoopGroup();
@@ -40,11 +40,9 @@ public class Server {
             log.info("服务端开启等待客户端连接 ... ...");
             ChannelFuture cf = b.bind(port).sync();
             cf.channel().closeFuture().sync();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("RUN ERROR", e);
-        }
-        finally {
+        } finally {
             bossGroup.shutdownGracefully();
             workGroup.shutdownGracefully();
         }

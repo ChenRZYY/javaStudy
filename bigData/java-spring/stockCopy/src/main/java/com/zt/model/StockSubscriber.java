@@ -14,39 +14,39 @@ import lombok.Setter;
 @Getter
 public class StockSubscriber {
 
-	private String area;//那一块请求的集合
+    private String area;//那一块请求的集合
 
-	private HashMap<String, String> params;//接口请求参数
+    private HashMap<String, String> params;//接口请求参数
 
-	private String channelKey;//唯一标识
+    private String channelKey;//唯一标识
 
-	private ChannelGroup channels;//用户组
-	
-	private Set<Channel> channelSet;
+    private ChannelGroup channels;//用户组
 
-	private Integer action;//前端界面请求那个接口
+    private Set<Channel> channelSet;
 
-	public StockSubscriber(HashMap<String, String> params, String area, String channelKey) {
-		this.params = params;
-		this.area = area;
-		this.channelKey = channelKey;
-		this.action = Integer.valueOf(params.get("Action"));
+    private Integer action;//前端界面请求那个接口
+
+    public StockSubscriber(HashMap<String, String> params, String area, String channelKey) {
+        this.params = params;
+        this.area = area;
+        this.channelKey = channelKey;
+        this.action = Integer.valueOf(params.get("Action"));
 //		this.channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-	}
+    }
 
-	public void add(Channel channel) {
-		this.channels.add(channel);
-	}
+    public void add(Channel channel) {
+        this.channels.add(channel);
+    }
 
-	public void remove(Channel channel) {
-		this.channels.remove(channel);
-	}
-	
-	public void addChannel(Channel channel) {
-	    this.channelSet.add(channel);
-	}
-	
-	public void removeChannel(Channel channel) {
-	    this.channelSet.remove(channel);
-	}
+    public void remove(Channel channel) {
+        this.channels.remove(channel);
+    }
+
+    public void addChannel(Channel channel) {
+        this.channelSet.add(channel);
+    }
+
+    public void removeChannel(Channel channel) {
+        this.channelSet.remove(channel);
+    }
 }

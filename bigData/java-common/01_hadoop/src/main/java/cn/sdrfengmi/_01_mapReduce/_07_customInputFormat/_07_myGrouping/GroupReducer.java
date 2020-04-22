@@ -13,9 +13,9 @@ public class GroupReducer extends Reducer<OrderBean,Text,Text,NullWritable> {
         for (Text value : values) {
             context.write(value, NullWritable.get());
             i++;
-            if(i >= 2){
-                break;
-            }
+//            if(i >= 2){
+//                break;
+//            }
         }
     }
 }

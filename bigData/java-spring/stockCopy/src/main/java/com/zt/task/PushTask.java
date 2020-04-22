@@ -10,16 +10,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PushTask extends Thread {
     private StockSubscriber subscriber;
-    
+
     private BlockingQueue<StockSubscriber> blockingQueue;
-    
+
     public PushTask(BlockingQueue<StockSubscriber> blockingQueue) {
         this.blockingQueue = blockingQueue;
     }
-    
+
     @Override
     public void run() {
-        for (;;) {
+        for (; ; ) {
             try {
                 // 从消息队列取出 消息推送 for循环是否要优化
                 subscriber = blockingQueue.take();
@@ -31,12 +31,11 @@ public class PushTask extends Thread {
                 if (subscriber.getChannels().size() > 0) {
                     StockUtil.timerSendData(subscriber);
                 }
-                
-            }
-            catch (Exception e) {
+
+            } catch (Exception e) {
                 log.error("PushTask run errror", e);
             }
         }
     }
-    
+
 }

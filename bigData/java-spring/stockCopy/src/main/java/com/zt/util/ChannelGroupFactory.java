@@ -8,10 +8,11 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 public class ChannelGroupFactory {
-    
+
     private static int count = 0;
-    
+
     private static List<ChannelGroup> groups = new ArrayList<>();
+
     static {
         groups.add(new DefaultChannelGroup("channelGroup-1", GlobalEventExecutor.INSTANCE));
         groups.add(new DefaultChannelGroup("channelGroup-2", GlobalEventExecutor.INSTANCE));
@@ -30,7 +31,7 @@ public class ChannelGroupFactory {
 //        groups.add(new DefaultChannelGroup("channelGroup-15", GlobalEventExecutor.INSTANCE));
 //        groups.add(new DefaultChannelGroup("channelGroup-16", GlobalEventExecutor.INSTANCE));
     }
-    
+
     public synchronized static ChannelGroup getChannelGroup() {
         if (count > 7) {
             count = 0;

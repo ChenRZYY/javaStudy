@@ -11,7 +11,9 @@ import org.apache.hadoop.util.ToolRunner;
 
 import static cn.sdrfengmi._01_mapReduce.HdfsUtil.*;
 
-
+/**
+ * 自定义sortBean  并且实现排序
+ */
 public class JobMain extends Configured implements Tool {
 
     static{
@@ -40,7 +42,7 @@ public class JobMain extends Configured implements Tool {
 //        TextInputFormat.addInputPath(job, new Path("file:///D:\\input\\sort_input"));
         //第二步: 设置Mapper类和数据类型
         job.setMapperClass(SortMapper.class);
-        job.setMapOutputKeyClass(SortBean.class);
+        job.setMapOutputKeyClass(SortBean.class); //自己定义的bean必须实现序列化接口,选择性实现 Comparable
         job.setMapOutputValueClass(NullWritable.class);
 
         //第三，四，五，六

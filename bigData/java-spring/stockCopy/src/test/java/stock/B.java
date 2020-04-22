@@ -1,6 +1,7 @@
 package stock;
-interface B extends C{
-    
+
+interface B extends C {
+
     String getB();
-    
+
 }

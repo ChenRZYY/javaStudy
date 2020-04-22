@@ -1,0 +1,50 @@
+#logging:
+#  level:
+#    ROOT: DEBUG
+#    org.springframework.cloud.gateway: DEBUG
+server:
+  port: 8889
+eureka:
+  client:
+     #下面两项没有代码提示
+     serviceUrl:
+      #服务治理地址
+      defaultZone: http://localhost:1025/eureka/
+  instance:
+     prefer-ip-address: true
+     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+     hostname: ${spring.cloud.client.ip-address}
+           
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: quotes-service
+        uri: lb://quotes-service
+        predicates:
+        - Path=/quotes-service/info/**
+      - id: quotes-service
+        uri: lb:ws://quotes-service
+        predicates:
+        - Path=//quotes-service/**
+      - id: trade-service
+        uri: lb://trade-service
+        predicates:
+        - Path=/trade-service/**  
+      - id: information-service
+        uri: lb://information-service
+        predicates:
+        - Path=/information-service/*
+        
+#        filters:
+#        - name: Hystrix
+#          args:
+#            name: fallbackcmd
+#            fallbackUri: forward:/incaseoffailureusethis
+#        - RewritePath=/consumingserviceendpoint, /backingserviceendpoint
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+from: information-git-dev-1.0

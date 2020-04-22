@@ -13,35 +13,36 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 定时任务类
+ *
  * @author mjp
  */
 @Slf4j
 public class HelloTask {
-    
+
     private BlockingQueue<StockSubscriber> subscribers;
-    
+
     private Set<String> keys;
-    
+
     public void hello() {
 //        System.out.println("hello, Spring task!");
         execute();
     }
-    
+
     public void execute() {
         try {
             //每个都延迟500ms推送
             //          Thread.sleep(500);
             int size = StockUtil.getPushMap().size();
             log.error("所有连接的长度: " + size + "放入队列时间: "
-                + new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()));
+                    + new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date()));
 //            int count = 1;
 //            for (String key : StockUtil.getPushMap().keySet()) {
 //                log.error(count++ + "存储的值" + key + StockUtil.getPushMap().get(key).getChannels().size());
 //            }
-            
+
             //          System.err.println("context  "+StockWebSocketServerHandler.contextMap.size());
             //          System.err.println("http  "+StockWebSocketServerHandler.SocketMap.size());
-            
+
             StockSubscriber subscriber = null;
             keys = StockUtil.getPushMap().keySet();
             //  log.error("请求块数"+StockUtil.getPushMap().size());
@@ -55,8 +56,7 @@ public class HelloTask {
                 }
                 //      log.error("放入队列"+new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date())+"队列长度"+subscribers.size()+" 队列名称:"+subscribers.toString()+"请求块用户数:"+subscriber.getChannels().size());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("dispatch error", e);
         }
     }

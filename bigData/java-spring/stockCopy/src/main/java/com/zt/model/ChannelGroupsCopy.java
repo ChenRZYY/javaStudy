@@ -11,12 +11,12 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 public class ChannelGroupsCopy {
-    
+
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-    
+
     public static final ConcurrentHashMap<String, List<Channel>> subscribersMap =
-        new ConcurrentHashMap<String, List<Channel>>();
-    
+            new ConcurrentHashMap<String, List<Channel>>();
+
     public static void putChannel(String key, Channel channel) {
         List<Channel> channelNew = Collections.synchronizedList(new ArrayList<Channel>());
         channelNew.add(channel);
@@ -25,15 +25,15 @@ public class ChannelGroupsCopy {
             channelOld.add(channel);
         }
     }
-    
+
     public static void removeChannel(String key, Channel channel) {
         List<Channel> channels = subscribersMap.get(key);
         if (channels != null) {
             channels.remove(channel);
-            if(channels.size()==0) {
+            if (channels.size() == 0) {
                 subscribersMap.remove(key);
             }
         }
     }
-    
+
 }

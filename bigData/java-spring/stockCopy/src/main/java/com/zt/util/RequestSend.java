@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RequestSend {
-    
+
     // 推送数据
     public static void push(final ConcurrentHashMap<String, HashMap<String, String>> params, final Channel channel) {
         if (params != null && params.size() > 0) {
@@ -31,11 +31,11 @@ public class RequestSend {
                 sendData(subscriber, channel);
                 // 判断是否需要持续推送,持续推送的放入推送列表
                 if (!StringUtil.isNullOrEmpty(channelKey)) {
-                    
+
                     Set<Channel> channelSet = Collections.synchronizedSet(new HashSet<Channel>());
                     channelSet.add(channel);
                     subscriber.setChannelSet(channelSet);
-                    
+
                     //                  ChannelGroups.putChannel(channelKey, channel); //TODO 
                     subscriber = TimerSend.getPushMap().putIfAbsent(channelKey, subscriber);
                     //已经有推送了,就把channel用户
@@ -46,7 +46,7 @@ public class RequestSend {
             });
         }
     }
-    
+
     // 调用中焯接口
     public static void sendData(final StockSubscriber subscriber, Channel channel) {
         ZztMsg msg = new ZztMsg();
@@ -55,7 +55,7 @@ public class RequestSend {
         ClientUtil.getClient().sendData("zt", msg, new ClientCallback() {
             @Override
             public void call(Object obj) {
-                ZztMsg m = (ZztMsg)obj;
+                ZztMsg m = (ZztMsg) obj;
                 Map<String, Object> map = new HashMap<>();
                 m.forEach((k, v) -> map.put(k, v));
                 map.put("area", subscriber.getArea());
@@ -63,17 +63,17 @@ public class RequestSend {
                 String channelKey = subscriber.getChannelKey();
                 writeMsg(channel, result, channelKey);
             }
-            
+
             @Override
             public void error(Throwable throwable) {
                 log.error("com.zt.util.RequestSend.sendData", throwable);
             }
         });
     }
-    
+
     // channel 写入消息
     public static void writeMsg(Channel channel, String msg, String channelKey) {
-        
+
         if (channel != null) {
             //          msg = GZipUtil.gzip(msg);
             //          log.error("返回结果获取数据: "+new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss:SSS").format(new Date())+" \"channelKey\":\""+channelKey+"\""+msg);
@@ -84,5 +84,5 @@ public class RequestSend {
             });
         }
     }
-    
+
 }

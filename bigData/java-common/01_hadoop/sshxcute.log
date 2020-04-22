@@ -1,0 +1,23 @@
+
+=============== [2020/04/20 10:28:52, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[10:28:52] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22222'
+[10:28:52] INFO:    SSHExec initializing ...
+[10:28:52] INFO:    Session initialized and associated with user credential zd521707@
+[10:28:52] INFO:    SSHExec initialized successfully
+[10:28:52] INFO:    SSHExec trying to connect root@47.105.158.112
+[10:28:55] INFO:    SSH connection established
+[10:28:55] INFO:    Session initialized and associated with user credential zd521707@
+[10:28:55] INFO:    SSHExec initialized successfully
+[10:28:55] INFO:    SSHExec trying to connect root@47.105.158.112
+[10:28:55] INFO:    SSH connection established
+[10:28:55] INFO:    Command is netstat -tun | grep ":50070" && netstat -tun | grep ":50070"|wc -l
+[10:29:08] INFO:    Connection channel established succesfully
+[10:29:08] INFO:    Start to run command
+[10:29:11] INFO:    Connection channel closed
+[10:29:11] INFO:    Check if exec success or not ... 
+[10:29:11] INFO:    Execution failed while executing command: netstat -tun | grep ":50070" && netstat -tun | grep ":50070"|wc -l
+[10:29:11] INFO:    Error message: 
+[10:29:11] INFO:    Connection channel disconnect
+[10:29:11] INFO:    SSH connection shutdown
+[10:29:11] ERROR:   Disconnect fails with the following exception: java.lang.NullPointerException

@@ -11,7 +11,6 @@ public class Interface2 {
      * @author 陈振东
      * @param args
      */
-    
     public static void main(String[] args) {
         
         DefaultableImpl defaultableImpl = new DefaultableImpl();

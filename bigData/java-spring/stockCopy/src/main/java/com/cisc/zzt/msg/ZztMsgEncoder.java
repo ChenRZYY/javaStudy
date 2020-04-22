@@ -1,19 +1,20 @@
 package com.cisc.zzt.msg;
 
-import com.cisc.zzt.msg.ZztMsg;
 import com.cisc.zzt.msg.encrypt.ZztMsgEncrypt;
 import com.cisc.zzt.msg.encrypt.ZztMsgEncryptDefaultImpl;
 import com.cisc.zzt.msg.exception.MessageFieldTooBigException;
 import com.google.common.io.LittleEndianDataOutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("all")
 class ZztMsgEncoder {
     private static final Logger log = LoggerFactory.getLogger(ZztMsgEncoder.class);
     private Charset charset = Charset.forName("GBK");

@@ -12,7 +12,9 @@ import org.apache.hadoop.util.ToolRunner;
 
 import static cn.sdrfengmi._01_mapReduce.HdfsUtil.*;
 
-
+/**
+ * 分区partition  和 Reduce 怎么搭配
+ */
 public class JobMain extends Configured implements Tool {
 
     static{

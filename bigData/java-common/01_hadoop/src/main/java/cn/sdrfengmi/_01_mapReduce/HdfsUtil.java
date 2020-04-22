@@ -9,6 +9,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 public class HdfsUtil {
 
@@ -20,6 +23,10 @@ public class HdfsUtil {
 
     public static String inputFile = "01_dataset/";
     public static String outputFile = "01_datasetOut/";
+
+    public static Date date = new Date();
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss");
+    public static Random random = new Random();
 
     public static void deleteHDFSfile(String url) throws IOException, URISyntaxException {
         //获取FileSystem
@@ -94,7 +101,14 @@ public class HdfsUtil {
     public static Path getInputputFile(String filename) {
         return new Path(inputFile + filename);
     }
+
     public static Path getOutputputFile(String filename) {
         return new Path(outputFile + filename);
+    }
+
+    public static Path getNextOutputputFile() {
+        Path path = new Path(outputFile + sdf.format(date));
+        System.err.println(path.getName());
+        return path;
     }
 }

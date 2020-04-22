@@ -31,7 +31,7 @@ object App {
       json =>
         Canal(json)
     }
-//    canalDs.print()
+    //    canalDs.print()
 
     val waterDs: DataStream[Canal] = canalDs.assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks[Canal] {
 
@@ -60,8 +60,8 @@ object App {
     hbaseDs.addSink(new SinkFunction[HBaseOperation] {
       override def invoke(value: HBaseOperation): Unit = {
         value.opType match {
-          case "DELETE" => HBaseUtil.deleteData(value.tableName,value.rowkey,value.cfName)
-          case _ => HBaseUtil.putData(value.tableName,value.rowkey,value.cfName,value.colName,value.colValue)
+          case "DELETE" => HBaseUtil.deleteData(value.tableName, value.rowkey, value.cfName)
+          case _ => HBaseUtil.putData(value.tableName, value.rowkey, value.cfName, value.colName, value.colValue)
         }
       }
     })

@@ -15,11 +15,11 @@ import io.netty.channel.group.ChannelMatcher;
 public class BroadCastChannelHandler extends ChannelInboundHandlerAdapter {
 
 //    private static final Gson GSON = new GsonBuilder().create();
-    
+
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    
+
     private static final AtomicInteger response = new AtomicInteger();
-    
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel ch = ctx.channel();
@@ -34,8 +34,8 @@ public class BroadCastChannelHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         Channel ch = ctx.channel();
         if (ChannelGroups.contains(ch) && String.valueOf(msg).equals("welcome")) {
-            System.out.println(String.format("receive [%s] from [%s] at [%s]", String.valueOf(msg) ,
-                                    ch.remoteAddress().toString().substring(1), SDF.format(new Date())));
+            System.out.println(String.format("receive [%s] from [%s] at [%s]", String.valueOf(msg),
+                    ch.remoteAddress().toString().substring(1), SDF.format(new Date())));
             response.incrementAndGet();
         }
         synchronized (response) {
@@ -47,17 +47,17 @@ public class BroadCastChannelHandler extends ChannelInboundHandlerAdapter {
             }
         }
     }
-    
+
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
     }
-    
+
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         ctx.close();
     }
-    
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
@@ -71,7 +71,7 @@ public class BroadCastChannelHandler extends ChannelInboundHandlerAdapter {
         public boolean matches(Channel channel) {
             return true;
         }
-        
+
     }
-    
+
 }

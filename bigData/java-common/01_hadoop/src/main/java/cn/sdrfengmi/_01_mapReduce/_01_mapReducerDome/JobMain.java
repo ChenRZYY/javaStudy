@@ -60,7 +60,8 @@ public class JobMain extends Configured implements Tool {
         job.setOutputFormatClass(TextOutputFormat.class);
         //设置输出的路径
 //        Path path = HdfsUtil.getHdfsOutputPath(JobMain.class);
-        TextOutputFormat.setOutputPath(job, HdfsUtil.getOutputputFile(Math.random() + ""));
+        TextOutputFormat.setOutputPath(job, HdfsUtil.getNextOutputputFile());
+//        TextOutputFormat.setOutputPath(job, HdfsUtil.getOutputputFile(Math.random() + ""));
 //        TextOutputFormat.setOutputPath(job, new Path("file:///C:\\out\\flowpartiton_out"+Math.random()));
 //        TextOutputFormat.setOutputPath(job, getHdfsOutputPath(JobMain.class));
 //        TextOutputFormat.setOutputPath(job, new Path("hdfs://server02:8020/wordcount_out"));

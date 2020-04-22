@@ -16,11 +16,11 @@ import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 
 public class AbstractDSon extends AbstractD {
-    
+
     protected AbstractDSon(Channel parent) {
         super(parent);
     }
-    
+
 //    public AbstractDSon() {
 //        
 //    }

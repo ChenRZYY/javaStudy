@@ -81,7 +81,7 @@ public class Streams {
     
     private enum Status {
         OPEN, CLOSED
-    };
+    }
     
     private static final class Task {
         

@@ -11,7 +11,7 @@ import lombok.val;
 
 public class Test {
     private final static ConcurrentHashMap<String, Aa> cMap = new ConcurrentHashMap<String, Aa>();
-    
+
     public static void main(String[] args) {
         HashMap<String, String> map = new HashMap<>();
         map.put("Action", "65501");
@@ -37,7 +37,7 @@ public class Test {
         //		map.put("COMMBATCHENTRUSTINFO", "1");
         //		StockSubscriber subscriber = new StockSubscriber(map, "111", "222");
         //		StockUtil.sendData(subscriber);
-        
+
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -64,13 +64,13 @@ public class Test {
                 System.err.println(a2);
                 System.err.println(one);
                 System.err.println(one1);
-                
+
             }
         };
-        
+
         thread.start();
         thread2.start();
-        
+
         Aa aa = new Aa();
         Aa one = cMap.putIfAbsent("1", aa);
         Aa bb = new Aa();
@@ -94,8 +94,8 @@ public class Test {
             System.out.println(++count + "次数");
         }
     }
-    
-//    @test
+
+    //    @test
     public void test() {
         HashMap<String, String> map = new HashMap<>();
         map.put("Action", "65501");
@@ -121,7 +121,7 @@ public class Test {
         //		map.put("COMMBATCHENTRUSTINFO", "1");
         //		StockSubscriber subscriber = new StockSubscriber(map, "111", "222");
         //		StockUtil.sendData(subscriber);
-        
+
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -148,13 +148,13 @@ public class Test {
                 System.err.println(a2);
                 System.err.println(one);
                 System.err.println(one1);
-                
+
             }
         };
-        
+
         thread.start();
         thread2.start();
-        
+
         Aa aa = new Aa();
         Aa one = cMap.putIfAbsent("1", aa);
         Aa bb = new Aa();
@@ -181,5 +181,5 @@ public class Test {
 }
 
 class Aa {
-    
+
 }
