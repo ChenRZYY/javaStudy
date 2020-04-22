@@ -2,7 +2,7 @@
 #  level:
 #    ROOT: DEBUG
 server:
-  port: 1051
+  port: 1031
 #  port: ${random.int[11001,12000]}
 eureka:
   client:
@@ -16,7 +16,9 @@ eureka:
      hostname: ${spring.cloud.client.ip-address}
 #  instance:
 #    instanceId: ${spring.application.name):${random.int}
-        
-from: trade-git-dev-1.0
-foo: foo version 1s
-name: springcloud-config-server
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+from: information-git-dev-1.0

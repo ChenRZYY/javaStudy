@@ -2,7 +2,7 @@
 #  level:
 #    ROOT: DEBUG
 server:
-  port: 1061
+  port: 1040
 #  port: ${random.int[11001,12000]}
 eureka:
   client:
@@ -16,9 +16,9 @@ eureka:
      hostname: ${spring.cloud.client.ip-address}
 #  instance:
 #    instanceId: ${spring.application.name):${random.int}
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#       include: refresh
-from: zipkin-git-dev-1.0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+from: quotes-git-test-1.0
