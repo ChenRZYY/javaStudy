@@ -12,7 +12,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<String> {
 
     private StringBuffer message;
 
-    public ClientHandler(StringBuffer message){
+    public ClientHandler(StringBuffer message) {
         this.message = message;
     }
 

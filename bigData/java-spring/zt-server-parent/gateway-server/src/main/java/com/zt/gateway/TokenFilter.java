@@ -11,20 +11,20 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 public class TokenFilter implements GlobalFilter, Ordered {
-	
-    Logger logger=LoggerFactory.getLogger( TokenFilter.class );
-    
+
+    Logger logger = LoggerFactory.getLogger(TokenFilter.class);
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String token = exchange.getRequest().getQueryParams().getFirst("token");
         if (token == null || token.isEmpty()) {
-            logger.info( "token is empty..." );
+            logger.info("token is empty...");
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
         return chain.filter(exchange);
     }
-	
+
     @Override
     public int getOrder() {
         return -100;

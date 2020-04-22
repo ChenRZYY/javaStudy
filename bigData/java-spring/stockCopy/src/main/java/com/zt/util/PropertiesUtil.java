@@ -21,8 +21,8 @@ public class PropertiesUtil {
 //    public final static String OUTPATH_ZZTSERVER = "stock-conf/zztserver-test.properties" ;
 //    public final static String OUTPATH_SERVER = "stock-conf/server-test.properties";
 
-    public final static String OUTPATH_ZZTSERVER = "stock-conf/zztserver-dev.properties";
-    public final static String OUTPATH_SERVER = "stock-conf/server-dev.properties";
+    public final static String OUTPATH_ZZTSERVER = "stockCopy/src/main/resources/zztserver.properties";
+    public final static String OUTPATH_SERVER = "stockCopy/src/main/resources/server.properties";
 
 //    public final static String OUTPATH_ZZTSERVER = "stock-conf/zztserver-prod.properties" ;
 //    public final static String OUTPATH_SERVER = "stock-conf/server-prod.properties";

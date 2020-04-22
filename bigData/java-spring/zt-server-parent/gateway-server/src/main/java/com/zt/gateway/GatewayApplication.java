@@ -20,19 +20,19 @@ public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
-    
+
 //    @Bean
 //    public TokenFilter tokenFilter(){
 //            return new TokenFilter();
 //    }
-    
-//    @Value("${from}")
+
+    @Value("${from}")
     private String from = "foo";
 
 
     @GetMapping("/from")
     public String from() {
-    	System.err.println(this.from);
+        System.err.println(this.from);
         return this.from;
     }
 }

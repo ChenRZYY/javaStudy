@@ -35,13 +35,13 @@
             <version>1.2.46</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.cisc.zzt</groupId>
-            <artifactId>zztclient</artifactId>
-            <scope>system</scope>
-            <!--            <systemPath>${parent.basedir}/lib/zztmsg-2.0.3.jar</systemPath>-->
-            <systemPath>${project.basedir}/lib/zztclient-2.0.4.jar</systemPath>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.cisc.zzt</groupId>-->
+        <!--            <artifactId>zztclient</artifactId>-->
+        <!--            <scope>system</scope>-->
+        <!--            &lt;!&ndash;            <systemPath>${parent.basedir}/lib/zztmsg-2.0.3.jar</systemPath>&ndash;&gt;-->
+        <!--            <systemPath>${project.basedir}/lib/zztclient-2.0.4.jar</systemPath>-->
+        <!--        </dependency>-->
 
         <!--
            <dependency>
@@ -56,21 +56,21 @@
                <version>2.0.3</version>
            </dependency> -->
 
-        <dependency>
-            <groupId>com.cisc.zzt</groupId>
-            <artifactId>zztmsg</artifactId>
-            <scope>system</scope>
-            <!--            <systemPath>${parent.basedir}/lib/zztmsg-2.0.3.jar</systemPath>-->
-            <systemPath>${project.basedir}/lib/zztmsg-2.0.3.jar</systemPath>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.cisc.zzt</groupId>-->
+        <!--            <artifactId>zztmsg</artifactId>-->
+        <!--            <scope>system</scope>-->
+        <!--            &lt;!&ndash;            <systemPath>${parent.basedir}/lib/zztmsg-2.0.3.jar</systemPath>&ndash;&gt;-->
+        <!--            <systemPath>${project.basedir}/lib/zztmsg-2.0.3.jar</systemPath>-->
+        <!--        </dependency>-->
 
-        <dependency>
-            <groupId>com.cisc.framework</groupId>
-            <artifactId>apt</artifactId>
-            <!--			<version>1.0.9</version>-->
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/apt-1.0.9.jar</systemPath>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.cisc.framework</groupId>-->
+        <!--            <artifactId>apt</artifactId>-->
+        <!--            <version>1.0.9</version>-->
+        <!--            <scope>system</scope>-->
+        <!--            <systemPath>${project.basedir}/lib/apt-1.0.9.jar</systemPath>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
@@ -102,6 +102,11 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
     </dependencies>
 
 
@@ -111,9 +116,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 

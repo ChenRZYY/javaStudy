@@ -28,7 +28,7 @@ public class Server {
         EventLoopGroup workGroup = new NioEventLoopGroup();
         try {
             // 初始化服务器信息
-            ServerUtil.initServerMsg();
+//            ServerUtil.initServerMsg();
             // 启动netty服务器
             int port = Integer.valueOf(PropertiesUtil.getConfig("server.port"));
             ServerBootstrap b = new ServerBootstrap();

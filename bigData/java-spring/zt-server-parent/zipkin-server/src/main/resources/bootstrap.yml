@@ -6,20 +6,21 @@ spring:
   cloud:
     config:
       profile: ${spring.profiles.active}
-      label: trunk
+      name: ${spring.application.name}
+      #      label: master
       discovery:
         enabled: true
         service-id: config-server
-           
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://127.0.0.1:1025/eureka/
   instance:
-   prefer-ip-address: true    
+    prefer-ip-address: true
 
-debug: true   
-logging:  
+debug: true
+logging:
   level:
     root: INFO # mapper 接口所在的包设置为 debug
 #  file: ./logs/information.log       

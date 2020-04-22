@@ -1,17 +1,18 @@
 package com.zt.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Encoder;
 
 //import com.fusion.areain.common.Constants;
 
@@ -43,7 +44,8 @@ public class ZipUtil {
             zout.putNextEntry(new ZipEntry("0"));
             zout.write(primStr.getBytes("utf-8"));
             zout.closeEntry();
-            return new BASE64Encoder().encode(out.toByteArray());
+            return Base64.getEncoder().encodeToString(out.toByteArray());
+//            return new BASE64Encoder().encode(out.toByteArray());
         } catch (IOException e) {
             log.error("对字符串进行加压加密操作失败：", e);
             return null;
@@ -73,7 +75,8 @@ public class ZipUtil {
         ZipInputStream zin = null;
         String decompressed = null;
         try {
-            byte[] compressed = new BASE64Decoder().decodeBuffer(compressedStr);
+            byte[] compressed = Base64.getDecoder().decode(compressedStr);
+//            byte[] compressed = new BASE64Decoder().decodeBuffer(compressedStr);
             out = new ByteArrayOutputStream();
             in = new ByteArrayInputStream(compressed);
             zin = new ZipInputStream(in);

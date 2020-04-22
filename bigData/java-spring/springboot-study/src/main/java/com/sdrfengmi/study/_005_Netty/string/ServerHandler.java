@@ -8,6 +8,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 public class ServerHandler extends SimpleChannelInboundHandler<String> {
     int count = 0;
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, String msg) throws Exception {
 

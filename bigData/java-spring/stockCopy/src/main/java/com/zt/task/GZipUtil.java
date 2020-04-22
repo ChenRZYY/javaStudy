@@ -3,6 +3,7 @@ package com.zt.task;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
@@ -12,6 +13,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * 解压缩字符串工具类
  */
+@SuppressWarnings("all")
 public class GZipUtil {
 
     /**
@@ -45,7 +47,9 @@ public class GZipUtil {
         }
 //		byte[] bts = out.toByteArray();
 //		return Arrays.toString(bts);
-        return new sun.misc.BASE64Encoder().encode(out.toByteArray());
+
+        Base64.Encoder encoder = Base64.getEncoder();
+        return encoder.encodeToString(out.toByteArray());
     }
 
     /**
@@ -66,7 +70,8 @@ public class GZipUtil {
         byte[] compressed = null;
         String decompressed = null;
         try {
-            compressed = new sun.misc.BASE64Decoder().decodeBuffer(compressedStr);
+//            compressed = new sun.misc.BASE64Decoder().decodeBuffer(compressedStr);
+            compressed =Base64.getDecoder().decode(compressedStr);
             in = new ByteArrayInputStream(compressed);
             ginzip = new GZIPInputStream(in);
 
@@ -104,7 +109,7 @@ public class GZipUtil {
     /**
      * 使用zip进行压缩
      *
-     * @param str压缩前的文本
+     * @param str 压缩前的文本
      * @return 返回压缩后的文本
      * @date 2019年2月20日
      * @author 陈振东
@@ -124,7 +129,8 @@ public class GZipUtil {
             zout.write(str.getBytes());
             zout.closeEntry();
             compressed = out.toByteArray();
-            compressedStr = new sun.misc.BASE64Encoder().encodeBuffer(compressed);
+            compressedStr = Base64.getEncoder().encodeToString(compressed);
+//            compressedStr = new sun.misc.BASE64Encoder().encodeBuffer(compressed);
         } catch (IOException e) {
             compressed = null;
         } finally {
@@ -163,7 +169,8 @@ public class GZipUtil {
         ZipInputStream zin = null;
         String decompressed = null;
         try {
-            byte[] compressed = new sun.misc.BASE64Decoder().decodeBuffer(compressedStr);
+            byte[] compressed = Base64.getDecoder().decode(compressedStr);
+//            byte[] compressed = new sun.misc.BASE64Decoder().decodeBuffer(compressedStr);
             out = new ByteArrayOutputStream();
             in = new ByteArrayInputStream(compressed);
             zin = new ZipInputStream(in);

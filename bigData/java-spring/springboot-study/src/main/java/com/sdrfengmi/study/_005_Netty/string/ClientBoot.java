@@ -40,7 +40,7 @@ public class ClientBoot {
                             pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
                             //编码和解码
                             pipeline.addLast(new StringDecoder()).addLast(new StringEncoder())
-                                    .addLast(new IdleStateHandler(4,0,0))//5s内没有和服务器端通信的客户端将断开连接
+                                    .addLast(new IdleStateHandler(4, 0, 0))//5s内没有和服务器端通信的客户端将断开连接
                                     .addLast(new ClientHandler(message));
                         }
                     });
