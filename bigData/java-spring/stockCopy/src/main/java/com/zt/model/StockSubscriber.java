@@ -1,7 +1,6 @@
 package com.zt.model;
 
 import java.util.HashMap;
-import java.util.Set;
 
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
@@ -22,8 +21,6 @@ public class StockSubscriber {
 
     private ChannelGroup channels;//用户组
 
-    private Set<Channel> channelSet;
-
     private Integer action;//前端界面请求那个接口
 
     public StockSubscriber(HashMap<String, String> params, String area, String channelKey) {
@@ -31,7 +28,7 @@ public class StockSubscriber {
         this.area = area;
         this.channelKey = channelKey;
         this.action = Integer.valueOf(params.get("Action"));
-//		this.channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+        this.channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     }
 
     public void add(Channel channel) {
@@ -40,13 +37,5 @@ public class StockSubscriber {
 
     public void remove(Channel channel) {
         this.channels.remove(channel);
-    }
-
-    public void addChannel(Channel channel) {
-        this.channelSet.add(channel);
-    }
-
-    public void removeChannel(Channel channel) {
-        this.channelSet.remove(channel);
     }
 }

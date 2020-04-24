@@ -5,6 +5,9 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 
+/**
+ * 服务端心跳包 处理
+ */
 public class HeartBeatServerHandler extends ChannelInboundHandlerAdapter {
     private int lossConnectCount = 0;
 

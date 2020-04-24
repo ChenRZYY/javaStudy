@@ -23,6 +23,9 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * netty客户端 连接池设置
+ */
 public class ZZTClient {
     private EventLoopGroup group = new NioEventLoopGroup();
 

@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.zt.model.StockSubscriber;
-import com.zt.util.StockUtil;
-
-import lombok.val;
-
 public class Test {
     private final static ConcurrentHashMap<String, Aa> cMap = new ConcurrentHashMap<String, Aa>();
 
@@ -36,7 +31,7 @@ public class Test {
         //		map.put("updatesign", "1");
         //		map.put("COMMBATCHENTRUSTINFO", "1");
         //		StockSubscriber subscriber = new StockSubscriber(map, "111", "222");
-        //		StockUtil.sendData(subscriber);
+        //		StockSend.sendData(subscriber);
 
         Thread thread = new Thread() {
             @Override
@@ -120,7 +115,7 @@ public class Test {
         //		map.put("updatesign", "1");
         //		map.put("COMMBATCHENTRUSTINFO", "1");
         //		StockSubscriber subscriber = new StockSubscriber(map, "111", "222");
-        //		StockUtil.sendData(subscriber);
+        //		StockSend.sendData(subscriber);
 
         Thread thread = new Thread() {
             @Override

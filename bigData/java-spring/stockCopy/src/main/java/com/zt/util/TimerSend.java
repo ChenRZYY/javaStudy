@@ -10,6 +10,7 @@ import com.cisc.zzt.msg.ZztMsg;
 import com.cisc.zztclient.ClientCallback;
 import com.zt.model.StockSubscriber;
 
+import com.zt.service.ClientInit;
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -33,7 +34,7 @@ public class TimerSend {
         ZztMsg msg = new ZztMsg();
         msg.setAction(subscriber.getAction());
         subscriber.getParams().forEach((k, v) -> msg.putString(k, v));
-        ClientUtil.getClient().sendData("zt", msg, new ClientCallback() {
+        ClientInit.getClient().sendData("zt", msg, new ClientCallback() {
             @Override
             public void call(Object obj) {
                 ZztMsg m = (ZztMsg) obj;
@@ -41,7 +42,7 @@ public class TimerSend {
                 m.forEach((k, v) -> map.put(k, v));
                 map.put("area", subscriber.getArea());
                 String result = JSON.toJSONString(map);
-                writeMsg(subscriber.getChannelSet(), result, subscriber.getChannelKey());
+                writeMsg(subscriber.getChannels(), result, subscriber.getChannelKey());
             }
 
             @Override
@@ -109,7 +110,7 @@ public class TimerSend {
                 subscriber.remove(channel);
                 // 当该股票无推送列表时移除
                 // StockWebSocketServerHandler.channels.remove(channel);
-                if (subscriber.getChannelSet().isEmpty()) {
+                if (subscriber.getChannels().isEmpty()) {
                     subscribersMap.remove(key);
                 }
             }

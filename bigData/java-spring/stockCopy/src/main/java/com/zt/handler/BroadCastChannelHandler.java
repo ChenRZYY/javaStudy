@@ -12,6 +12,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.group.ChannelMatcher;
 
+/**
+ * 比如多 实例 ChannelInboundHandler 处理器
+ */
 public class BroadCastChannelHandler extends ChannelInboundHandlerAdapter {
 
 //    private static final Gson GSON = new GsonBuilder().create();

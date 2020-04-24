@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.zt.service.StockSend;
+import com.zt.service.ClientInit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.zt.model.StockRequest;
-import com.zt.util.ServerUtil;
-import com.zt.util.StockUtil;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -145,17 +145,17 @@ public class StockWebSocketServerHandler extends SimpleChannelInboundHandler<Obj
         // 判断是否返回服务器站点
         StockRequest stock = JSON.parseObject(requestStr, StockRequest.class);
         if (!StringUtil.isNullOrEmpty(stock.getMessage())) {
-            ctx.channel().writeAndFlush(new TextWebSocketFrame(ServerUtil.getServerMsg()));
+            ctx.channel().writeAndFlush(new TextWebSocketFrame(ClientInit.getServerMsg())); //TODO 现在没有
             return;
         }
         Channel channel = ctx.channel();
         // 取消推送
         String cancel = stock.getCancelAreas();
         if (!StringUtil.isNullOrEmpty(cancel)) {
-            StockUtil.cancel(cancel, channel);
+            StockSend.cancel(cancel, channel);
         }
         // 进行本次推送数据
-        StockUtil.push(stock.getParams(), channel);
+        StockSend.push(stock.getParams(), channel);
     }
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {

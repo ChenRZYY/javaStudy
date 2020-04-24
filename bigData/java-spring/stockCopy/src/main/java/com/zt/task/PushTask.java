@@ -3,7 +3,7 @@ package com.zt.task;
 import java.util.concurrent.BlockingQueue;
 
 import com.zt.model.StockSubscriber;
-import com.zt.util.StockUtil;
+import com.zt.service.StockSend;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +29,7 @@ public class PushTask extends Thread {
                 //		log.error("线程名称: "+thread.getName()+" 队列名称: "+ blockingQueue);
                 //TimerSend.sendData(subscriber);
                 if (subscriber.getChannels().size() > 0) {
-                    StockUtil.timerSendData(subscriber);
+                    StockSend.sendData(subscriber);
                 }
 
             } catch (Exception e) {

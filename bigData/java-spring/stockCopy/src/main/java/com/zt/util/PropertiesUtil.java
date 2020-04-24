@@ -13,25 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PropertiesUtil {
 
-    private static Properties properties;
-
-    /**
-     * 外部配置文件地址 -test的为测试时的配置文件
-     */
-//    public final static String OUTPATH_ZZTSERVER = "stock-conf/zztserver-test.properties" ;
-//    public final static String OUTPATH_SERVER = "stock-conf/server-test.properties";
-
-    public final static String OUTPATH_ZZTSERVER = "stockCopy/src/main/resources/zztserver.properties";
-    public final static String OUTPATH_SERVER = "stockCopy/src/main/resources/server.properties";
-
-//    public final static String OUTPATH_ZZTSERVER = "stock-conf/zztserver-prod.properties" ;
-//    public final static String OUTPATH_SERVER = "stock-conf/server-prod.properties";
-
-    /**
-     * 内部配置文件地址(内外部配置文件内容一样)
-     */
-    public final static String INPATH_ZZTSERVER = "/zztserver.properties";
-    public final static String INPATH_SERVER = "/server.properties";
+//    private static Properties properties;
 
     public final static String UTF_8 = "utf-8";
 
@@ -40,18 +22,20 @@ public class PropertiesUtil {
      *
      * @date 2019年3月26日
      * @author 陈振东
+     * zztServer 加载的properties地址
      */
-    public static void init() {
-        properties = new Properties();
-        InputStream in = PropertiesUtil.class.getResourceAsStream(INPATH_ZZTSERVER);
-
+    public static Properties init(String zztServer) {
+        Properties properties = new Properties();
+        InputStream in = PropertiesUtil.class.getResourceAsStream(zztServer);
         try {
             if (in == null) {
                 throw new FileNotFoundException();
             }
             properties.load(in);
+            return properties;
         } catch (Exception e) {
             log.error("", e);
+            return null;
         } finally {
             try {
                 if (in != null) {
@@ -73,7 +57,6 @@ public class PropertiesUtil {
 //        if (os != null && os.toLowerCase().indexOf("windows") > -1) {
 //            parentFile = new File("").getAbsoluteFile().getParentFile();
 //         } 
-
         File file = new File(parentFile.getPath(), new File(outPathStr).getPath());
         FileInputStream fis = null;
         InputStreamReader reader = null;
@@ -98,12 +81,9 @@ public class PropertiesUtil {
         return properties;
     }
 
-    public static String getConfig(String key) {
-        if (properties == null) {
-            //TODO 用于加载内外部文件
-            properties = outInit(OUTPATH_ZZTSERVER);
-//            init();
-        }
+    public static String getConfig( String key) {
+        //TODO 用于加载内外部文件
+        Properties properties = outInit(ServerConfig.getZZTServerPath());
         return properties.getProperty(key);
     }
 

@@ -12,6 +12,7 @@ import com.cisc.zzt.msg.ZztMsg;
 import com.cisc.zztclient.ClientCallback;
 import com.zt.model.StockSubscriber;
 
+import com.zt.service.ClientInit;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.internal.StringUtil;
@@ -34,13 +35,13 @@ public class RequestSend {
 
                     Set<Channel> channelSet = Collections.synchronizedSet(new HashSet<Channel>());
                     channelSet.add(channel);
-                    subscriber.setChannelSet(channelSet);
+//                    subscriber.setChannelSet(channelSet); TODO
 
                     //                  ChannelGroups.putChannel(channelKey, channel); //TODO 
                     subscriber = TimerSend.getPushMap().putIfAbsent(channelKey, subscriber);
                     //已经有推送了,就把channel用户
                     if (subscriber != null) {
-                        subscriber.addChannel(channel);
+//                        subscriber.addChannel(channel); TODO
                     }
                 }
             });
@@ -52,7 +53,7 @@ public class RequestSend {
         ZztMsg msg = new ZztMsg();
         msg.setAction(subscriber.getAction());
         subscriber.getParams().forEach((k, v) -> msg.putString(k, v));
-        ClientUtil.getClient().sendData("zt", msg, new ClientCallback() {
+        ClientInit.getClient().sendData("zt", msg, new ClientCallback() {
             @Override
             public void call(Object obj) {
                 ZztMsg m = (ZztMsg) obj;

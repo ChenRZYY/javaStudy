@@ -22,14 +22,6 @@ public class ChannelGroupFactory {
         groups.add(new DefaultChannelGroup("channelGroup-6", GlobalEventExecutor.INSTANCE));
         groups.add(new DefaultChannelGroup("channelGroup-7", GlobalEventExecutor.INSTANCE));
         groups.add(new DefaultChannelGroup("channelGroup-8", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-9", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-10", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-11", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-12", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-13", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-14", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-15", GlobalEventExecutor.INSTANCE));
-//        groups.add(new DefaultChannelGroup("channelGroup-16", GlobalEventExecutor.INSTANCE));
     }
 
     public synchronized static ChannelGroup getChannelGroup() {

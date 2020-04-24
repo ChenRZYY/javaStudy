@@ -1,9 +1,8 @@
 package com.zt;
 
 import com.zt.handler.ChildChannelHandler;
-import com.zt.util.ClientUtil;
+import com.zt.service.ClientInit;
 import com.zt.util.PropertiesUtil;
-import com.zt.util.ServerUtil;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -17,7 +16,7 @@ public class Server {
 
     public static void main(String[] args) {
         // 判断服务器类型,初始化client
-        ClientUtil.init((args == null || args.length == 0) ? null : args[0]);
+        ClientInit.init((args == null || args.length == 0) ? null : args[0]);
         run();
     }
 
@@ -28,7 +27,7 @@ public class Server {
         EventLoopGroup workGroup = new NioEventLoopGroup();
         try {
             // 初始化服务器信息
-//            ServerUtil.initServerMsg();
+//            ThreadInit.initServerMsg();
             // 启动netty服务器
             int port = Integer.valueOf(PropertiesUtil.getConfig("server.port"));
             ServerBootstrap b = new ServerBootstrap();
