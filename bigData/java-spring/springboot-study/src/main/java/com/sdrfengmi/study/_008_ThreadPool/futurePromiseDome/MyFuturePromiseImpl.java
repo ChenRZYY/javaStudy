@@ -26,8 +26,7 @@ public class MyFuturePromiseImpl<V> implements MyFuturePromise<V> {
             }
         }
         if (isDone()) {
-            for (MyFutureListener f : listeners
-            ) {
+            for (MyFutureListener f : listeners) {
                 f.operationComplete(this);
             }
         }
@@ -41,7 +40,6 @@ public class MyFuturePromiseImpl<V> implements MyFuturePromise<V> {
         for (MyFutureListener f : listeners) {
             f.operationComplete(this);
         }
-
         return true;
     }
 

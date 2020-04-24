@@ -16,12 +16,24 @@ import io.netty.handler.codec.http.websocketx.WebSocketClientHandshakerFactory;
 import io.netty.handler.codec.http.websocketx.WebSocketVersion;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 import java.net.URI;
 
+@SuppressWarnings("all")
 public class ClientMain {
 
     public static void main(String[] args) throws Exception {
+        int count = 10;
+        int start = 30080;
+        for (int i = start; i < start + count; i++) {
+            run(i);
+        }
+    }
+
+    public static void run(int port) throws Exception {
+        //1 服务配置
         EventLoopGroup group = new NioEventLoopGroup();
         Bootstrap boot = new Bootstrap();
         boot.option(ChannelOption.SO_KEEPALIVE, true)
@@ -32,15 +44,19 @@ public class ClientMain {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline p = socketChannel.pipeline();
-                        p.addLast(new ChannelHandler[]{new HttpClientCodec(),
-                                new HttpObjectAggregator(1024 * 1024 * 10)});
-                        p.addLast("hookedHandler", new WebSocketClientHandler());
+                        p.addLast(new ChannelHandler[]{
+                                new HttpClientCodec(),  //http请求
+                                new HttpObjectAggregator(1024 * 1024 * 10)
+                        });
+                        p.addLast("hookedHandler", new WebSocketClientHandler()); //handler处理器
                     }
                 });
 
+//        ChannelFuture bind = boot.bind(port) //为什么不能bind端口
+
+        //2 进行握手
         URI websocketURI = new URI("ws://localhost:7391/ws");
         HttpHeaders httpHeaders = new DefaultHttpHeaders();
-        //进行握手
         WebSocketClientHandshaker handshaker = WebSocketClientHandshakerFactory.newHandshaker(websocketURI, WebSocketVersion.V13, (String) null, true, httpHeaders);
         System.out.println("connect");
         final Channel channel = boot.connect(websocketURI.getHost(), websocketURI.getPort()).sync().channel();
@@ -50,7 +66,7 @@ public class ClientMain {
         //阻塞等待是否握手成功
         handler.handshakeFuture().sync();
 
-
+        //3 发送数据
         TextWebSocketFrame frame = new TextWebSocketFrame("{\n" +
                 "\t\"params\": {\n" +
                 "\t\t\"zsStateData\": {\n" +

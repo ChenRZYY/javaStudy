@@ -35,7 +35,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("channelRead0  " + this.handshaker.isHandshakeComplete());
+//        System.out.println("channelRead0  " + this.handshaker.isHandshakeComplete()); //打印握手是否成功
         Channel ch = ctx.channel();
         FullHttpResponse response;
 //        System.err.println(this);
@@ -61,7 +61,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
             if (frame instanceof TextWebSocketFrame) {
                 TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
                 //this.listener.onMessage(textFrame.text());
-                System.out.println("TextWebSocketFrame");
+                //System.out.println("TextWebSocketFrame");
                 System.out.println(textFrame.text());
             } else if (frame instanceof BinaryWebSocketFrame) {
                 BinaryWebSocketFrame binFrame = (BinaryWebSocketFrame) frame;

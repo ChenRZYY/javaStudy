@@ -1,9 +1,8 @@
 package com.zt.service;
 
 import com.alibaba.fastjson.JSON;
-import com.zt.Server;
 import com.zt.model.StockServer;
-import com.zt.service.ThreadInit;
+import com.zt.task.PushTask;
 import com.zt.util.PropertiesUtil;
 import com.zt.util.ServerConfig;
 import org.quartz.CronScheduleBuilder;
@@ -15,7 +14,6 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 import com.cisc.zztclient.ZZTClient;
-import com.zt.task.DispatchTask;
 
 import io.netty.util.internal.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +56,7 @@ public class ClientInit {
     // 初始化消息推送JOB
     public static void initPushJob() {
         try {
-            JobDetail job = JobBuilder.newJob(DispatchTask.class).build();
+            JobDetail job = JobBuilder.newJob(PushTask.class).build();
             CronTrigger trigger = TriggerBuilder.newTrigger()
                     .withSchedule(CronScheduleBuilder.cronSchedule(PropertiesUtil.getConfig(ServerConfig.server_push))).build();
             Scheduler scheduler = new StdSchedulerFactory().getScheduler();
@@ -75,8 +73,8 @@ public class ClientInit {
     public static void initPushJob2() {
         try {
             //因为一个cron表达式表达不出,用两个表达式
-            JobDetail job = JobBuilder.newJob(DispatchTask.class).build();
-            JobDetail job2 = JobBuilder.newJob(DispatchTask.class).build();
+            JobDetail job = JobBuilder.newJob(PushTask.class).build();
+            JobDetail job2 = JobBuilder.newJob(PushTask.class).build();
 
             CronTrigger trigger = TriggerBuilder.newTrigger()
                     .withSchedule(CronScheduleBuilder.cronSchedule(PropertiesUtil.getConfig(ServerConfig.server_push))).build();

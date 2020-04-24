@@ -41,7 +41,6 @@ public class StockSend {
         ZztMsg msg = new ZztMsg();
         msg.setAction(subscriber.getAction());
         subscriber.getParams().forEach((k, v) -> msg.putString(k, v));
-        ZZTClient client = ClientInit.getClient();
         ClientInit.getClient().sendData("zt", msg, new ClientCallback() {
             @Override
             public void call(Object obj) {
@@ -70,12 +69,13 @@ public class StockSend {
             ChannelGroupFuture channelFutures = channels.writeAndFlush(new TextWebSocketFrame(msg)).addListener(future -> {
                 if (!future.isSuccess()) {
                     log.error("write error", future.cause());
-                }else{
-                    log.error("write success" , future.cause());
+                } else {
+                    log.error("write success", future.cause());
                 }
             });
             boolean flag = channelFutures.isSuccess();
             System.out.println(flag);
+            System.out.println(Thread.currentThread() + Thread.currentThread().getName());
 
         } else {
             if (!StringUtil.isNullOrEmpty(channelKey)) {

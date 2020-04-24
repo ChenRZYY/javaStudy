@@ -5,6 +5,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 启动类配置
@@ -24,7 +27,9 @@ public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
         e.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
         //5s内没有和服务器端通信的客户端将断开连接
 //		e.pipeline().addLast(new ReadTimeoutHandler(5));
-//		e.pipeline().addLast("ping", new IdleStateHandler(5, 15, 10,TimeUnit.SECONDS));  
+        //自己配置的
+//        e.pipeline().addLast("ping", new IdleStateHandler(5, 15, 10, TimeUnit.SECONDS));  //服务端心跳配置
+//        e.pipeline().addLast("heart", new HeartBeatServerHandler());  //心跳服务
 
         // 在管道中添加收数据实现方法
         e.pipeline().addLast("handler", new StockWebSocketServerHandler());

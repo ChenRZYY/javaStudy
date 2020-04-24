@@ -1,23 +1,17 @@
 package com.zt.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.alibaba.fastjson.JSON;
-import com.zt.model.StockServer;
 import com.zt.model.StockSubscriber;
-import com.zt.task.PushTask;
+import com.zt.task.DispatchTask;
 
 import com.zt.util.PropertiesUtil;
 import com.zt.util.ServerConfig;
-import io.netty.util.internal.StringUtil;
 
 public class ThreadInit {
 
@@ -37,7 +31,7 @@ public class ThreadInit {
         ExecutorService pool = Executors.newFixedThreadPool(threadSize);
         for (int i = 0; i < threadSize; i++) {
             blockingQueues.add(new LinkedBlockingQueue<>());     //加入8个队列(后面存储要推送的数据)
-            pool.execute(new PushTask(blockingQueues.get(i)));   //执行8个线程
+            pool.execute(new DispatchTask(blockingQueues.get(i)));   //执行8个线程
         }
     }
 
