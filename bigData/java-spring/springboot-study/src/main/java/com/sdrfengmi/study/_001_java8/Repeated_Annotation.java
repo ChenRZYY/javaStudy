@@ -19,6 +19,7 @@ public class Repeated_Annotation {
 
     //Supplier  空入参 function
     //Predicate  进行过滤判断
+    //Consumer  只有一个accept 方法
     @Test
     public void annotation() {
         Filter[] filters = Filterable.class.getAnnotationsByType(Filter.class);//1.8新增加的api
