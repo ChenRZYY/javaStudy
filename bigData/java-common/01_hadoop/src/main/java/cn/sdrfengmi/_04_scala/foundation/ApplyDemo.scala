@@ -302,6 +302,23 @@ class ApplyDemo {
   }
 
   @Test
+  def get5845_(): Unit = {
+
+    val HsReq: String = "BGN_DATE|END_DATE|ZQDM|SCDM|TZLB|STKBD|"
+    val HsAns: String = "TRD_DATE|ITF_CFG_SN|REC_SN|SCDM|TZLB|FSRQ|GFXZ|ZQDM|SSZT|QYLB|QYBH|ZH1|ZH2|RQ1|RQ2|RQ3|JE1|JE2|JE3|JG1|JG2|BZ|HL|BL1|BL2|SL1|SL2|LX1|LX2|FZDM1|FZDM2|FJSM1|FJSM2|BY|ZT|BZ|TZLB|QYLB|GFXZ|"
+    val Request: String = "dateBegin|dateEnd||||tradeboard|"
+    val ReturnGrid: String = "交易日期|接口配置序号|记录序号|市场代码|通知类别|通知日期|股份性质|证券代码|上市状态|权益类别|权益编号|账户1|账户2|日期1|日期2|日期3|金额1|金额2|金额3|价格1|价格2|深港信息币种|汇率|比率1|比率2|数量1|数量2|类型1|类型2|辅助代码1|辅助代码2|附加说明1|附加说明2|备用|参数状态|深港信息币种F|深港信息通知类别F|深港信息权益类别F|深港信息流通类型说明F|"
+    val DisplayFormat: String = "交易日期|接口配置序号|记录序号|市场代码|通知类别|通知日期|股份性质|证券代码|上市状态|权益类别|权益编号|账户1|账户2|日期1|日期2|日期3|金额1|金额2|金额3|价格1|价格2|深港信息币种|汇率|比率1|比率2|数量1|数量2|类型1|类型2|辅助代码1|辅助代码2|附加说明1|附加说明2|备用|参数状态|深港信息币种F|深港信息通知类别F|深港信息权益类别F|深港信息流通类型说明F|"
+    val IndexParamNew: String = ""
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
   def get5849(): Unit = {
     val HsReq: String = ""
     val HsAns: String = "TradeDateIndex|InterCfgIndex|recSnIndex|marketNoIndex|NoteTypeIndex|noteTimeIndex|settleOrgNoIndex|StockCodeIndex|rightTypeIndex|flowTypeIndex|listYearIndex|rightTimesIndex|Account1Index|Account2Index|Date1Index|Date2Index|Date3Index|Amount1Index|Amount2Index|Amount3Index|Price1Index|Price2Index|MoneyTypeIndex|Ratio|Ratio1Index|Ratio2Index|Quality1Index|Quality2Index|type1Index|type2Index|AssistCode1Index|AssistCode2Index|Extra1Index|Extra2Index|backupIndex|noteTypeNameIndex|stockNameIndex|meetingDateIndex|"
@@ -332,6 +349,74 @@ class ApplyDemo {
     indexParamNew(IndexParamNew)
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
+
+  @Test
+  def get564(): Unit = {
+    val HsReq: String = "OPERATION_TYPE|CUST_CODE|CUST_AGMT_TYPE|EXP_DATE|EFT_DATE|OP_REMARK|"
+    val HsAns: String = ""
+    val Request: String = "0|USERCODE|STOCKKIND||||"
+    val ReturnGrid: String = ""
+    val DisplayFormat: String = ""
+    val IndexParamNew: String = ""
+
+    //    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+
+  @Test
+  def get5815(): Unit = {
+
+    val HsReq: String = "CUST_CODE|SECU_CODE|MARKET|BOARD|"
+    val HsAns: String = "CUST_CODE|BRANCH|SECU_INTL|SECU_CODE|SECU_NAME|LIMIT_DATE|SIGN_DATE|CONTRACTNO|SIGNTIME|SIGNCHANNEL|SIGNMACID|STATUS|SIGNRISKNOTIC|REMARK|"
+    val Request: String = "USERCODE|SECUCODE|MARKET||"
+    val ReturnGrid: String = "客户代码|分支机构|证券内码|证券代码|证券名称|有效期限|签署日期|合同序号|签约时间|签约渠道|签约MAC地址|状态|是否已签署风险揭示书|备注|"
+    val DisplayFormat: String = "客户代码|证券代码|有效期限|签署日期|合同序号|是否已签署风险揭示书|"
+    val IndexParamNew: String = "signedContractIndex=5&"
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
+  def get5816(): Unit = {
+
+    val HsReq: String = "OPERATION_TYPE|CUST_CODE|MARKET|BOARD|SECU_CODE|SIGNRISKNOTIC|LIMIT_DATE|SIGN_DATE|CONTRACTNO|SIGNTIME|SIGNCHANNE|SIGNMACID|STATUS|REMARK|"
+    val HsAns: String = ""
+    val Request: String = "0|USERCODE|MARKET||SECUCODE|0|||||||0||"
+    val ReturnGrid: String = ""
+    val DisplayFormat: String = ""
+    val IndexParamNew: String = ""
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+  @Test
+  def get5813(): Unit = {
+
+    val HsReq: String = "OPERATION_TYPE|CUSTOMER|AGENT_BIZ_TYPE|BEGIN_DATE|EXPIRY_DATE|OP_REMARK|"
+    val HsAns: String = ""
+    val Request: String = "0|USERCODE|h|||||"
+    val ReturnGrid: String = ""
+    val DisplayFormat: String = ""
+    val IndexParamNew: String = ""
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
 
 
   def requestMapping(request: String, hsReq: String): Array[Unit] = {
@@ -402,7 +487,7 @@ class ApplyDemo {
         ("": String, "": String, "": String)
       }
     })
-    combinations.foreach(a => println(s"row.get${a._3.charAt(0).toString.toUpperCase() + a._3.substring(1)}(), // ${a._2}"))
+    combinations.foreach(a => if (a._3.length > 0) println(s"row.get${a._3.charAt(0).toString.toUpperCase() + a._3.substring(1)}(), // ${a._2}"))
 
     //    val array: Array[(String, String)] = Array()
     //    for (i <- 0 to hsAnss.length) {

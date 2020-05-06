@@ -7,10 +7,7 @@ import org.junit.Test
 class _01_ReadWrite {
   //  System.setProperty("hadoop.home.dir", "C:\\winutils")
 
-  val sparkSession: SparkSession = SparkSession.builder()
-    .master("local[6]")
-    .appName("reader1")
-    .getOrCreate()
+  val sparkSession: SparkSession = SparkSession.builder().master("local[6]").appName("reader1").getOrCreate()
 
   @Test
   def reader1(): Unit = {

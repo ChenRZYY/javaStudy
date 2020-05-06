@@ -3,13 +3,18 @@ package com.client.handler;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.*;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
+
+import java.util.Date;
 
 public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> {
 
     WebSocketClientHandshaker handshaker;
     ChannelPromise handshakeFuture;
 
+    //会回调握手方法
+    @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         this.handshakeFuture = ctx.newPromise();
     }
@@ -33,6 +38,49 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     public ChannelFuture handshakeFuture() {
         return this.handshakeFuture;
     }
+
+    /**
+     * 用户心跳，客户端
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        IdleStateEvent stateEvent = (IdleStateEvent) evt;
+
+        switch (stateEvent.state()) {
+            case READER_IDLE:  //读空闲
+                handlerReaderIdle(ctx);
+                break;
+            case WRITER_IDLE: //写空闲
+                handlerWriterIdle(ctx);
+                break;
+            case ALL_IDLE: //读写空闲
+                handlerAllIdle(ctx);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 发送ping
+     *
+     * @param ctx
+     */
+    protected void handlerAllIdle(ChannelHandlerContext ctx) {
+        System.err.println("---读写空闲---");
+        TextWebSocketFrame textWebSocketFrame = new TextWebSocketFrame("ping");
+        ctx.channel().writeAndFlush(textWebSocketFrame);
+    }
+
+    protected void handlerWriterIdle(ChannelHandlerContext ctx) {
+        System.err.println("---发送消息---");
+    }
+
+
+    protected void handlerReaderIdle(ChannelHandlerContext ctx) {
+//        ConnectHandler.handlerReaderIdle(ctx);
+    }
+
 
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 //        System.out.println("channelRead0  " + this.handshaker.isHandshakeComplete()); //打印握手是否成功
@@ -62,7 +110,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
                 TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
                 //this.listener.onMessage(textFrame.text());
                 //System.out.println("TextWebSocketFrame");
-                System.out.println(textFrame.text());
+                System.out.println(new Date() + textFrame.text());
             } else if (frame instanceof BinaryWebSocketFrame) {
                 BinaryWebSocketFrame binFrame = (BinaryWebSocketFrame) frame;
                 System.out.println("BinaryWebSocketFrame");

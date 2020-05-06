@@ -39,13 +39,11 @@ public class ZZTClient {
 
     private ClientPoolHandler handler = new ClientPoolHandler();
 
-    private AbstractChannelPoolMap<InetSocketAddress, FixedChannelPool> poolMap =
-            new AbstractChannelPoolMap<InetSocketAddress, FixedChannelPool>() {
-                protected FixedChannelPool newPool(InetSocketAddress key) {
-                    return new FixedChannelPool(ZZTClient.this.bootstrap.remoteAddress((SocketAddress) key),
-                            (ChannelPoolHandler) ZZTClient.this.handler, ZZTClient.this.maxConnections);
-                }
-            };
+    private AbstractChannelPoolMap<InetSocketAddress, FixedChannelPool> poolMap = new AbstractChannelPoolMap<InetSocketAddress, FixedChannelPool>() {
+        protected FixedChannelPool newPool(InetSocketAddress key) {
+            return new FixedChannelPool(ZZTClient.this.bootstrap.remoteAddress(key), ZZTClient.this.handler, ZZTClient.this.maxConnections);
+        }
+    };
 
     private Multimap<String, InetSocketAddress> serverMap = HashMultimap.create();
 

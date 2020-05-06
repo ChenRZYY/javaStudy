@@ -10,6 +10,6 @@ import java.util.List;
 public class ByteArrayToBinaryEncoder extends MessageToMessageEncoder<byte[]> {
     @Override
     protected void encode(ChannelHandlerContext ctx, byte[] msg, List<Object> out) throws Exception {
-        out.add( new BinaryWebSocketFrame(Unpooled.wrappedBuffer(msg)));
+        out.add(new BinaryWebSocketFrame(Unpooled.wrappedBuffer(msg)));
     }
 }

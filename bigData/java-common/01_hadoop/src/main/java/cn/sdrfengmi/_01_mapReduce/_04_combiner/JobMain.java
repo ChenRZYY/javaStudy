@@ -1,5 +1,6 @@
 package cn.sdrfengmi._01_mapReduce._04_combiner;
 
+import cn.sdrfengmi._01_mapReduce.HdfsUtil;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.io.LongWritable;
@@ -12,17 +13,19 @@ import org.apache.hadoop.util.ToolRunner;
 
 import static cn.sdrfengmi._01_mapReduce.HdfsUtil.*;
 
+@SuppressWarnings("all")
 public class JobMain extends Configured implements Tool {
 
-    static{
+    static {
         try {
-            deleteHdfsInputSourceFile(JobMain.class); //TODO 每次创建之前都先删除原来结果
-            uploadHdfsInputSourceFile(JobMain.class); //TODO 上传resource文件
-            deleteHdfsOutputSourceFile(JobMain.class); //TODO 删除out文件
+//            deleteHdfsInputSourceFile(JobMain.class); //TODO 每次创建之前都先删除原来结果
+//            uploadHdfsInputSourceFile(JobMain.class); //TODO 上传resource文件
+//            deleteHdfsOutputSourceFile(JobMain.class); //TODO 删除out文件
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     //该方法用于指定一个job任务
     @Override
@@ -35,7 +38,8 @@ public class JobMain extends Configured implements Tool {
 
         //第一步:指定文件的读取方式和读取路径
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job, getHdfsInputputPath(JobMain.class));
+        TextInputFormat.addInputPath(job, HdfsUtil.getInputputFile("wordcount2.txt"));
+//        TextInputFormat.addInputPath(job, getHdfsInputputPath(JobMain.class));
 //        TextInputFormat.addInputPath(job, new Path("file:///D:\\input\\combiner_input"));
 
         //第二步:指定Map阶段的处理方式和数据类型
@@ -61,8 +65,9 @@ public class JobMain extends Configured implements Tool {
         //第八步: 设置输出类型
         job.setOutputFormatClass(TextOutputFormat.class);
         //设置输出的路径
-        TextOutputFormat.setOutputPath(job, getHdfsOutputPath(JobMain.class));
-//           TextOutputFormat.setOutputPath(job, new Path("file:///D:\\out\\combiner_out"));
+        TextOutputFormat.setOutputPath(job, HdfsUtil.getNextOutputputFile());
+        // TextOutputFormat.setOutputPath(job, getHdfsOutputPath(JobMain.class));
+        // TextOutputFormat.setOutputPath(job, new Path("file:///D:\\out\\combiner_out"));
 
         //等待任务结束
         boolean bl = job.waitForCompletion(true);

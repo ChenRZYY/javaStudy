@@ -31,7 +31,10 @@ public class DispatchTask extends Thread {
                 //TimerSend.sendData(subscriber);
                 if (subscriber.getChannels().size() > 0) {
                     StockSend.sendData(subscriber);
-                }//什么时候移除空 channels的key对象
+                } else { //TODO 这里移除有并发操作 ??? 什么时候移除空 channels的key对象
+                    StockSend.cancel(subscriber.getChannelKey(), null);
+                }
+
 
             } catch (Exception e) {
                 log.error("DispatchTask run errror", e);

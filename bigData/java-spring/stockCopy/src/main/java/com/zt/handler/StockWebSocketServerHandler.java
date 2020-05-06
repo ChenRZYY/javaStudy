@@ -141,6 +141,9 @@ public class StockWebSocketServerHandler extends SimpleChannelInboundHandler<Obj
         if (StringUtil.isNullOrEmpty(requestStr)) {
             ctx.channel().writeAndFlush(new TextWebSocketFrame("gg"));
             return;
+        } else if (requestStr.equals("ping")) {
+            ctx.channel().writeAndFlush(new TextWebSocketFrame("gg"));
+            return;
         }
         // 判断是否返回服务器站点
         StockRequest stock = JSON.parseObject(requestStr, StockRequest.class);

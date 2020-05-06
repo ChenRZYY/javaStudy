@@ -34,7 +34,6 @@ public class ClientPoolHandler implements ChannelPoolHandler {
                     }
                 }
             })
-
             .build();
 
     /**
