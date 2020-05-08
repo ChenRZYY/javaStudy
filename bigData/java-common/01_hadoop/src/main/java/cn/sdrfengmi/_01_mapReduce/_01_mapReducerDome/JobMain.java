@@ -27,9 +27,10 @@ public class JobMain extends Configured implements Tool {
     /**
      * https://www.cnblogs.com/hipercomer/p/4516581.html
      * 阶段1：input/map/partition/sort/spill/merge
-     * 1. 将key/value/Partition写入到内存缓冲区中
-     * 2. 当缓冲区使用量达到一定阀值，将其spill到disk上，spill前，需要进行排序
-     * 3. 排序时先按照Partition进行排序，再按照key进行排序，默认排序算法是快速排序。
+     * 1. input: TextInputFormat这个类继承自FileInputFormat，FileInputFormat这个类继承自InputFormat，InputFormat这个类会将文件file按照逻辑进行划分，划分成的每一个split切片将会被分配给一个Mapper任务,文件先被切分成split块，而后每一个split切片对应一个Mapper任务
+     * 2. 将key/value/Partition写入到内存缓冲区中
+     * 3. sort: 排序时先按照Partition进行排序，再按照key进行排序，默认排序算法是快速排序。
+     * 4. spill: 当缓冲区使用量达到一定阀值，将其spill到disk上，spill前，需要进行排序
      * 注意： 在内存中进行排序时，数据本身不用移动，仅对索引排序即可
      * <p>
      * 阶段2：mapper端merge
@@ -37,14 +38,13 @@ public class JobMain extends Configured implements Tool {
      * 2.最终归并成一个大文件
      * 注意：
      * 1. 由于每一个spill文件都是按分区和key排序好的，所以归并完的文件也是按分区和key排序好的。
-     * 2.在进行归并的时候，不是一次性的把所有的spill文件归并成一个大文件。而是部分spill文件归并成中间文件，然后中间文件和剩下的spill文件再进行归并。
+     * 2. 在进行归并的时候，不是一次性的把所有的spill文件归并成一个大文件。而是部分spill文件归并成中间文件，然后中间文件和剩下的spill文件再进行归并。
      * <p>
      * 阶段3：reducer端copy/merge/reduce/output
-     * 1. copy:当有新的MapTask事件完成时，拷贝线程从指定的机器上面拷贝数据,安分区拷贝相同分区放到一起
-     * 2.当数据拷贝的时候，分两种情况，当数据量小的时候就会写入内存当中，当数据量大的时候就会写入硬盘当中
-     * 3. merge: 来自不同的机器的多个数据文件，需要归并成一个文件.在拷贝文件过程中会进行文件归并操作.
-     * 4. reduce: 相同key的value放一起 调用reduce方法
-     * 5. output: 输出
+     * 1. copy: 当有新的MapTask事件完成时，拷贝线程从指定的机器上面拷贝数据,安分区拷贝数据相同分区放到一起,ReduceTask 启动 Fetcher 线程到已经完成 MapTask 的节点上复制一份属于自己的数据，这些数据默认会保存在内存的缓冲区中，当内存的缓冲区达到一定的阀值的时候，就会将数据写到磁盘之上
+     * 2. merge: 来自不同的机器的多个数据文件，需要归并成一个文件.在拷贝文件过程中会进行文件归并操作.
+     * 3. reduce: 相同key的value放一起 调用reduce方法
+     * 4. output: OutputFormat是MapReduce输出的基类，所有MapReduce输出都实现了 OutputFormat 接口,主要有：TextInputFormat 、SequenceFileOutputFormat、MultipleOutputs、DBOutputFormat等
      *
      * @param args
      * @return

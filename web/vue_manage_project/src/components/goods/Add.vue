@@ -23,7 +23,6 @@
       </el-steps>
 
       <!-- tab栏区域 -->
-
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="100px" label-position="top">
         <el-tabs v-model="activeIndex" :tab-position="'left'" :before-leave="beforeTabLeave" @tab-click="tabClicked">
           <el-tab-pane label="基本信息" name="0">
@@ -104,21 +103,11 @@ export default {
         attrs: []
       },
       addFormRules: {
-        goods_name: [
-          { required: true, message: '请输入商品名称', trigger: 'blur' }
-        ],
-        goods_price: [
-          { required: true, message: '请输入商品价格', trigger: 'blur' }
-        ],
-        goods_weight: [
-          { required: true, message: '请输入商品重量', trigger: 'blur' }
-        ],
-        goods_number: [
-          { required: true, message: '请输入商品数量', trigger: 'blur' }
-        ],
-        goods_cat: [
-          { required: true, message: '请选择商品分类', trigger: 'blur' }
-        ]
+        goods_name: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
+        goods_price: [{ required: true, message: '请输入商品价格', trigger: 'blur' }],
+        goods_weight: [{ required: true, message: '请输入商品重量', trigger: 'blur' }],
+        goods_number: [{ required: true, message: '请输入商品数量', trigger: 'blur' }],
+        goods_cat: [{ required: true, message: '请选择商品分类', trigger: 'blur' }]
       },
       // 商品分类列表
       catelist: [],
@@ -176,12 +165,9 @@ export default {
       // console.log(this.activeIndex)
       // 证明访问的是动态参数面板
       if (this.activeIndex === '1') {
-        const { data: res } = await this.$http.get(
-          `categories/${this.cateId}/attributes`,
-          {
-            params: { sel: 'many' }
-          }
-        )
+        const { data: res } = await this.$http.get(`categories/${this.cateId}/attributes`, {
+          params: { sel: 'many' }
+        })
 
         if (res.meta.status !== 200) {
           return this.$message.error('获取动态参数列表失败！')
@@ -189,17 +175,13 @@ export default {
 
         console.log(res.data)
         res.data.forEach(item => {
-          item.attr_vals =
-            item.attr_vals.length === 0 ? [] : item.attr_vals.split(' ')
+          item.attr_vals = item.attr_vals.length === 0 ? [] : item.attr_vals.split(' ')
         })
         this.manyTableData = res.data
       } else if (this.activeIndex === '2') {
-        const { data: res } = await this.$http.get(
-          `categories/${this.cateId}/attributes`,
-          {
-            params: { sel: 'only' }
-          }
-        )
+        const { data: res } = await this.$http.get(`categories/${this.cateId}/attributes`, {
+          params: { sel: 'only' }
+        })
 
         if (res.meta.status !== 200) {
           return this.$message.error('获取静态属性失败！')

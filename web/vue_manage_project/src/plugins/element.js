@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {
-  Button,
+  Button, // 按钮
   Form, // 表单
   FormItem, // 表单 前文字
   Input, // 表单输入框
@@ -14,26 +14,26 @@ import {
   MenuItem, // 菜单按钮
   Breadcrumb,
   BreadcrumbItem,
-  Card,
-  Row,
-  Col,
-  Table,
+  Card, // 卡片
+  Row, // Layout行布局
+  Col, //  Layout列布局
+  Table, // 表格 
   TableColumn,
   Switch,
   Tooltip,
-  Pagination,
+  Pagination, // 分页
   Dialog,
   MessageBox,
-  Tag,
-  Tree,
-  Select,
-  Option,
-  Cascader,
+  Tag, // 标签组件
+  Tree, // tree-table 表格tree
+  Select, // 选择框
+  Option, // 选择option
+  Cascader, // el-cascader 级联选择器
   Alert,
-  Tabs,
-  TabPane,
-  Steps,
-  Step,
+  Tabs, // el-tabs 整个tab栏区域
+  TabPane, // el-tab-pane 每步骤tab 
+  Steps, // el-step步骤条组件
+  Step, // el-steps 步骤条组件
   CheckboxGroup,
   Checkbox,
   Upload,

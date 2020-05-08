@@ -114,23 +114,17 @@ export default {
     // 根据Id删除对应的权限
     async removeRightById(role, rightId) {
       // 弹框提示用户是否要删除
-      const confirmResult = await this.$confirm(
-        '此操作将永久删除该文件, 是否继续?',
-        '提示',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).catch(err => err)
+      const confirmResult = await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
 
       if (confirmResult !== 'confirm') {
         return this.$message.info('取消了删除！')
       }
 
-      const { data: res } = await this.$http.delete(
-        `roles/${role.id}/rights/${rightId}`
-      )
+      const { data: res } = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
 
       if (res.meta.status !== 200) {
         return this.$message.error('删除权限失败！')
@@ -178,10 +172,7 @@ export default {
 
       const idStr = keys.join(',')
 
-      const { data: res } = await this.$http.post(
-        `roles/${this.roleId}/rights`,
-        { rids: idStr }
-      )
+      const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
 
       if (res.meta.status !== 200) {
         return this.$message.error('分配权限失败！')

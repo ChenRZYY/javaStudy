@@ -400,6 +400,7 @@ class ApplyDemo {
     indexParamNew(IndexParamNew)
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
+
   @Test
   def get5813(): Unit = {
 
@@ -417,6 +418,40 @@ class ApplyDemo {
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
 
+  @Test
+  def get6001(): Unit = {
+
+    val HsReq: String = "USER_CODE|MARKET|SECU_ACC|ACCOUNT|SECU_CODE|TRD_ID|PRICE|EXT_INST|ORDER_TYPE|CAL_QTY_FLAG|LINK_SECU_ACC|SEAT|REMARK|VID||CommBatchEntrustInfo|"
+    val HsAns: String = "SHARE_QTY|"
+    val Request: String = "USERCODE|WTACCOUNTTYPE|WTACCOUNT||STOCKCODE|DIRECTION|PRICE||00|pricetype|CommBatchEntrustInfo|GateWayIp|MobileCode|IMEI|"
+    //    val Request: String = "USERCODE|WTACCOUNTTYPE|WTACCOUNT||STOCKCODE|DIRECTION|PRICE||00||||||pricetype|CommBatchEntrustInfo|GateWayIp|MobileCode|IMEI|"
+    val ReturnGrid: String = "股份数量|"
+    val DisplayFormat: String = "股份数量|"
+    val IndexParamNew: String = ""
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
+  def get5835(): Unit = {
+
+    val HsReq: String = "TRD_ID|SECU_CODE|MARKET|WEIHU_FLAG|"
+    val HsAns: String = "MARKET|TRD_ID|SECU_CLS|BGN_SECU_CODE|END_SECU_CODE|SECU_STATUS|PREV_SECU|END_SECU_CODE|SECU_STATUS|PREV_SECU|LAST_SECU|WAR_INFO|STATUS|REMARK|"
+    val Request: String = "tradeId|stockcode|market||"
+    val ReturnGrid: String = "交易市场|交易行为|证券类别|开始证券代码|结束证券代码|证券状态|证券名称前缀|证券名称后缀|提示信息|启用状态|备注|"
+    val DisplayFormat: String = "提示信息|"
+    val IndexParamNew: String = ""
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
 
 
   def requestMapping(request: String, hsReq: String): Array[Unit] = {
