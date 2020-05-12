@@ -453,6 +453,31 @@ class ApplyDemo {
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
 
+  @Test
+  def get6044(): Unit = {
+
+    val HsReq: String = "SECU_INTL|FUND_STATUS|M_S_STATUS|CHANGE_STATUS|R_LAST_SN|R_COUNT|K_SECU_INTL|"
+    val HsAns: String = "SECU_INTL|CREATION_FLOOR|CREATION_CEILING|CREATION_UNIT|REDEMPTION_FLOOR|REDEMPTION_CEILING|REDEMPTION_UNIT|SETT_CPTL_TN|USABLE_CPTL_TN|FUND_STATUS|FUND_NAV|NAV_DATE|M_S_STATUS|MAIN_FUND|M_S_RATIO|MERGE_FLOOR|SPLIT_FLOOR|CHANGE_STATUS|"
+    val Request: String = "SECU_INTL||||0|R_COUNT||"
+    val ReturnGrid: String = "证券内码|申购下限 |申购上限|申购单位|赎回下限|赎回上限|赎回单位|资金交收天数|资金可用天数|场内基金状态|基金净值|净值日期|合并/分拆状态|主基金代码|分拆合并比例|合并下限|分拆下限|转换状态|证券代码|证券名称|市场类别|"
+    val DisplayFormat: String = "证券内码|申购下限 |申购上限|申购单位|赎回下限|赎回上限|赎回单位|资金交收天数|资金可用天数|场内基金状态|基金净值|净值日期|合并/分拆状态|主基金代码|分拆合并比例|合并下限|分拆下限|转换状态|证券代码|证券名称|市场类别|"
+    val IndexParamNew: String = "JJSTATEINDEX=9&COSTPRICEINDEX=10&HighAmountIndex=2&LowAmountIndex=1&SECUINTLINDEX=0&MAINSTOCKCODEINDEX=13&stateTypeIndex=12&ProportionType=14&LowMerge=15&LowSpinoff=16&SecuIntlIndex=0&StockCodeIndex=18&StockNameIndex=19&WTAccountTypeIndex=20&"
+
+    //    HsReq = SECU_INTL | FUND_STATUS | M_S_STATUS | CHANGE_STATUS | R_LAST_SN | R_COUNT | K_SECU_INTL |
+    //      HsAns = SECU_INTL | CREATION_FLOOR | CREATION_CEILING | CREATION_UNIT | REDEMPTION_FLOOR | REDEMPTION_CEILING | REDEMPTION_UNIT | SETT_CPTL_TN | USABLE_CPTL_TN | FUND_STATUS | FUND_NAV | NAV_DATE | M_S_STATUS | MAIN_FUND | M_S_RATIO | MERGE_FLOOR | SPLIT_FLOOR | CHANGE_STATUS |
+    //      Request = SECU_INTL |||| 0 | R_COUNT ||
+    //      ReturnGrid = 证券内码 | 申购下限 | 申购上限 | 申购单位 | 赎回下限 | 赎回上限 | 赎回单位 | 资金交收天数 | 资金可用天数 | 场内基金状态 | 基金净值 | 净值日期 | 合并 / 分拆状态 | 主基金代码 | 分拆合并比例 | 合并下限 | 分拆下限 | 转换状态 | 证券代码 | 证券名称 | 市场类别 |
+    //      DisplayFormat = 证券内码 | 申购下限 | 申购上限 | 申购单位 | 赎回下限 | 赎回上限 | 赎回单位 | 资金交收天数 | 资金可用天数 | 场内基金状态 | 基金净值 | 净值日期 | 合并 / 分拆状态 | 主基金代码 | 分拆合并比例 | 合并下限 | 分拆下限 | 转换状态 | 证券代码 | 证券名称 | 市场类别 |;
+    //    IndexParamNew =
+    //      IndexParamNew = JJSTATEINDEX = 9 & COSTPRICEINDEX = 10 & HighAmountIndex = 2 & LowAmountIndex = 1 & SECUINTLINDEX = 0 & MAINSTOCKCODEINDEX = 13 & stateTypeIndex = 12 & ProportionType = 14 & LowMerge = 15 & LowSpinoff = 16 & SecuIntlIndex = 0 & StockCodeIndex = 18 & StockNameIndex = 19 & WTAccountTypeIndex = 20 &
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
 
   def requestMapping(request: String, hsReq: String): Array[Unit] = {
     System.err.println("++++++++++++++++++++++++requestMapping++++++++++++++++++++++++++++")

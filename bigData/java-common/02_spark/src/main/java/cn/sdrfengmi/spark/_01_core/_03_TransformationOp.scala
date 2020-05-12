@@ -1,5 +1,6 @@
 package cn.sdrfengmi.spark._01_core
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.Test
@@ -9,6 +10,8 @@ import scala.collection.mutable
 class _03_TransformationOp extends Serializable {
   val conf = new SparkConf().setMaster("local[6]").setAppName("transformation_op")
   val sc = new SparkContext(conf)
+  sc.setLogLevel("ERROR")
+//  Logger.getLogger("org").setLevel(Level.ERROR)
 
   /**
     * mapPartitions 和 map 算子是一样的, 只不过 map 是针对每一条数据进行转换, mapPartitions 针对一整个分区的数据进行转换
@@ -250,11 +253,28 @@ class _03_TransformationOp extends Serializable {
 
   @Test
   def join(): Unit = {
-    val rdd1 = sc.parallelize(Seq(("a", 1), ("a", 2), ("b", 1)))
-    val rdd2 = sc.parallelize(Seq(("a", 10), ("a", 11), ("a", 12)))
+    val rdd1: RDD[(String, Int)] = sc.parallelize(Seq(("a", 1), ("a", 2), ("b", 1)))
+    val rdd2: RDD[(String, Int)] = sc.parallelize(Seq(("a", 10), ("a", 11), ("a", 12)))
     rdd1.join(rdd2)
       .collect()
       .foreach(println(_))
+
+    val unit1: RDD[(String, (Int, Int))] = rdd1.join(rdd2) //根据string key 进行对比
+    val unit2: RDD[(String, (Iterable[Int], Iterable[Int]))] = rdd1.cogroup(rdd2)
+  }
+
+  @Test
+  def cogroup(): Unit = {
+    val rdd1: RDD[(String, Int)] = sc.parallelize(Seq(("a", 1), ("a", 2), ("b", 1)))
+    val rdd2: RDD[(String, Int)] = sc.parallelize(Seq(("a", 10), ("a", 11), ("a", 12)))
+    //cogroup 和 join的区别
+    val cogroupRdd: RDD[(String, (Iterable[Int], Iterable[Int]))] = rdd1.cogroup(rdd2)
+    val tuple: RDD[(String, List[Int], List[Int])] = cogroupRdd.map(f => {
+      println(f)
+      (f._1, f._2._1.toList, f._2._2.toList)
+    })
+
+    println(tuple.collect())
   }
 
   /**

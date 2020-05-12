@@ -29,10 +29,7 @@ class _08_BroadCast {
     ))
 
     //获取学生的详细信息以及班级名称
-    val kvStudent = students.map(item => {
-      (item._4, item)
-    })
-
+    val kvStudent = students.map(item => (item._4, item))
     val infoRdd: RDD[(String, ((Int, String, Int, String), String))] = kvStudent.join(clazz)
 
     val resultRdd = infoRdd.map {
@@ -41,7 +38,6 @@ class _08_BroadCast {
     }
 
     resultRdd.foreach(println(_))
-
     Thread.sleep(100000000)
   }
 

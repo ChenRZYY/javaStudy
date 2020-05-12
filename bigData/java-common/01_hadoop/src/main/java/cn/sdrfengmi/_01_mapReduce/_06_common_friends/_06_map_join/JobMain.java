@@ -1,5 +1,6 @@
 package cn.sdrfengmi._01_mapReduce._06_common_friends._06_map_join;
 
+import cn.sdrfengmi._01_mapReduce.HdfsUtil;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -14,6 +15,10 @@ import org.apache.hadoop.util.ToolRunner;
 import java.net.URI;
 
 import static cn.sdrfengmi._01_mapReduce.HdfsUtil.*;
+
+/**
+ * Hadoop的缓存机制（Distributedcache）
+ */
 public class JobMain extends Configured implements Tool {
     @Override
     public int run(String[] args) throws Exception {
@@ -30,7 +35,7 @@ public class JobMain extends Configured implements Tool {
 
 //        job.addCacheFile(new URI("file:///C:\\学习\\study\\bigData\\hadoop\\src\\main\\java\\cn\\hp\\_01_mapReduce\\_06_common_friends\\_06_map_join\\product.txt"));
         job.addCacheFile(new URI("hdfs://server02:8020/study/cache_file/product.txt"));  //TODO 缓存小表
-
+//        job.addCacheArchive(new URI("hdfs://server02:8020/study/cache_file/product.txt"));  //都是缓存小表
         //第一步:设置输入类和输入的路径
         job.setInputFormatClass(TextInputFormat.class);
 //        TextInputFormat.addInputPath(job, new Path("hdfs://server02:8020/study/cache_file/product.txt")); ///study/cache_file/product.txt
@@ -44,7 +49,8 @@ public class JobMain extends Configured implements Tool {
         //第八步:设置输出类和输出路径
         job.setOutputFormatClass(TextOutputFormat.class);
 //        TextOutputFormat.setOutputPath(job, new Path("file:///D:\\out\\map_join_out"));
-        FileOutputFormat.setOutputPath(job, new Path("file:///C:\\out\\flowpartiton_out" + Math.random()));
+//        FileOutputFormat.setOutputPath(job, new Path("file:///C:\\out\\flowpartiton_out" + Math.random()));
+        TextOutputFormat.setOutputPath(job, HdfsUtil.getNextOutputputFile());
 
         //3:等待任务结束
         boolean bl = job.waitForCompletion(true);

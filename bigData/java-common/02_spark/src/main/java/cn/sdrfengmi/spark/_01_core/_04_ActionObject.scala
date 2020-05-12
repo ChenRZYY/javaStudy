@@ -1,6 +1,7 @@
 package cn.sdrfengmi.spark._01_core
 
 import java.sql.{Connection, DriverManager, PreparedStatement}
+import java.util.Date
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
@@ -12,13 +13,8 @@ class _04_ActionObject {
 
   @Test
   def reduce(): Unit = {
-    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](
-      ("手机", 10.0),
-      ("手机", 25.0),
-      ("电脑", 55.0)
-    ))
+    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](("手机", 10.0), ("手机", 25.0), ("电脑", 55.0)))
     val result: (String, Double) = rdd1.reduce((agg, curr) => ("总价", agg._2 + curr._2))
-
     /**
       * 数据处理流程：
       * (agg, curr)=>("总价",agg._2+curr._2)  agg:上一次聚合结果值  curr:本次要聚合的元素
@@ -30,22 +26,13 @@ class _04_ActionObject {
 
   @Test
   def foreach(): Unit = {
-    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](
-      ("手机", 10.0),
-      ("手机", 25.0),
-      ("电脑", 55.0)
-    ), 2)
-
+    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](("手机", 10.0), ("手机", 25.0), ("电脑", 55.0)), 2)
     rdd1.foreach(println(_))
   }
 
   @Test
-  def foreachPartition(): Unit = {
-    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](
-      ("手机", 10.0),
-      ("手机", 25.0),
-      ("电脑", 55.0)
-    ), 2)
+  def foreachPartition(): Unit = { //defaultParallelism
+    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](("手机", 10.0), ("手机", 25.0), ("电脑", 55.0)), 2)
 
     //    rdd1.foreachPartition(inst(_)_) TODO 可以把 connection函数抽取出来
     rdd1.foreachPartition(it => {
@@ -83,24 +70,19 @@ class _04_ActionObject {
 
   @Test
   def take(): Unit = {
-    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](
-      ("手机", 10.0),
-      ("手机", 11.0),
-      ("手机", 12.0),
-      ("手机", 25.0),
-      ("电脑", 55.0)
-    ), 2)
+    val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](("手机", 10.0), ("手机", 11.0), ("手机", 12.0), ("手机", 25.0), ("电脑", 55.0)), 2)
     //获取前3位的数据
-    //rdd1.take(3)
-    ////获取第一个数据
-    //rdd1.first()
-    ////统计rdd中元素的总个数
-    //rdd1.count()
-    ////统计rdd中key出现的次数
+    println(rdd1.take(3))
+    //获取第一个数据
+    println(rdd1.first())
+    //统计rdd中元素的总个数
+    println(rdd1.count())
+    //统计rdd中key出现的次数
     //rdd1.countByKey()
-    ////抽样
-    //rdd1.takeSample(false,1)
+    println(rdd1.countByKey())
+    //抽样
+    println(rdd1.takeSample(false, 1))
 
-    rdd1.saveAsTextFile("result")
+    rdd1.saveAsTextFile(SparkUtil.getNextOutputputFile) //fixme 有两个分区partition 但是分区的值不是按照hash进行分区,("手机", 10.0) 在两个分区都有
   }
 }

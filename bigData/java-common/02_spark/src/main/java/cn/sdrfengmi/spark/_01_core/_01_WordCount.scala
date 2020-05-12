@@ -20,7 +20,7 @@ object _01_WordCount {
     //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/globalParameter/globalParameter.txt", 2)
     //val rdd1: RDD[String] = sc.textFile("hdfs:///data/globalParameter.txt")
     //val rdd1: RDD[String] = sc.textFile("hdfs://server02:8020/globalParameter/", 2) //TODO 读取文件夹
-    val rdd1: RDD[String] = sc.textFile("dataset/wordcount.txt", 2)
+    val rdd1: RDD[String] = sc.textFile("01_dataset/wordcount.txt", 2)
 
     //["hello sparkSession hello","hello python hello"]
     //3、数据处理
@@ -52,7 +52,7 @@ object _01_WordCount {
     //[(hello,4),(sparkSession,1),(python,1)]
     //3.4 将数据按照单词出现的个数进行降序排列
     val rdd5 = rdd4.sortBy(_._2, false)
-    Thread.sleep(10000)
+    Thread.sleep(10000000)
     //4、数据打印
     //    println(rdd5.collect().toBuffer)
     System.err.println(rdd5.collect().toBuffer)
