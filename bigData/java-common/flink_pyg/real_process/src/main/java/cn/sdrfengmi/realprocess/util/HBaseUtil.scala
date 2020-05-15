@@ -46,7 +46,7 @@ object HBaseUtil {
 
       // 构建出 表的描述的建造者
       val descBuilder: TableDescriptorBuilder = TableDescriptorBuilder.newBuilder(tableName)
-
+      //创建列祖名
       val familyDescriptor: ColumnFamilyDescriptor = ColumnFamilyDescriptorBuilder.newBuilder(columnFamilyName.getBytes).build()
       // 给表去添加列族
       descBuilder.setColumnFamily(familyDescriptor)

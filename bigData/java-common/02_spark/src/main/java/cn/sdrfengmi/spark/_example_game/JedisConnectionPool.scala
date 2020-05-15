@@ -1,4 +1,4 @@
-package cn.sdrfengmi.spark._05_game
+package cn.sdrfengmi.spark._example_game
 
 import redis.clients.jedis.{Jedis, JedisPool, JedisPoolConfig}
 

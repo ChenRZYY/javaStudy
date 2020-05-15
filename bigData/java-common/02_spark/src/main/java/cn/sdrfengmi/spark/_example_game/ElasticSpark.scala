@@ -1,4 +1,4 @@
-package cn.sdrfengmi.spark._05_game
+package cn.sdrfengmi.spark._example_game
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.elasticsearch.spark._

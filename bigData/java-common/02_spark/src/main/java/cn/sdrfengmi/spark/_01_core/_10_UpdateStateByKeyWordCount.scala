@@ -1,14 +1,13 @@
-package cn.sdrfengmi.spark._03_flume_kafka
+package cn.sdrfengmi.spark._01_core
 
+import cn.sdrfengmi.spark._03_flume_kafka.LoggerLevels
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 
 /**
-  * Created by root on 2016/5/21.
+  * updateStateByKey 根据key的之前状态值和key的新值，对key进行更新，返回一个新状态的DStream
   */
-object StateFulWordCount {
-
-
+object _10_UpdateStateByKeyWordCount {
   //Seq这个批次某个单词的次数
   //Option[Int]：以前的结果
 
@@ -23,7 +22,7 @@ object StateFulWordCount {
   def main(args: Array[String]) {
     LoggerLevels.setStreamingLogLevels()
     //StreamingContext
-    val conf = new SparkConf().setAppName("StateFulWordCount").setMaster("local[2]")
+    val conf = new SparkConf().setAppName("_10_UpdateStateByKeyWordCount").setMaster("local[2]")
     val sc = new SparkContext(conf)
     //updateStateByKey必须设置setCheckpointDir
     sc.setCheckpointDir("c://ck")

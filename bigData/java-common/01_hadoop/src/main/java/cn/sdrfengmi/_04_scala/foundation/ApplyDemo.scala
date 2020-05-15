@@ -478,6 +478,17 @@ class ApplyDemo {
     responseMapping(HsAns, ReturnGrid, DisplayFormat)
   }
 
+  @Test
+  def get5905(): Unit = {
+var name = "{\n\t\"Action\": \"5905\",\n\t\"MobileCode\": \"($MobileCode)\",\n\t\"ProtoType\": \"Sign\",\n\t\"ReqlinkType\": \"1\",\n\t\"Reqno\": \"40000001_158805947310735218\",\n\t\"Token\": \"oRWvfs17650@F865-739A134fpKIhN\",\n\t\"UserCode\": \"40000001\",\n\t\"accountType\": \"KHBH\",\n\t\"alias\": \"${40000001}_基金申购\",\n\t\"area\": \"jy_data\",\n\t\"mobilekind\": \"web\",\n\t\"name\": \"晓芜\",\n\t\"newindex\": \"1\",\n\t\"plaintext\": {\n\t\t\"DocHashs\": \"\",\n\t\t\"custcode\": \"40000001\",\n\t\t\"custname\": \"晓芜\",\n\t\t\"signatureItems\": {\n\t\t\t\"question\": false,\n\t\t\t\"expectation\": \"期望产生一定的收益，可以承担一定的投资风险\",\n\t\t\t\"userMes\": {\n\t\t\t\t\"fundAccount\": \"8215000001\",\n\t\t\t\t\"name\": \"晓芜\"\n\t\t\t},\n\t\t\t\"level\": {\n\t\t\t\t\"className\": \"level-icon4\",\n\t\t\t\t\"levelText\": \"积极型\"\n\t\t\t},\n\t\t\t\"timeLimit\": {\n\t\t\t\t\"time\": \"无特别要求\",\n\t\t\t\t\"style\": {\n\t\t\t\t\t\"width\": \"0%\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"investType\": {\n\t\t\t\t\"equity\": {\n\t\t\t\t\t\"className\": \"type3-icon2\",\n\t\t\t\t\t\"txt\": \"权益类\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"productInfo\": {\n\t\t\t\t\"name\": \"国泰货币\",\n\t\t\t\t\"level\": \"低风险\",\n\t\t\t\t\"time\": \"0到1年\",\n\t\t\t\t\"type\": \"固定收益类\",\n\t\t\t\t\"result\": \"期望产生一定的收益，可以承担一定的投资风险\"\n\t\t\t},\n\t\t\t\"nowData\": \"2020年04月28日\",\n\t\t\t\"title\": \"适当性匹配及投资者确认书\"\n\t\t}\n\n\t}\n}"
+
+//    hsReq(HsReq)
+//    request(Request)
+//    requestMapping(Request, HsReq)
+//    indexParamNew(IndexParamNew)
+//    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
 
   def requestMapping(request: String, hsReq: String): Array[Unit] = {
     System.err.println("++++++++++++++++++++++++requestMapping++++++++++++++++++++++++++++")

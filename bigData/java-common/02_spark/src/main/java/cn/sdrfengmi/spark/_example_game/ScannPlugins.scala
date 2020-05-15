@@ -1,4 +1,4 @@
-//package cn.hp.spark._05_game
+//package cn.hp.spark._example_game
 //
 ////import _05_kafka.serializer.StringDecoder
 //import org.apache.commons.lang3.time.FastDateFormat

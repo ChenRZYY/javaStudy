@@ -1,6 +1,7 @@
 package cn.sdrfengmi.spark._03_flume_kafka
 
 import org.apache.spark.SparkConf
+import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.{Milliseconds, Seconds, StreamingContext}
 
 /**
@@ -13,7 +14,7 @@ object WindowOpts {
     val conf = new SparkConf().setAppName("WindowOpts").setMaster("local[2]")
     val ssc = new StreamingContext(conf, Milliseconds(5000))
     val lines = ssc.socketTextStream("172.16.0.11", 9999)
-    val pairs = lines.flatMap(_.split(" ")).map((_, 1))
+    val pairs: DStream[(String, Int)] = lines.flatMap(_.split(" ")).map((_, 1))
     val windowedWordCounts = pairs.reduceByKeyAndWindow((a:Int,b:Int) => (a + b), Seconds(15), Seconds(10))
     //Map((hello, 5), (jerry, 2), (kitty, 3))
     windowedWordCounts.print()

@@ -90,7 +90,6 @@ object ChannelAreaTask extends BaseTask[ChannelArea] {
         val oldCountColumn = "oldCount"
 
         // 查询HBase
-
         val pvInHbase: String = HBaseUtil.getData(tableName, rowkey, clfName, pvColumn)
         val uvInHbase: String = HBaseUtil.getData(tableName, rowkey, clfName, uvColumn)
         val newCountInHbase: String = HBaseUtil.getData(tableName, rowkey, clfName, newCountColumn)

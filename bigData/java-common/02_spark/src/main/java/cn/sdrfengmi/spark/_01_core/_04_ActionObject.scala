@@ -2,6 +2,7 @@ package cn.sdrfengmi.spark._01_core
 
 import java.sql.{Connection, DriverManager, PreparedStatement}
 import java.util.Date
+import java.util.concurrent.TimeUnit
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
@@ -15,6 +16,7 @@ class _04_ActionObject {
   def reduce(): Unit = {
     val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](("手机", 10.0), ("手机", 25.0), ("电脑", 55.0)))
     val result: (String, Double) = rdd1.reduce((agg, curr) => ("总价", agg._2 + curr._2))
+
     /**
       * 数据处理流程：
       * (agg, curr)=>("总价",agg._2+curr._2)  agg:上一次聚合结果值  curr:本次要聚合的元素
@@ -85,4 +87,17 @@ class _04_ActionObject {
 
     rdd1.saveAsTextFile(SparkUtil.getNextOutputputFile) //fixme 有两个分区partition 但是分区的值不是按照hash进行分区,("手机", 10.0) 在两个分区都有
   }
+
+
+  //saveAsObjectFiles saveAsHadoopFiles
+  @Test
+  def saveAsTextFiles(): Unit = {
+    val rdd = sc.parallelize(Seq(1, 2, 3, 4, 5), 2)
+    rdd.saveAsTextFile(SparkUtil.getNextOutputputFile)
+    //    TimeUnit.SECONDS.sleep(10)
+    //    Thread.sleep(1000)
+    //    rdd.saveAsObjectFile(SparkUtil.getNextOutputputFile) 保存的文本二进制
+
+  }
+
 }

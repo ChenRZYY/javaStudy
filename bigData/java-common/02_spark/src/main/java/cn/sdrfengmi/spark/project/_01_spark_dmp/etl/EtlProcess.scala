@@ -1,16 +1,16 @@
 package cn.sdrfengmi.spark.project._01_spark_dmp.etl
 
-import cn.sdrfengmi.spark.project._01_spark_dmp.utils.{ConfigUtils, DateUtils, HttpUtils, IPAddressUtils, IPLocation, KuduUtils}
+import java.util.concurrent.TimeUnit
+
+import cn.sdrfengmi.spark.project._01_spark_dmp.utils.{ConfigUtils, DateUtils, HttpUtils}
 import com.alibaba.fastjson.{JSON, JSONObject}
 import com.maxmind.geoip.{Location, LookupService}
 import org.glassfish.jersey.internal.RuntimeDelegateImpl
 //import com.sun.jersey.server.impl.provider.RuntimeDelegateImpl
 import javax.ws.rs.ext.RuntimeDelegate
 import org.apache.kudu.client.CreateTableOptions
-import org.apache.kudu.spark.kudu.KuduContext
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.sql.types.StructType
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SaveMode, SparkSession}
+import org.apache.spark.sql._
 
 import scala.util.Try
 
@@ -45,7 +45,7 @@ object EtlProcess {
 
     val source: DataFrame = spark.read
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("dataset/pmt.json")
+      .json("01_dataset/pmt.json")
 
     val distinctDS: Dataset[Row] = source.select('ip)
       .filter("ip is not null and ip != ''")
@@ -188,7 +188,8 @@ object EtlProcess {
     //    KuduUtils.write(context, SINK_TABLE, schema, keys, options, result)
     result.write
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .mode(SaveMode.Overwrite).json("datasetOut/" + SINK_TABLE)
+      .mode(SaveMode.Overwrite).json("01_datasetOut/" + SINK_TABLE)
+    TimeUnit.SECONDS.sleep(100000000)
   }
 
 

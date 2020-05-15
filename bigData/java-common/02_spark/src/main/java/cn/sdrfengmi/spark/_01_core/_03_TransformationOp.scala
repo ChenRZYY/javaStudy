@@ -11,7 +11,7 @@ class _03_TransformationOp extends Serializable {
   val conf = new SparkConf().setMaster("local[6]").setAppName("transformation_op")
   val sc = new SparkContext(conf)
   sc.setLogLevel("ERROR")
-//  Logger.getLogger("org").setLevel(Level.ERROR)
+  //  Logger.getLogger("org").setLevel(Level.ERROR)
 
   /**
     * mapPartitions 和 map 算子是一样的, 只不过 map 是针对每一条数据进行转换, mapPartitions 针对一整个分区的数据进行转换
@@ -250,7 +250,7 @@ class _03_TransformationOp extends Serializable {
       .foreach(println(_))
   }
 
-
+  //输入为（K,V)、（K,W）类型的DStream，返回一个新的（K，（V，W））类型的DStream
   @Test
   def join(): Unit = {
     val rdd1: RDD[(String, Int)] = sc.parallelize(Seq(("a", 1), ("a", 2), ("b", 1)))
@@ -263,6 +263,7 @@ class _03_TransformationOp extends Serializable {
     val unit2: RDD[(String, (Iterable[Int], Iterable[Int]))] = rdd1.cogroup(rdd2)
   }
 
+  //输入为（K,V)、（K,W）类型的DStream，返回一个新的 (K, Seq[V], Seq[W]) 元组类型的DStream
   @Test
   def cogroup(): Unit = {
     val rdd1: RDD[(String, Int)] = sc.parallelize(Seq(("a", 1), ("a", 2), ("b", 1)))
@@ -302,11 +303,12 @@ class _03_TransformationOp extends Serializable {
   def partitioning(): Unit = {
     val rdd = sc.parallelize(Seq(1, 2, 3, 4, 5), 2)
 
-    // repartition
+    // repartition 能减少增加分区数
     println(rdd.repartition(5).partitions.size)
     println(rdd.repartition(1).partitions.size)
 
-    // coalesce
+    // coalesce 只能减少分区数
     println(rdd.coalesce(5, shuffle = true).partitions.size)
   }
+
 }

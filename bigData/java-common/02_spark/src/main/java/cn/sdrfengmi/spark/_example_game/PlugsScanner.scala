@@ -1,5 +1,5 @@
 /*
-package com.hello.spark._05_game
+package com.hello.spark._example_game
 
 import _05_kafka.serializer.StringDecoder
 import org.apache.commons.lang3.time.FastDateFormat

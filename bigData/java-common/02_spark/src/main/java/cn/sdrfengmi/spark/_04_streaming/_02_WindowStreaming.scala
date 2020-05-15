@@ -35,7 +35,7 @@ class _02_WindowStreaming {
   }
 
   @Test
-  def educeByKeyAndWindow: Unit = {
+  def reduceByKeyAndWindow: Unit = {
     //1、创建StreamingContext
     //sparkstraming程序中有一个线程专门用来接收数据，最少还要一个线程用来处理数据，所有在设置master的时候线程数必须>=2
     val sc = new SparkContext(new SparkConf().setMaster("local[2]").setAppName("streaming"))
