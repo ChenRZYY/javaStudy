@@ -16,8 +16,6 @@ class _03_NullProcessor {
 
   @Test
   def nullAndNaN(): Unit = {
-
-
     // 2. 导入数据集
 
     // 3. 读取数据集
@@ -45,7 +43,7 @@ class _03_NullProcessor {
       .option("header", value = true)
 //      .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
       .schema(schema)
-      .csv("dataset/BeijingPM.csv")
+      .csv("../01_dataset/BeijingPM.csv")
 
     sourceDF.show()
 
@@ -74,7 +72,7 @@ class _03_NullProcessor {
     val sourceDF = spark.read
       .option("header", value = true)
       .option("inferSchema", value = true)
-      .csv("dataset/BeijingPM.csv")
+      .csv("../01_dataset/BeijingPM.csv")
 
 //    sourceDF.show()
 

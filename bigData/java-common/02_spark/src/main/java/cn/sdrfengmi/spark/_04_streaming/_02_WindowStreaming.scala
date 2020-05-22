@@ -1,5 +1,11 @@
 package cn.sdrfengmi.spark._04_streaming
 
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.{Encoders, SparkSession}
+import org.apache.spark.sql.streaming.OutputMode
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.ReceiverInputDStream
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -7,6 +13,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.Test
 
 class _02_WindowStreaming {
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   @Test
   def window = {
@@ -62,4 +69,38 @@ class _02_WindowStreaming {
     //6、阻塞主线程，等待外部停止
     ssc.awaitTermination()
   }
+
+  @Test
+  def withWatermark(): Unit = {
+    val spark = SparkSession.builder().appName("test").master("local[*]").getOrCreate()
+    val lines = spark.readStream.format("socket").option("host", "127.0.0.1").option("port", 19999).load()
+    import spark.implicits._
+
+    val sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    lines.as(Encoders.STRING)
+      .map(row => {
+        val fields = row.split(",")
+        MyEntity(fields(0), new Timestamp(sdf.parse(fields(1)).getTime), Integer.valueOf(fields(2)))
+      })
+      .createOrReplaceTempView("tv_entity")
+
+    spark.sql("select id,timestamp,value from tv_entity")
+      .withWatermark("timestamp", "60 minutes")
+      .createOrReplaceTempView("tv_entity_watermark")
+
+    val resultDf = spark.sql(
+      s"""
+         |select id,sum(value) as sum_value
+         |from  tv_entity_watermark
+         |group id
+         |""".stripMargin)
+
+    val query = resultDf.writeStream.format("console").outputMode(OutputMode.Update()).start()
+
+    query.awaitTermination()
+    query.stop()
+  }
 }
+
+case class MyEntity(id: String, timestamp: Timestamp, value: Integer)
+

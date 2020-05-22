@@ -34,7 +34,6 @@ class _02_Column {
     val column3: sql.Column = column("name")  //TODO column0 为什么都能用
 
     // 这四种创建方式, 有关联的 Dataset 吗?
-
     ds.select(column0).show()
 
     // Dataset 可以, DataFrame 可以使用 _02_Column 对象选中行吗?
@@ -100,34 +99,6 @@ class _02_Column {
       */
   }
 
-  @Test
-  def as(): Unit = {
-    val ds: Dataset[Person] = Seq(Person("zhangsan", 15), Person("lisi", 10)).toDS()
 
-    // select name, count(age) as age from table group by name
-    ds.select('name as "new_name").show()
 
-    ds.select('age.as[Long]).show()
-  }
-
-  @Test
-  def api(): Unit = {
-    val ds: Dataset[Person] = Seq(Person("zhangsan", 15), Person("lisi", 10)).toDS()
-
-    // 需求一, ds 增加列, 双倍年龄
-    // 'age * 2 其实本质上就是将一个表达式(逻辑计划表达式) 附着到 column 对象上
-    // 表达式在执行的时候对应每一条数据进行操作
-    ds.withColumn("doubled", 'age * 2).show
-    //    ds.withColumn("doubled", 'age.*(2).show()  scala中可以自定义符号表达式
-
-    // 需求二, 模糊查询
-    // select * from table where name like zhang%
-    ds.where('name like "zhang%").show()
-
-    // 需求三, 排序, 正反序
-    ds.sort('age asc).show()
-
-    // 需求四, 枚举判断
-    ds.where('name isin("zhangsan", "wangwu", "zhaoliu")).show()
-  }
 }

@@ -5,13 +5,10 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.Test
 
-import scala.collection.mutable
-
 class _03_TransformationOp extends Serializable {
   val conf = new SparkConf().setMaster("local[6]").setAppName("transformation_op")
   val sc = new SparkContext(conf)
-  sc.setLogLevel("ERROR")
-  //  Logger.getLogger("org").setLevel(Level.ERROR)
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   /**
     * mapPartitions 和 map 算子是一样的, 只不过 map 是针对每一条数据进行转换, mapPartitions 针对一整个分区的数据进行转换
@@ -121,7 +118,7 @@ class _03_TransformationOp extends Serializable {
   }
 
   /**
-    * 交集
+    * 两个RDD的 交集
     */
   @Test
   def intersection(): Unit = {
@@ -163,6 +160,14 @@ class _03_TransformationOp extends Serializable {
     val rdd2 = sc.parallelize(Seq(3, 4, 5, 6, 7))
 
     rdd1.subtract(rdd2)
+      .collect()
+      .foreach(println(_))
+  }
+
+  @Test
+  def reduceByKey(): Unit = {
+    sc.parallelize(Seq(("a", 1), ("a", 1), ("b", 1)))
+      .reduceByKey((a, b) => a + b)
       .collect()
       .foreach(println(_))
   }
@@ -284,7 +289,7 @@ class _03_TransformationOp extends Serializable {
     * sortByKey 写法简单, 不用编写函数了
     */
   @Test
-  def sort(): Unit = {
+  def sortByKey(): Unit = {
     val rdd1 = sc.parallelize(Seq(2, 4, 1, 5, 1, 8))
     val rdd2 = sc.parallelize(Seq(("a", 1), ("b", 3), ("c", 2)))
 
@@ -300,7 +305,7 @@ class _03_TransformationOp extends Serializable {
     * coalesce 进行重分区的时候, 默认是不 Shuffle 的, coalesce 默认不能增大分区数
     */
   @Test
-  def partitioning(): Unit = {
+  def repartition_coalesce(): Unit = {
     val rdd = sc.parallelize(Seq(1, 2, 3, 4, 5), 2)
 
     // repartition 能减少增加分区数
@@ -309,6 +314,8 @@ class _03_TransformationOp extends Serializable {
 
     // coalesce 只能减少分区数
     println(rdd.coalesce(5, shuffle = true).partitions.size)
+    //    println(rdd.repartitionAndSortWithinPartitions(5).partitions.size)
   }
+
 
 }

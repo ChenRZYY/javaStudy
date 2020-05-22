@@ -1,7 +1,5 @@
 package cn.sdrfengmi.spark.project._01_spark_dmp.etl
 
-import java.util.concurrent.TimeUnit
-
 import cn.sdrfengmi.spark.project._01_spark_dmp.utils.{ConfigUtils, DateUtils, HttpUtils}
 import com.alibaba.fastjson.{JSON, JSONObject}
 import com.maxmind.geoip.{Location, LookupService}
@@ -39,6 +37,8 @@ object EtlProcess {
       .config("spark.default.parallelism", ConfigUtils.SPARK_DEFAULT_PARALLELISM)
       .config("spark.speculation", ConfigUtils.SPARK_SPECULATION)
       .config("spark.speculation.multiplier", ConfigUtils.SPARK_SPECULATION_MULTIPLIER)
+      //      .config("spark.default.parallelism", "500")
+      .config("spark.sql.shuffle.partitions", 200) //fixme 设置并行度200
       .getOrCreate()
 
     import spark.implicits._
@@ -188,8 +188,8 @@ object EtlProcess {
     //    KuduUtils.write(context, SINK_TABLE, schema, keys, options, result)
     result.write
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .mode(SaveMode.Overwrite).json("01_datasetOut/" + SINK_TABLE)
-    TimeUnit.SECONDS.sleep(100000000)
+      .mode(SaveMode.Overwrite).json("01_datasetOut/chen/" + SINK_TABLE)
+//    TimeUnit.SECONDS.sleep(100000000)
   }
 
 

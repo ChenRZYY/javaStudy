@@ -479,6 +479,33 @@ class ApplyDemo {
   }
 
   @Test
+  def get651(): Unit = {
+
+    val HsReq: String = "START_DATE|END_DATE|BRANCHES|OP_CODE|BIZ_NO|USER_CODE|USER_CLSES|SERIAL_NO|ACC_CLSES|ACCOUNT|CURRENCY|BIZ_CODES|CHANNELS|CHECK_DATE|R_LAST_SN|R_COUNT|K_USER_CODE|K_SERIAL_NO|"
+    val HsAns: String = "SETT_DATE|OCCUR_DATE|COME_IN_DATE|SERIAL_NO|USER_CODE|USER_ROLE|USER_NAME|USER_CLS|ACCOUNT|CURRENCY|ACC_CLS|BRANCH|BIZ_TYPE|BIZ_CODE|CPTL_AMT|BALANCE|OP_USER|OP_ROLE|OP_NAME|OP_CLS|OP_BRH|OP_SITE|CHANNEL|APPENDIX|REMARK|CHECK_DATE|"
+    val Request: String = "BEGINDATE|ENDDATE||||USERCODE||||||||||R_COUNT|||"
+    val ReturnGrid: String = "清算日期|发生日期|COME_IN_DATE|用户流水序号|用户代码|用户角色|用户姓名|USER_CLS|资产账户|币种|资产类别|分支机构|业务类别|业务代码|发生金额|资金余额|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|备注信息|CHECK_DATE|"
+    val DisplayFormat: String = "清算日期|发生日期|用户流水序号|用户代码|用户姓名|资产账户|资金余额|备注信息|币种|发生金额|业务类别|COME_IN_DATE|用户角色|USER_CLS|资产类别|分支机构|业务代码|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|CHECK_DATE|"
+    val IndexParamNew: String = "HideSegmentIndex=8&MONEYNAMEINDEX=8&IsJERG=10&FUNDACCOUNTIndex=5&businessdate=1&DATEFORMINDEX=1&occurbalance=9&"
+
+//    HsReq=START_DATE|END_DATE|BRANCHES|OP_CODE|BIZ_NO|USER_CODE|USER_CLSES|SERIAL_NO|ACC_CLSES|ACCOUNT|CURRENCY|BIZ_CODES|CHANNELS|CHECK_DATE|R_LAST_SN|R_COUNT|K_USER_CODE|K_SERIAL_NO|
+//      HsAns=SETT_DATE|OCCUR_DATE|COME_IN_DATE|SERIAL_NO|USER_CODE|USER_ROLE|USER_NAME|USER_CLS|ACCOUNT|CURRENCY|ACC_CLS|BRANCH|BIZ_TYPE|BIZ_CODE|CPTL_AMT|BALANCE|OP_USER|OP_ROLE|OP_NAME|OP_CLS|OP_BRH|OP_SITE|CHANNEL|APPENDIX|REMARK|CHECK_DATE|
+//    ;Request=BEGINDATE|ENDDATE||||USERCODE||||FUNDACCOUNT||||||R_COUNT|||
+//      Request=BEGINDATE|ENDDATE||||USERCODE||||||||||R_COUNT|||
+//      ReturnGrid=清算日期|发生日期|COME_IN_DATE|用户流水序号|用户代码|用户角色|用户姓名|USER_CLS|资产账户|币种|资产类别|分支机构|业务类别|业务代码|发生金额|资金余额|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|备注信息|CHECK_DATE|
+//    ;DisplayFormat=清算日期|发生日期|COME_IN_DATE|用户流水序号|用户代码|用户角色|用户姓名|USER_CLS|资产账户|币种|资产类别|分支机构|业务类别|业务代码|发生金额|资金余额|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|备注信息|CHECK_DATE|
+//    ;IndexParamNew=MONEYNAMEINDEX=9&IsJERG=12&occurbalance=14&FUNDACCOUNTIndex=8&businessdate=1&DATEFORMINDEX=1&
+//      DisplayFormat=清算日期|发生日期|用户流水序号|用户代码|用户姓名|资产账户|资金余额|备注信息|币种|发生金额|业务类别|COME_IN_DATE|用户角色|USER_CLS|资产类别|分支机构|业务代码|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|CHECK_DATE|
+//      IndexParamNew=HideSegmentIndex=8&MONEYNAMEINDEX=8&IsJERG=10&FUNDACCOUNTIndex=5&businessdate=1&DATEFORMINDEX=1&occurbalance=9&
+
+    hsReq(HsReq)
+    request(Request)
+    requestMapping(Request, HsReq)
+    indexParamNew(IndexParamNew)
+    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
   def get5905(): Unit = {
 var name = "{\n\t\"Action\": \"5905\",\n\t\"MobileCode\": \"($MobileCode)\",\n\t\"ProtoType\": \"Sign\",\n\t\"ReqlinkType\": \"1\",\n\t\"Reqno\": \"40000001_158805947310735218\",\n\t\"Token\": \"oRWvfs17650@F865-739A134fpKIhN\",\n\t\"UserCode\": \"40000001\",\n\t\"accountType\": \"KHBH\",\n\t\"alias\": \"${40000001}_基金申购\",\n\t\"area\": \"jy_data\",\n\t\"mobilekind\": \"web\",\n\t\"name\": \"晓芜\",\n\t\"newindex\": \"1\",\n\t\"plaintext\": {\n\t\t\"DocHashs\": \"\",\n\t\t\"custcode\": \"40000001\",\n\t\t\"custname\": \"晓芜\",\n\t\t\"signatureItems\": {\n\t\t\t\"question\": false,\n\t\t\t\"expectation\": \"期望产生一定的收益，可以承担一定的投资风险\",\n\t\t\t\"userMes\": {\n\t\t\t\t\"fundAccount\": \"8215000001\",\n\t\t\t\t\"name\": \"晓芜\"\n\t\t\t},\n\t\t\t\"level\": {\n\t\t\t\t\"className\": \"level-icon4\",\n\t\t\t\t\"levelText\": \"积极型\"\n\t\t\t},\n\t\t\t\"timeLimit\": {\n\t\t\t\t\"time\": \"无特别要求\",\n\t\t\t\t\"style\": {\n\t\t\t\t\t\"width\": \"0%\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"investType\": {\n\t\t\t\t\"equity\": {\n\t\t\t\t\t\"className\": \"type3-icon2\",\n\t\t\t\t\t\"txt\": \"权益类\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"productInfo\": {\n\t\t\t\t\"name\": \"国泰货币\",\n\t\t\t\t\"level\": \"低风险\",\n\t\t\t\t\"time\": \"0到1年\",\n\t\t\t\t\"type\": \"固定收益类\",\n\t\t\t\t\"result\": \"期望产生一定的收益，可以承担一定的投资风险\"\n\t\t\t},\n\t\t\t\"nowData\": \"2020年04月28日\",\n\t\t\t\"title\": \"适当性匹配及投资者确认书\"\n\t\t}\n\n\t}\n}"
 

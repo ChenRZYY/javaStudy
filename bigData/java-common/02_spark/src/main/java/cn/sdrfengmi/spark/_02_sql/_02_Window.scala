@@ -29,7 +29,7 @@ class _02_Window {
     * partition by 如果不写，序号就是全局的
     */
   @Test
-  def rowNumber(): Unit = {
+  def row_number(): Unit = {
     //需求:获取班级的前三名的学生信息
     //TODO https://blog.csdn.net/lds_include/article/details/89329139 读取json报错 必须加上option() 2.3版本
     val source = spark.read
@@ -109,7 +109,7 @@ class _02_Window {
   }
 
   @Test
-  def descerank(): Unit = {
+  def dense_rank(): Unit = {
     //需求:获取班级的前三名的学生信息
     val source = spark.read
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")

@@ -4,12 +4,14 @@ import java.sql.{Connection, DriverManager, PreparedStatement}
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.Test
 
 
 class _04_ActionObject {
+  Logger.getLogger("org").setLevel(Level.ERROR)
   val sc = new SparkContext(new SparkConf().setMaster("local[5]").setAppName("_04_ActionObject"))
 
   @Test
@@ -74,18 +76,18 @@ class _04_ActionObject {
   def take(): Unit = {
     val rdd1: RDD[(String, Double)] = sc.parallelize(Seq[(String, Double)](("手机", 10.0), ("手机", 11.0), ("手机", 12.0), ("手机", 25.0), ("电脑", 55.0)), 2)
     //获取前3位的数据
-    println(rdd1.take(3))
+    println(rdd1.take(3).toList)
     //获取第一个数据
     println(rdd1.first())
     //统计rdd中元素的总个数
     println(rdd1.count())
-    //统计rdd中key出现的次数
-    //rdd1.countByKey()
+    //统计rdd中key出现的次数 针对(K,V)类型的RDD，返回一个(K,Int)的map，表示每一个key对应的元素个数。
     println(rdd1.countByKey())
     //抽样
-    println(rdd1.takeSample(false, 1))
+    println(rdd1.takeSample(false, 1).toList)
+    //返回自然顺序或者自定义顺序的前 n 个元素
+    println(rdd1.takeOrdered(2).toList)
 
-    rdd1.saveAsTextFile(SparkUtil.getNextOutputputFile) //fixme 有两个分区partition 但是分区的值不是按照hash进行分区,("手机", 10.0) 在两个分区都有
   }
 
 
@@ -93,10 +95,11 @@ class _04_ActionObject {
   @Test
   def saveAsTextFiles(): Unit = {
     val rdd = sc.parallelize(Seq(1, 2, 3, 4, 5), 2)
-    rdd.saveAsTextFile(SparkUtil.getNextOutputputFile)
+    rdd.saveAsTextFile(SparkUtil.getNextOutputputFile) //fixme 有两个分区partition 但是分区的值不是按照hash进行分区,("手机", 10.0) 在两个分区都有
+
     //    TimeUnit.SECONDS.sleep(10)
     //    Thread.sleep(1000)
-    //    rdd.saveAsObjectFile(SparkUtil.getNextOutputputFile) 保存的文本二进制
+    //    rdd.saveAsObjectFile(SparkUtil.getNextOutputputFile) 将数据集的元素，以 Java 序列化的方式保存到指定的目录下
 
   }
 

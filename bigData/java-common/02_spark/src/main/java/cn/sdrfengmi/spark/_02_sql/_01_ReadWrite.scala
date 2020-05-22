@@ -1,12 +1,13 @@
 package cn.sdrfengmi.spark._02_sql
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, DataFrameReader, SaveMode, SparkSession}
 import org.junit.Test
 
 class _01_ReadWrite {
   //  System.setProperty("hadoop.home.dir", "C:\\winutils")
-
+  Logger.getLogger("org").setLevel(Level.ERROR)
   val sparkSession: SparkSession = SparkSession.builder().master("local[6]").appName("reader1").getOrCreate()
 
   @Test

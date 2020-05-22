@@ -1,18 +1,17 @@
 package cn.sdrfengmi.spark._01_core
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
-
-import scala.collection.mutable
 
 object _01_WordCount {
 
   def main(args: Array[String]): Unit = {
-
+    Logger.getLogger("org").setLevel(Level.ERROR)
     //1、创建SparkContext
     //setMaster:在本地idea中运行的时候必须设置，如果在集群中运行就不用设置
     //setAppName:必须设置
-    val conf = new SparkConf().setMaster("local[4]").setAppName("globalParameter")
+    val conf = new SparkConf().setMaster("local[4]").setAppName("globalParameter").set("spark.default.parallelism", "500")
     //    conf.set("sparkSession.driver.host", "localhost")
     val sc: SparkContext = new SparkContext(conf)
     //2、数据读取
