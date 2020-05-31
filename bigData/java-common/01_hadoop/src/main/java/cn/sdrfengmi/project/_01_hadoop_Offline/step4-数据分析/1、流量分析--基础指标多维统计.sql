@@ -3,7 +3,7 @@
 --基础指标统计分析：
 
 --PageView 浏览次数（PV）:
-select count(*) as pvs from dw_weblog_detail where datestr ="20181101"; 
+select count(*) as pvs from dw_weblog_detail where datestr ="20181101";
 select count(*) as pvs from dw_weblog_detail where datestr ="20181101" and valid = "true"; --过滤非法请求
 
 --Unique Visitor 独立访客（UV）: 
@@ -14,24 +14,21 @@ select count(distinct remote_addr) as uvs from dw_weblog_detail where datestr ="
 select count(distinct session) as vvs from ods_click_stream_visit where datestr ="20181101";
 
 --IP：
-select count(distinct remote_addr) as ips from dw_weblog_detail where datestr ="20181101"; 
+select count(distinct remote_addr) as ips from dw_weblog_detail where datestr ="20181101";
 
 
 --基础指标结果保存入库：
 
 drop table dw_webflow_basic_info;
-create table dw_webflow_basic_info(month string,day string,
-pv bigint,uv bigint,ip bigint,vv bigint) partitioned by(datestr string);
+create table dw_webflow_basic_info(month string,day string,pv bigint,uv bigint,ip bigint,vv bigint) partitioned by(datestr string);
 
 insert into table dw_webflow_basic_info partition(datestr="20181101")
-select '201811','01',a.*,b.* from
-(select count(*) as pv,count(distinct remote_addr) as uv,count(distinct remote_addr) as ips 
-from dw_weblog_detail
-where datestr ='20181101') a join 
-(select count(distinct session) as vvs from ods_click_stream_visit where datestr ="20181101") b;
-
-
-
+select '201811', '01', a.*, b.*
+from (select count(*) as pv, count(distinct remote_addr) as uv, count(distinct remote_addr) as ips
+      from dw_weblog_detail
+      where datestr = '20181101') a
+         join
+     (select count(distinct session) as vvs from ods_click_stream_visit where datestr = "20181101") b;
 
 --------------------------------------------------------------------------------------------
 --多维度统计分析：注意gruop by语句的语法
@@ -63,7 +60,7 @@ create table dw_pvs_everyday(pvs bigint,month string,day string);
 
 insert into table dw_pvs_everyday
 select count(*) as pvs,a.month as month,a.day as day from (select distinct month, day from t_dim_time) a
-join dw_weblog_detail b 
+join dw_weblog_detail b
 on a.month=b.month and a.day=b.day
 group by a.month,a.day;
 
@@ -91,8 +88,8 @@ create table dw_pvs_referer_everyhour(referer_url string,referer_host string,mon
 
 insert into table dw_pvs_referer_everyhour partition(datestr='20181101')
 select http_referer,ref_host,month,day,hour,count(1) as pv_referer_cnt
-from dw_weblog_detail 
-group by http_referer,ref_host,month,day,hour 
+from dw_weblog_detail
+group by http_referer,ref_host,month,day,hour
 having ref_host is not null
 order by hour asc,day asc,month asc,pv_referer_cnt desc;
 
@@ -104,8 +101,8 @@ create table dw_pvs_refererhost_everyhour(ref_host string,month string,day strin
 
 insert into table dw_pvs_refererhost_everyhour partition(datestr='20181101')
 select ref_host,month,day,hour,count(1) as ref_host_cnts
-from dw_weblog_detail 
-group by ref_host,month,day,hour 
+from dw_weblog_detail
+group by ref_host,month,day,hour
 having ref_host is not null
 order by hour asc,day asc,month asc,ref_host_cnts desc;
 ---------------------------------------------------------------------------------------------
