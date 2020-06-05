@@ -18,6 +18,8 @@
 		<module>StockTest</module>
 		<module>zt-server-parent</module>
 		<module>vhr</module>
+		<module>spirngboot-websocket-service</module>
+		<module>springboot-websocket-client</module>
 	</modules>
 
 </project>

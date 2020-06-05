@@ -40,10 +40,11 @@ public class ExcuteShellTest {
         ssh.disconnect();
     }
 
-    @Before
+//    @Before
     public void init() {
         //连接linux配置
         ConnBean connBean = new ConnBean("47.105.158.112", "root", "zd521707@");
+//        ConnBean connBean = new ConnBean("47.105.158.112", "root", "zd521707@");
 //        ConnBean connBean = new ConnBean("server02", "root", "Zd521707@");
         SSHExec.setOption(IOptionName.SSH_PORT_NUMBER, 22222);
 //        SSHExec.setOption(IOptionName.TIMEOUT, 36000l);
@@ -54,7 +55,7 @@ public class ExcuteShellTest {
         ssh.connect();
     }
 
-    @After
+//    @After
     public void close() {
         ssh.disconnect();
     }
@@ -115,14 +116,34 @@ public class ExcuteShellTest {
         out(result2);
     }
 
+    @Test
+    public void ecf() throws Exception {
+        //连接linux配置
+        ConnBean connBean = new ConnBean("10.137.36.37", "root", " Cjis@8888");
+        SSHExec.setOption(IOptionName.SSH_PORT_NUMBER, 22);
+        //SSH连接对象
+        SSHExec ecfssh = SSHExec.getInstance(connBean);
+        //打开连接
+        ecfssh.connect();
+
+        CustomTask task1 = new ExecCommand(
+                "cd /opt/services/ecftob",
+                "source /etc/profile",
+                "ps -ef|grep ecf");
+
+        Result result = ecfssh.exec(task1);
+        out(result);
+
+    }
+
     public static void out(Result result) {
-//        if (result.isSuccess) {
-//            System.out.println("Return code: " + result.rc);
-//            System.out.println(result.sysout);
-//        } else {
-//            System.out.println("Return code: " + result.rc);
-//            System.out.println("error message: " + result.error_msg);
-//        }
+        if (result.isSuccess) {
+            System.out.println("Return code: " + result.rc);
+            System.out.println(result.sysout);
+        } else {
+            System.out.println("Return code: " + result.rc);
+            System.out.println("error message: " + result.error_msg);
+        }
     }
 
 }

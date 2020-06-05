@@ -40,7 +40,8 @@ object EtlProcess {
       //      .config("spark.default.parallelism", "500")
       .config("spark.sql.shuffle.partitions", 200) //fixme 设置并行度200
       .getOrCreate()
-
+    //spark.default.parallelism只有在处理RDD时才会起作用，对Spark SQL的无效。
+    //spark.sql.shuffle.partitions则是对sparks SQL专用的设置
     import spark.implicits._
 
     val source: DataFrame = spark.read
@@ -189,7 +190,7 @@ object EtlProcess {
     result.write
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
       .mode(SaveMode.Overwrite).json("01_datasetOut/chen/" + SINK_TABLE)
-//    TimeUnit.SECONDS.sleep(100000000)
+    //    TimeUnit.SECONDS.sleep(100000000)
   }
 
 

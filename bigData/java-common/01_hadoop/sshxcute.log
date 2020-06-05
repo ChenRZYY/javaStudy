@@ -21,3 +21,138 @@
 [10:29:11] INFO:    Connection channel disconnect
 [10:29:11] INFO:    SSH connection shutdown
 [10:29:11] ERROR:   Disconnect fails with the following exception: java.lang.NullPointerException
+
+=============== [2020/06/02 09:49:32, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[09:49:32] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22222'
+[09:49:32] INFO:    SSHExec initializing ...
+[09:49:32] INFO:    Session initialized and associated with user credential zd521707@
+[09:49:32] INFO:    SSHExec initialized successfully
+[09:49:32] INFO:    SSHExec trying to connect root@47.105.158.112
+
+=============== [2020/06/02 09:49:56, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[09:49:56] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[09:49:56] INFO:    SSHExec initializing ...
+[09:49:57] INFO:    Session initialized and associated with user credential  Cjis@8888
+[09:49:57] INFO:    SSHExec initialized successfully
+[09:49:57] INFO:    SSHExec trying to connect root@10.137.36.37
+[09:50:19] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[09:50:19] ERROR:   session is down
+
+=============== [2020/06/02 09:51:44, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[09:51:44] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[09:51:44] INFO:    SSHExec initializing ...
+[09:51:44] INFO:    Session initialized and associated with user credential  Cjis8888
+[09:51:44] INFO:    SSHExec initialized successfully
+[09:51:44] INFO:    SSHExec trying to connect root@10.137.36.37
+[09:52:08] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[09:52:08] ERROR:   session is down
+
+=============== [2020/06/02 09:54:21, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[09:54:21] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[09:54:21] INFO:    SSHExec initializing ...
+[09:54:21] INFO:    Session initialized and associated with user credential  Cjis@8888
+[09:54:21] INFO:    SSHExec initialized successfully
+[09:54:21] INFO:    SSHExec trying to connect root@10.137.36.37
+[09:54:43] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[09:54:43] ERROR:   session is down
+
+=============== [2020/06/02 10:00:36, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[10:00:36] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[10:00:36] INFO:    SSHExec initializing ...
+[10:00:36] INFO:    Session initialized and associated with user credential  Cjis@8888
+[10:00:36] INFO:    SSHExec initialized successfully
+[10:00:36] INFO:    SSHExec trying to connect root@10.137.36.37
+[10:00:58] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[10:00:58] ERROR:   session is down
+
+=============== [2020/06/02 10:02:28, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[10:02:28] INFO:    SSHExec initializing ...
+[10:02:28] INFO:    Session initialized and associated with user credential  Cjis@8888
+[10:02:28] INFO:    SSHExec initialized successfully
+[10:02:28] INFO:    SSHExec trying to connect root@10.137.36.37
+[10:02:50] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[10:02:50] ERROR:   session is down
+
+=============== [2020/06/02 10:04:36, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[10:04:36] INFO:    SSHExec initializing ...
+[10:04:36] INFO:    Session initialized and associated with user credential zd521707@
+[10:04:36] INFO:    SSHExec initialized successfully
+[10:04:36] INFO:    SSHExec trying to connect root@47.105.158.112
+[10:04:38] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: java.net.ConnectException: Connection refused: connect
+[10:04:38] ERROR:   session is down
+
+=============== [2020/06/02 11:20:22, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[11:20:22] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22222'
+[11:20:22] INFO:    SSHExec initializing ...
+[11:20:22] INFO:    Session initialized and associated with user credential zd521707@
+[11:20:22] INFO:    SSHExec initialized successfully
+[11:20:22] INFO:    SSHExec trying to connect root@47.105.158.112
+[11:20:23] INFO:    SSH connection established
+[11:20:23] INFO:    Command is cd /opt/services/ecftob;source /etc/profile;ps -ef|grep ecf
+[11:20:23] INFO:    Connection channel established succesfully
+[11:20:23] INFO:    Start to run command
+[11:20:23] INFO:    root     29412 29396  0 11:20 ?        00:00:00 bash -c cd /opt/services/ecftob;source /etc/profile;ps -ef|grep ecf
+root     29428 29412  0 11:20 ?        00:00:00 grep ecf
+
+[11:20:23] INFO:    Connection channel closed
+[11:20:23] INFO:    Check if exec success or not ... 
+[11:20:23] INFO:    Execute successfully for command: cd /opt/services/ecftob;source /etc/profile;ps -ef|grep ecf
+[11:20:23] INFO:    Connection channel disconnect
+
+=============== [2020/06/02 11:20:55, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[11:20:55] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[11:20:55] INFO:    SSHExec initializing ...
+[11:20:55] INFO:    Session initialized and associated with user credential  Cjis@8888
+[11:20:55] INFO:    SSHExec initialized successfully
+[11:20:55] INFO:    SSHExec trying to connect root@10.137.36.37
+[11:21:18] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[11:21:18] ERROR:   session is down
+
+=============== [2020/06/02 11:21:47, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[11:21:47] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[11:21:47] INFO:    SSHExec initializing ...
+[11:21:47] INFO:    Session initialized and associated with user credential  Cjis@8888
+[11:21:47] INFO:    SSHExec initialized successfully
+[11:21:47] INFO:    SSHExec trying to connect root@10.137.36.47
+[11:22:09] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[11:22:09] ERROR:   session is down
+
+=============== [2020/06/02 11:22:36, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[11:22:36] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[11:22:36] INFO:    SSHExec initializing ...
+[11:22:36] INFO:    Session initialized and associated with user credential  Cjis8888
+[11:22:36] INFO:    SSHExec initialized successfully
+[11:22:36] INFO:    SSHExec trying to connect root@10.137.36.47
+[11:22:57] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[11:22:57] ERROR:   session is down
+
+=============== [2020/06/02 11:23:49, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[11:23:49] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[11:23:49] INFO:    SSHExec initializing ...
+[11:23:49] INFO:    Session initialized and associated with user credential  Cjis8888
+[11:23:49] INFO:    SSHExec initialized successfully
+[11:23:49] INFO:    SSHExec trying to connect root@10.137.36.48
+[11:24:10] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[11:24:10] ERROR:   session is down
+
+=============== [2020/06/02 11:32:13, net.neoremind.sshxcute.core.SSHExec.<clinit>:80] ====================
+
+[11:32:13] INFO:    Set system configuration parameter 'SSH_PORT_NUMBER' to new value '22'
+[11:32:13] INFO:    SSHExec initializing ...
+[11:32:13] INFO:    Session initialized and associated with user credential  Cjis8888
+[11:32:13] INFO:    SSHExec initialized successfully
+[11:32:13] INFO:    SSHExec trying to connect root@10.137.36.49
+[11:32:35] ERROR:   Connect fails with the following exception: com.jcraft.jsch.JSchException: Auth fail
+[11:32:35] ERROR:   session is down

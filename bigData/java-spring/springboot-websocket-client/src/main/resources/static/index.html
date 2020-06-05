@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>大屏手机就是小米Max群</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="http://hd.mi.com/f/zt/hd/2016051101/mimax.css?160511"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<style type="text/css">
+    .title_box {
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+    }
+
+    .title_right {
+        width: 100px;
+        height: 45px;
+        float: right;
+    }
+
+    .title_box input {
+        width: 100%;
+    }
+</style>
+<body>
+<div class="chat">
+    <div class="box_bd scroll-wrapper">
+        <canvas id="emoji" class="emoji-canvas" width="720" height="1500"></canvas>
+        <div class="scroll-content J_scrollContent">
+            <div class="chatContent" id="chatContent">
+
+            </div>
+        </div>
+    </div>
+    <div class="box_ft close">
+        <div class="input-wrapper opened J_inputWrapper">
+            <div class="title_box">
+                <input type="text" name="message" id="message" value=""/>
+                <div class="title_right">
+                    <button style="background-color: #1E90FF;color: white;width: 100%;height: 100%;border-radius: 5px;"
+                           onclick="sendMessage()" >发送
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var num = RndNum(5);
+    var websocket = null;
+    if('WebSocket' in window){
+        websocket = new WebSocket("ws://192.168.2.107:8085/websocket/"+num+"");
+    }
+
+    websocket.onopen = function(){
+        console.log("连接成功");
+    }
+
+    websocket.onclose = function(){
+        console.log("退出连接");
+    }
+
+    websocket.onmessage = function (event){
+        console.log("收到消息"+event.data);
+        if(event.data.indexOf(num) < 0 ) {
+            setMessage(event.data.substring(0,event.data.indexOf("---")), num);
+        }
+    }
+
+    websocket.onerror = function(){
+        console.log("连接出错");
+    }
+
+    $(document).keypress(function(e) {
+        // 回车键事件
+        if(e.which == 13) {
+            sendMessage();
+        }
+    });
+
+    window.onbeforeunload = function () {
+        websocket.close(num);
+    }
+    function sendMessage(){
+        var msg = document.getElementById("message");
+        websocket.send(msg.value+"---"+num);
+
+        var context = ' <div class="clearfix">\n' +
+            '                    <div class="message me">\n' +
+            '                        <div class="avatar" data-author-id="me"><img\n' +
+            '                                src="http://c1.mifile.cn/f/i/hd/2016051101/a-default.png" alt="小米的朋友"></div>\n' +
+            '                        <div class="content"><p class="author_name">用户编号:' + num + '</p>\n' +
+            '                            <div class="bubble  bubble_primary right">\n' +
+            '                                <div class="bubble_cont">\n' +
+            '                                    <div class="plain">\n' +
+            '                                        <pre>' + msg.value + '</pre>\n' +
+            '                                    </div>\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>';
+        if (msg.value != "") {
+            var html = document.getElementById("chatContent").innerHTML;
+            document.getElementById("chatContent").innerHTML = html + context;
+
+            //清空文本框
+            msg.value = "";
+        }
+    }
+
+    function setMessage(message,num) {
+        var context = ' <div class="clearfix">\n' +
+            '                    <div class="message others">\n' +
+            '                        <div class="avatar" data-author-id="lj"><img\n' +
+            '                                src="http://c1.mifile.cn/f/i/hd/2016051101/a-lj.png" alt="雷军"></div>\n' +
+            '                        <div class="content"><p class="author_name">用户编号:'+num+'</p>\n' +
+            '                            <div class="bubble  bubble_default left">\n' +
+            '                                <div class="bubble_cont">\n' +
+            '                                    <div class="plain">\n' +
+            '                                        <pre>' + message + '</pre>\n' +
+            '                                    </div>\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>';
+
+        var html = document.getElementById("chatContent").innerHTML;
+        document.getElementById("chatContent").innerHTML = html + context;
+    }
+
+    //产生随机数函数
+    function RndNum(n) {
+        var rnd = "";
+        for (var i = 0; i < n; i++)
+            rnd += Math.floor(Math.random() * 10);
+        return rnd;
+    }
+
+
+</script>
+</body>
+</html>
