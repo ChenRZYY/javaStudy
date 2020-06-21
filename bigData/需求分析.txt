@@ -49,12 +49,11 @@ ip: 不重复的ip数
 项目名称：报价离线分析系统
 开发环境：Flume+Nginx+Hive+SparkSQL+Sqoop+Azkaban+Oracle+Hadoop+hbase
 CPQ离线系统对用户每天页面浏览量,用户创建的module数量,引用模型,产品配置情况,module进行分析,让用户能好的管理item
-1、参与集群的搭建，数仓分层结构的设计。
-2、flume进行数据同步到hadoop,按照日期进行分区存储。
-3、sparkSql对多个指标进行开发：每日活跃用户数、周活、月活、每日新增用户数分析。
-4、对module下的parameter,item产品使用量分析。
-5、sparkSql分析后数据保存到hbase中。
-6、
+1、参与集群的搭建,数据仓库ODS,DWD,DWS,ADS分层结构的设计。
+2、通过flume日志数据采集到hdfs,用Sqoop从oracle中导出数据到hdfs按照日期进行分区存储,负责大数据 ETL 开发与维护。
+3、sparkSql对多个指标进行开发：每日活跃用户数、周活、月活、每日新增用户数分析,对module下的parameter,item产品使用量分析。
+4、sparkSql分析后ADS层数据数据保存到hbase中。
+5、
 
 
 
