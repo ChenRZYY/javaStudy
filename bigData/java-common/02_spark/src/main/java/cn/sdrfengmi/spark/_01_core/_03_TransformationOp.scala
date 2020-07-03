@@ -1,9 +1,11 @@
 package cn.sdrfengmi.spark._01_core
 
+import cn.sdrfengmi.spark._02_sql.Person
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.Test
+
 
 class _03_TransformationOp extends Serializable {
   val conf = new SparkConf().setMaster("local[6]").setAppName("transformation_op")
@@ -117,53 +119,6 @@ class _03_TransformationOp extends Serializable {
       .foreach(println(_))
   }
 
-  /**
-    * 两个RDD的 交集
-    */
-  @Test
-  def intersection(): Unit = {
-
-    //    val rdd1 = sc.parallelize(Seq(1, new ChenType("chenzhendong"), 2, 3, 4, 5))
-    //    val rdd2 = sc.parallelize(Seq(3, new ChenType("chenzhendong"), 4, 5, 6, 7))
-    val rdd1: RDD[Any] = sc.parallelize(Seq(1, "ab", 2, 3, 4, 5))
-    val rdd2 = sc.parallelize(Seq(3, "ab", 4, 5, 6, 7))
-
-    val keys = rdd1.intersection(rdd2)
-    keys.collect().foreach(println(_))
-  }
-
-  class ChenType(name: String) extends Serializable {
-    override def toString: String = {
-      name
-    }
-  }
-
-  /**
-    * 并集,里面数据重复
-    */
-  @Test
-  def union(): Unit = {
-    val rdd1 = sc.parallelize(Seq(1, 2, 3, 4, 5))
-    val rdd2 = sc.parallelize(Seq(3, 4, 5, 6, 7))
-
-    rdd1.union(rdd2)
-      .collect()
-      .foreach(println(_))
-  }
-
-  /**
-    * 差集
-    */
-  @Test
-  def subtract(): Unit = {
-    val rdd1 = sc.parallelize(Seq(1, 2, 3, 4, 5))
-    val rdd2 = sc.parallelize(Seq(3, 4, 5, 6, 7))
-
-    rdd1.subtract(rdd2)
-      .collect()
-      .foreach(println(_))
-  }
-
   @Test
   def reduceByKey(): Unit = {
     sc.parallelize(Seq(("a", 1), ("a", 1), ("b", 1)))
@@ -206,9 +161,9 @@ class _03_TransformationOp extends Serializable {
     //   2.3. mergeCombiners 把所有分区上的结果再次聚合, 生成最终结果
 
     val combineResult: RDD[(String, (Double, Int))] = rdd.combineByKey(
-      createCombiner = (curr: Double) => (curr, 1),
-      mergeValue = (curr: (Double, Int), nextValue: Double) => (curr._1 + nextValue, curr._2 + 1),
-      mergeCombiners = (curr: (Double, Int), agg: (Double, Int)) => (curr._1 + agg._1, curr._2 + agg._2)
+      createCombiner = (curr: Double) => (curr, 1), //出现次数计数
+      mergeValue = (curr: (Double, Int), nextValue: Double) => (curr._1 + nextValue, curr._2 + 1), //分区内下个value进来聚合,计数
+      mergeCombiners = (curr: (Double, Int), agg: (Double, Int)) => (curr._1 + agg._1, curr._2 + agg._2) //整个分区聚合
     )
     //出现的次数
     combineResult.collect().foreach(println(_))
@@ -253,6 +208,18 @@ class _03_TransformationOp extends Serializable {
       //    rdd.aggregateByKey((0.8,"沙发斯蒂芬"))((zeroValue, item) => ((item * zeroValue._1), zeroValue._2), (curr, agg) => (curr._1 + agg._1,curr._2+agg._2))
       .collect()
       .foreach(println(_))
+  }
+
+  /**
+    * distinct:去重条件是所有的列都相同才算重复
+    * dropDuplicates：去重条件时指定列的值相同算重复
+    */
+  @Test
+  def distinct(): Unit = {
+    //    import sc.implicits._
+    val data = sc.parallelize(Seq(Person("zhangsan", 20), Person("lisi", 50), Person("wangwu", 50), Person("zhangsan", 30)))
+    data.distinct().collect()
+    //    data.dropDuplicates("age").show
   }
 
   //输入为（K,V)、（K,W）类型的DStream，返回一个新的（K，（V，W））类型的DStream
@@ -317,5 +284,46 @@ class _03_TransformationOp extends Serializable {
     //    println(rdd.repartitionAndSortWithinPartitions(5).partitions.size)
   }
 
+
+  @Test
+  //和sparksql api不一样
+  def collection(): Unit = {
+    val ds1: RDD[Long] = sc.range(1, 10)
+    val ds2: RDD[Long] = sc.range(5, 15)
+
+    // 差集
+    ds1.subtract(ds2).collect.foreach(println(_))
+
+    // 交集
+    ds1.intersection(ds2).collect.foreach(println(_))
+
+    // 并集 里面数据重复
+    ds1.union(ds2).collect.foreach(println(_))
+    ds1.union(ds2).distinct.collect.foreach(println(_)) //并集去重
+
+    // limit
+    ds1.take(3).foreach(println(_))
+  }
+
+  /**
+    * 两个RDD的 交集
+    */
+  @Test
+  def intersection(): Unit = {
+
+    //    val rdd1 = sc.parallelize(Seq(1, new ChenType("chenzhendong"), 2, 3, 4, 5))
+    //    val rdd2 = sc.parallelize(Seq(3, new ChenType("chenzhendong"), 4, 5, 6, 7))
+    val rdd1: RDD[Any] = sc.parallelize(Seq(1, "ab", 2, 3, 4, 5))
+    val rdd2 = sc.parallelize(Seq(3, "ab", 4, 5, 6, 7))
+
+    val keys = rdd1.intersection(rdd2)
+    keys.collect().foreach(println(_))
+  }
+
+  class ChenType(name: String) extends Serializable {
+    override def toString: String = {
+      name
+    }
+  }
 
 }

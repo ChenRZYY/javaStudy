@@ -16,6 +16,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Auther: liaoshiyao
@@ -33,6 +34,8 @@ public class WebSocketConfig {
 
     @Autowired
     private WebSocketService webSocketService;
+
+    public static AtomicInteger atoCount = new AtomicInteger();
 
 //    @Autowired
 //    private WebSocketClient webSocketClient;
@@ -54,7 +57,7 @@ public class WebSocketConfig {
 
                 @Override
                 public void onMessage(String message) {
-                    log.info("[websocket] 收到消息={}", message);
+//                    log.info("[websocket] 收到消息={}", message);
                     if (message != null && !message.equals("gg")) {
                         //保存行情数据
                         saveStockInfo(message);
@@ -85,8 +88,12 @@ public class WebSocketConfig {
     private void saveStockInfo(String message) {
         //获取行情数据
         JSONObject jsonObj = JSONObject.parseObject(message);
-        String uuid = jsonObj.getString("uuid");
+        String uuid = jsonObj.getString("area");
+        String action = jsonObj.getString("action");
         JSONObject stocklist = jsonObj.getJSONObject("stocklist");
+        atoCount.incrementAndGet();
+        log.info("send:" + TimeTask.atoCount.get() + "save: " + atoCount.get());
+        log.info("[websocket] 收到消息={} action: " + action, message);
         cacheService.saveCache(CacheConfig.Caches.stockInfo.name(), uuid, message);
     }
 

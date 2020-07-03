@@ -22,8 +22,8 @@ class RDDIntro {
     */
   @Test
   def rddIntro(): Unit = {
-    sparkSession.sparkContext.textFile("../01_dataset/wordcount.txt")
-      .flatMap(_.split(" "))
+    val ss: RDD[String] = sparkSession.sparkContext.textFile("../01_dataset/wordcount.txt")
+    ss.flatMap(_.split(" "))
       .map((_, 1))
       .reduceByKey(_ + _)
       .foreachPartition(it => println(it.toBuffer))
@@ -130,6 +130,12 @@ class RDDIntro {
     val sourceRDD: RDD[Person] = sparkSession.sparkContext.parallelize(Seq(Person("zhangsan", 10), Person("lisi", 15)))
     val df: DataFrame = sourceRDD.toDF()
     df.createOrReplaceTempView("person")
+    //缓存：(1)dataFrame.cache	(2)sparkSession.catalog.cacheTable(“tableName”)
+    //释放缓存：(1)dataFrame.unpersist	(2)sparkSession.catalog.uncacheTable(“tableName”)
+    sparkSession.catalog.cacheTable("person")
+    //    sparkSession.catalog.uncacheTable("person") //清除固定表
+    //sparkSession.catalog.clearCache() //清除所有表
+
     //sql 执行
     val resultDF = sparkSession.sql("select name from person where age > 10 and age < 20")
     resultDF.show()
@@ -138,6 +144,26 @@ class RDDIntro {
       .select('name)
       .show()
     Thread.sleep(1000000)
+  }
+
+  @Test
+  def dataframe_createTable(): Unit = {
+
+    import sparkSession.implicits._
+    val sourceRDD: RDD[Person] = sparkSession.sparkContext.parallelize(Seq(Person("zhangsan", 10), Person("lisi", 15)))
+    val df: DataFrame = sourceRDD.toDF()
+    df.createOrReplaceTempView("person")//创建临时表 一般都用这个
+    df.createTempView("person1") //创建普通临时表
+    df.createGlobalTempView("person2") //创建全局表
+    df.registerTempTable("person3") //删除api
+
+    //sql 执行
+    val resultDF = sparkSession.sql("select name from person where age > 10 and age < 20")
+    resultDF.show()
+    //api执行
+    df.where('age > 10)
+      .select('name)
+      .show()
   }
 
   /**
@@ -175,6 +201,13 @@ class RDDIntro {
     sparkSession.stop()
   }
 
+  @Test
+  def rdd_df_ds(): Unit = {
+    //转换的三种方式
+    //    rdd-.toDS->ds  rdd-.toDF case class->df
+    //    df-.rdd->rdd  df-.as[case class] case class->ds
+    //    ds-.rdd->rdd  ds-.toDF case class->df
+  }
 
   @Test
   def row(): Unit = {

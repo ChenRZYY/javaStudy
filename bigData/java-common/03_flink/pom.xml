@@ -22,6 +22,12 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-scala_${scala.v}</artifactId>
             <version>${flink.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>scala-library</artifactId>
+                    <groupId>org.scala-lang</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--模块二 流处理-->

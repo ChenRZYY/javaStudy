@@ -244,8 +244,8 @@ class TypedTransformation {
 
   @Test
   def collection(): Unit = {
-    val ds1 = spark.range(1, 10)
-    val ds2 = spark.range(5, 15)
+    val ds1: Dataset[lang.Long] = spark.range(1, 10)
+    val ds2: Dataset[lang.Long] = spark.range(5, 15)
 
     // 差集
     ds1.except(ds2).show()

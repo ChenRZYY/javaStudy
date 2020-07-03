@@ -80,7 +80,7 @@ from dw_user_new_d
 where datestr = '20181101';
 
 
-验证：
+--验证：
 select count(distinct remote_addr)
 from dw_weblog_detail;
 

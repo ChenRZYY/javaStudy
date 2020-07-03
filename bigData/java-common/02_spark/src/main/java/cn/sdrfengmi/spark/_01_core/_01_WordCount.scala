@@ -50,10 +50,11 @@ object _01_WordCount {
     ////   (sparkSession,1)
     //[(hello,4),(sparkSession,1),(python,1)]
     //3.4 将数据按照单词出现的个数进行降序排列
-    val rdd5 = rdd4.sortBy(_._2, false)
-    Thread.sleep(10000000)
+    val rdd5: RDD[(String, Int)] = rdd4.sortBy(_._2, false)
     //4、数据打印
     //    println(rdd5.collect().toBuffer)
     System.err.println(rdd5.collect().toBuffer)
+    Thread.sleep(10000000)
+
   }
 }

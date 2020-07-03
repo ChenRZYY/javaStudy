@@ -1,6 +1,9 @@
 package cn.sdrfengmi.spark._04_streaming
 
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
+import org.apache.spark.rdd.RDD
+import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010._
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -18,7 +21,7 @@ object _01_KafkaStreaming {
     //指定消费的topic
     val topics = Array("spark11")
     //指定kafka的参数
-    val kafkaParams = Map[String, Object](
+    val kafkaParams: Map[String, Object] = Map[String, Object](
       //指定kafka broker的节点
       "bootstrap.servers" -> "hadoop01:9092,hadoop02:9092,hadoop03:9092",
       //kafka消息key的反序列化方式
@@ -27,14 +30,14 @@ object _01_KafkaStreaming {
       "value.deserializer" -> classOf[StringDeserializer],
       //消费者组
       "group.id" -> "gruop_kafka_spark_11",
-      //从哪个offset开始消费 earliest:最小的offset    latest:最新的offset
+      //从哪个offset开始消费 earliest:最小的offset 从最初始偏移量开始消费数据    latest:最新的offset
       "auto.offset.reset" -> "latest",
       //是否自动提交offset
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
-    val source = KafkaUtils.createDirectStream(ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](topics, kafkaParams))
+    val source: InputDStream[ConsumerRecord[String, String]] = KafkaUtils.createDirectStream(ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](topics, kafkaParams))
     //3、数据处理
-    source.foreachRDD(rdd => {
+    source.foreachRDD((rdd: RDD[ConsumerRecord[String, String]]) => {
       //数据处理
       rdd.map(_.value()).foreach(println(_))
       //提交offset

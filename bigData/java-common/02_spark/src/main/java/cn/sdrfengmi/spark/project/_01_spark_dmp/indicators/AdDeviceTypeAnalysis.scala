@@ -46,7 +46,7 @@ object AdDeviceTypeAnalysis {
       //      .option("kudu.table", ConfigUtils.MASTER_ADDRESS)
       //      .kudu
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("dataSetOut/" + SOURCE_TABLE)
+      .json("01_dataSetOut/" + SOURCE_TABLE)
 
     //3 过滤,列裁剪,去重
     val filterDF = source.filter("client is not null and device is not null and device !=''")

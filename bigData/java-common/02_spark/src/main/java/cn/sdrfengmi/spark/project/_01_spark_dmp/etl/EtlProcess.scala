@@ -189,7 +189,7 @@ object EtlProcess {
     //    KuduUtils.write(context, SINK_TABLE, schema, keys, options, result)
     result.write
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .mode(SaveMode.Overwrite).json("01_datasetOut/chen/" + SINK_TABLE)
+      .mode(SaveMode.Overwrite).json("01_datasetOut/" + SINK_TABLE)
     //    TimeUnit.SECONDS.sleep(100000000)
   }
 

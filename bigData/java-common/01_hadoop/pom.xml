@@ -65,22 +65,22 @@
 
         <!--kudu impala本地jar引入-->
         <dependency>
-            <groupId>com.cloudera</groupId>
-            <artifactId>ImpalaJDBC41</artifactId>
-            <version>2.6.12</version>
-            <scope>system</scope>
-                        <systemPath>${parent.basedir}/lib/ImpalaJDBC41.jar</systemPath>
-<!--            <systemPath>${project.basedir}/lib/ImpalaJDBC41.jar</systemPath> -->
-        </dependency>
-
-        <dependency>
             <groupId>net.neoremind</groupId>
             <artifactId>sshxcute</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${parent.basedir}/lib/sshxcute-1.0.jar</systemPath>
+<!--            <systemPath>${parent.basedir}/lib/sshxcute-1.0.jar</systemPath>-->
+                        <systemPath>${project.basedir}/lib/sshxcute-1.0.jar</systemPath>
         </dependency>
-        <!--            <systemPath>${project.basedir}/lib/sshxcute-1.0.jar</systemPath>-->
+
+        <dependency>
+            <groupId>com.cloudera</groupId>
+            <artifactId>ImpalaJDBC41</artifactId>
+            <version>2.6.12</version>
+            <scope>system</scope>
+            <!--            <systemPath>${parent.basedir}/lib/ImpalaJDBC41.jar</systemPath>-->
+            <systemPath>${project.basedir}/lib/ImpalaJDBC41.jar</systemPath>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.kudu</groupId>
@@ -137,6 +137,12 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
             <!--            <scope>compile</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>ch.ethz.ganymed</groupId>
+            <artifactId>ganymed-ssh2</artifactId>
+            <version>build210</version>
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>-->

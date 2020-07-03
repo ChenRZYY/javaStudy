@@ -20,8 +20,8 @@ public class EcfStart {
     @Test
     public void ecf() throws Exception {
 
-//        com.jcraft.jsch.Logger logger = new SettleLogger();
-//        JSch.setLogger(logger);
+        com.jcraft.jsch.Logger logger = new SettleLogger();
+        JSch.setLogger(logger);
 
         //连接linux配置
         ConnBean connBean = new ConnBean("10.137.36.49", "root", " Cjis8888");
@@ -33,7 +33,7 @@ public class EcfStart {
         SSHExec ecfssh = SSHExec.getInstance(connBean);
         //打开连接
         ecfssh.connect();
-// 设置登陆超时时间，不设置可能会报错
+        // 设置登陆超时时间，不设置可能会报错
         CustomTask task1 = new ExecCommand(
                 "cd /opt/services/ecftob",
                 "source /etc/profile",

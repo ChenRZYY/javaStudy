@@ -7,7 +7,7 @@ import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{Encoders, SparkSession}
 import org.apache.spark.sql.streaming.OutputMode
 import org.apache.spark.storage.StorageLevel
-import org.apache.spark.streaming.dstream.ReceiverInputDStream
+import org.apache.spark.streaming.dstream.{DStream, ReceiverInputDStream}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.Test
@@ -28,12 +28,13 @@ class _02_WindowStreaming {
       port = 9999,
       storageLevel = StorageLevel.MEMORY_AND_DISK_SER)
 
-    val words = lines.flatMap(_.split(" ")).map(x => (x, 1))
+    val words: DStream[(String, Int)] = lines.flatMap(_.split(" ")).map(x => (x, 1))
+
 
     // 通过 window 操作, 会将流分为多个窗口
-    val wordsWindow = words.window(Seconds(30), Seconds(10))
+    val wordsWindow: DStream[(String, Int)] = words.window(Seconds(30), Seconds(10))
     // 此时是针对于窗口求聚合
-    val wordCounts = wordsWindow.reduceByKey((newValue, runningValue) => newValue + runningValue)
+    val wordCounts: DStream[(String, Int)] = wordsWindow.reduceByKey((newValue, runningValue) => newValue + runningValue)
 
     wordCounts.print()
 

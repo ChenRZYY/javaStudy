@@ -1,5 +1,6 @@
 package com.example.socket.code;
 
+import com.example.socket.util.TailLogThread;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,12 +41,28 @@ public class WebSocket {
      */
     private static ConcurrentHashMap<String, WebSocket> webSocketSet = new ConcurrentHashMap<>();
 
+    private Process process;
+    private InputStream inputStream;
 
     @OnOpen
     public void OnOpen(Session session, @PathParam(value = "name") String name) {
         this.session = session;
         webSocketSet.put(name, this); //每个人生成一个 WebSocket
         log.info("[WebSocket] 连接成功，当前连接人数为：={}", webSocketSet.size());
+
+        if ("chen".equals(name)) {
+            // 执行tail -f命令
+            try {
+                process = Runtime.getRuntime().exec("tail -f 10 /opt/services/ecftob/logs/EcfTradeToBServicev10/ecfTrade_all.log");
+                inputStream = process.getInputStream();
+
+                // 一定要启动新的线程，防止InputStream阻塞处理WebSocket的线程
+                TailLogThread thread = new TailLogThread(inputStream, session);
+                thread.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

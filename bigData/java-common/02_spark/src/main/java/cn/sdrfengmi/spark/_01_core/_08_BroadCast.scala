@@ -1,5 +1,7 @@
 package cn.sdrfengmi.spark._01_core
 
+import cn.sdrfengmi.spark.project._01_spark_dmp.utils.ConfigUtils
+import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.Test
@@ -8,10 +10,10 @@ import org.junit.Test
   * 广播变量
   */
 class _08_BroadCast {
-  val sc = new SparkContext(new SparkConf().setMaster("local[4]").setAppName("Accumulator"))
 
   @Test
   def bc(): Unit = {
+    val sc = new SparkContext(new SparkConf().setMaster("local[4]").setAppName("Accumulator"))
 
     val students: RDD[(Int, String, Int, String)] = sc.parallelize(Seq[(Int, String, Int, String)](
       (1, "aa", 20, "class_01"),
@@ -44,6 +46,8 @@ class _08_BroadCast {
 
   @Test
   def bc2(): Unit = {
+    val sparkConf: SparkConf = new SparkConf().setMaster("local[5]").setAppName("bc2").set("spark.default.parallelism", "500")
+    val sc = new SparkContext(sparkConf)
 
     val students: RDD[(Int, String, Int, String)] = sc.parallelize(Seq[(Int, String, Int, String)](
       (1, "aa", 20, "class_01"),
@@ -62,13 +66,12 @@ class _08_BroadCast {
 
     //获取学生的详细信息以及班级名称
     val tuples: Array[(String, String)] = clazz.collect()
-    val clazzData = tuples.toMap
+    val clazzData: Map[String, String] = tuples.toMap
 
     // 什么时候使用collect算子  广播变量使用
-    val bc = sc.broadcast(clazzData)
+    val bc: Broadcast[Map[String, String]] = sc.broadcast(clazzData)
 
-    students.map(item => (item._1, item._2, item._3, bc.value.getOrElse(item._4, "other")))
-      .foreach(println(_))
+    students.map(item => (item._1, item._2, item._3, bc.value.getOrElse(item._4, "other"))).foreach(println(_))
 
     Thread.sleep(100000000)
   }

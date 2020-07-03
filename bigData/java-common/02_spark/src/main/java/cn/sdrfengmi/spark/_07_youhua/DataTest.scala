@@ -118,24 +118,6 @@ class DataTest extends Serializable {
   }
 
   /**
-    * 对指定的字段添加一个随机数
-    * @param classId
-    * @return
-    */
-  def addPrefix(classId:String):String={
-    s"${classId}#${Random.nextInt(10)}"
-  }
-
-  /**
-    * 去掉随机数后缀
-    * @param classId
-    * @return
-    */
-  def unPrefix(classId:String):String={
-    classId.split("#")(0)
-  }
-
-  /**
     * 大表 join 小表，产生的结果中某一个key的数据量特别大，导致数据倾斜
     *    解决方案: 小表广播出去，避免shuffle,从而避免数据倾斜
     */
@@ -264,35 +246,6 @@ class DataTest extends Serializable {
   }
 
   /**
-    * 对数据进行扩容
-    * @param clazzDF
-    */
-  def capacity(clazzDF:DataFrame,spark:SparkSession)={
-
-    //1、创建一个空的dataFrame与参数的DataFrame的shema信息一样
-    val emptyRdd: RDD[Row] = spark.sparkContext.emptyRDD[Row]
-    var emptyDF: DataFrame = spark.createDataFrame(emptyRdd,clazzDF.schema)
-
-    //2、循环1-9，添加给定的数字作为后缀，将其产生的dataFrame添加到创建的dataFrame中
-
-    for(i<- 0 to 10){
-      emptyDF = emptyDF.union(clazzDF.selectExpr(s"addIndexPrefix(id,${i}) id","name"))
-    }
-    //3、数据返回
-    emptyDF
-  }
-
-  /**
-    * 给classid添加一个指定的数字后缀
-    * @param id
-    * @param i
-    * @return
-    */
-  def addIndexPrefix(id:String,i:Int)={
-    s"${id}#${i}"
-  }
-
-  /**
     * 大表1 join 大表2，大表1中存在有很多的key数据量特别大，导致数据倾斜
     * 解决方案:
     *    直接将有数据倾斜key的表添加随机数，将另一个表扩容
@@ -323,7 +276,7 @@ class DataTest extends Serializable {
     spark.udf.register("addIndexPrefix",addIndexPrefix _)
     //1、对有数据倾斜的key的表进行随机数添加
     student.selectExpr("id","name","age","addPrefix(clazz_id) clazz_id").createOrReplaceTempView("student")
-    //2、对另一个表扩容
+    //2、对另一个表扩容,扩容的大小是添加数据数的大小(添加10以内随机数,扩容10倍)
     capacity(clazz,spark).createOrReplaceTempView("clazz")
 
     spark.sql(
@@ -337,5 +290,52 @@ class DataTest extends Serializable {
         | from student s left join clazz c
         | on s.clazz_id = c.id
       """.stripMargin).show
+  }
+
+  /**
+    * 对数据进行扩容
+    * @param clazzDF
+    */
+  def capacity(clazzDF:DataFrame,spark:SparkSession)={
+
+    //1、创建一个空的dataFrame与参数的DataFrame的shema信息一样
+    val emptyRdd: RDD[Row] = spark.sparkContext.emptyRDD[Row]
+    var emptyDF: DataFrame = spark.createDataFrame(emptyRdd,clazzDF.schema)
+
+    //2、循环1-9，添加给定的数字作为后缀，将其产生的dataFrame添加到创建的dataFrame中
+
+    for(i<- 0 to 10){
+      emptyDF = emptyDF.union(clazzDF.selectExpr(s"addIndexPrefix(id,${i}) id","name"))
+    }
+    //3、数据返回
+    emptyDF
+  }
+
+  /**
+    * 给classid添加一个指定的数字后缀
+    * @param id
+    * @param i
+    * @return
+    */
+  def addIndexPrefix(id:String,i:Int)={
+    s"${id}#${i}"
+  }
+
+  /**
+    * 对指定的字段添加一个随机数
+    * @param classId
+    * @return
+    */
+  def addPrefix(classId:String):String={
+    s"${classId}#${Random.nextInt(10)}"
+  }
+
+  /**
+    * 去掉随机数后缀
+    * @param classId
+    * @return
+    */
+  def unPrefix(classId:String):String={
+    classId.split("#")(0)
   }
 }

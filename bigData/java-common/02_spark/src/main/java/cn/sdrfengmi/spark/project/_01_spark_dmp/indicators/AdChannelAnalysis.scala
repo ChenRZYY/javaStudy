@@ -46,7 +46,7 @@ object AdChannelAnalysis {
       //      .option("kudu.table", SOURCE_TABLE)
       //      .kudu
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("dataSetOut/" + SOURCE_TABLE)
+      .json("01_dataSetOut/" + SOURCE_TABLE)
 
     val filterDF: DataFrame = source.filter("channelid is not null and channelid != ''")
       .selectExpr("adplatformproviderid", "requestmode", "processnode", "iseffective", "isbilling", "isbid", "iswin", "adorderid", "adcreativeid", "channelid", "winprice", "adpayment")
@@ -96,7 +96,7 @@ object AdChannelAnalysis {
       .coalesce(1)
       .write.mode(SaveMode.Overwrite)
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
-      .json("dataSetOut/" + SINK_TABLE)
+      .json("01_dataSetOut/" + SINK_TABLE)
   }
 
 

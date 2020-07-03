@@ -1,6 +1,6 @@
 package cn.sdrfengmi.spark._04_streaming
 
-import org.apache.spark.streaming.dstream.ReceiverInputDStream
+import org.apache.spark.streaming.dstream.{DStream, ReceiverInputDStream}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
@@ -17,15 +17,16 @@ object _02_UpdateStateByKey {
     //2、从socket读取数据
     val source: ReceiverInputDStream[String] = ssc.socketTextStream("server02", 2181)
     //3、对单词进行全局累加
-    source.flatMap(_.split(" "))
+    val result: DStream[(String, Int)] = source.flatMap(_.split(" "))
       .map((_, 1))
       .updateStateByKey((values: Seq[Int], state: Option[Int]) => {
-        val currentCount: Int = values.sum
-        val lastCount: Int = state.getOrElse(0)
-        Some(currentCount + lastCount)
+        val currentCount: Int = values.sum // 计算当前批次相同key的单词总数
+        val lastCount: Int = state.getOrElse(0) // 获取上一次保存的单词总数
+        Some(currentCount + lastCount) // 返回新的单词总数
       })
-      //4、结果展示
-      .print()
+    //4、结果展示
+    result.print()
+    result.saveAsTextFiles("01_dataset/", "_02_UpdateStateByKey")
     //5、启动streaming程序
     ssc.start()
     //6、阻塞主线程

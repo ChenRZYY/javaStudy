@@ -1,4 +1,4 @@
-package cn.sdrfengmi.util;
+package com.example.socket.util;
 
 import net.neoremind.sshxcute.core.ConnBean;
 import net.neoremind.sshxcute.core.IOptionName;
@@ -40,14 +40,14 @@ public class ExcuteShellTest {
         ssh.disconnect();
     }
 
-//    @Before
+    @Before
     public void init() {
         //连接linux配置
         ConnBean connBean = new ConnBean("47.105.158.112", "root", "zd521707@");
 //        ConnBean connBean = new ConnBean("47.105.158.112", "root", "zd521707@");
 //        ConnBean connBean = new ConnBean("server02", "root", "Zd521707@");
         SSHExec.setOption(IOptionName.SSH_PORT_NUMBER, 22222);
-//        SSHExec.setOption(IOptionName.TIMEOUT, 36000l);
+//        SSHExecTwo.setOption(IOptionName.TIMEOUT, 36000l);
 
         //SSH连接对象
         ssh = SSHExec.getInstance(connBean);
@@ -55,7 +55,7 @@ public class ExcuteShellTest {
         ssh.connect();
     }
 
-//    @After
+    @After
     public void close() {
         ssh.disconnect();
     }
@@ -81,10 +81,13 @@ public class ExcuteShellTest {
     public void execCommand() throws Exception {
         //執行多個命令
 //        CustomTask sampleTask = new ExecCommand("echo 123", "echo 456", "echo 789");
-        CustomTask sampleTask = new ExecCommand("/export/servers/hadoop-2.7.5/bin/hadoop dfs -ls /");
-        CustomTask task1 = new ExecCommand("source /etc/profile");
-        CustomTask task2 = new ExecCommand("hdfs dfs -ls /");
-        Result result1 = ssh.exec(task1);
+//        CustomTask sampleTask = new ExecCommand("/export/servers/hadoop-2.7.5/bin/hadoop dfs -ls /");
+//        CustomTask task1 = new ExecCommand("source /etc/profile");
+//        CustomTask task2 = new ExecCommand("hdfs dfs -ls /");
+//        Result result1 = ssh.exec(task1);
+//        Result result2 = ssh.exec(task2);
+
+        CustomTask task2 = new ExecCommand("tail -f 10 /export/software/log.log");
         Result result2 = ssh.exec(task2);
         out(result2);
     }

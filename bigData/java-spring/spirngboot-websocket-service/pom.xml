@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+<!--			<scope>test</scope>-->
 		</dependency>
 
 		<dependency>
@@ -39,6 +39,21 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.2</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.ethz.ganymed</groupId>
+			<artifactId>ganymed-ssh2</artifactId>
+			<version>build210</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.neoremind</groupId>
+			<artifactId>sshxcute</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+<!--			<systemPath>${parent.basedir}/lib/sshxcute-1.0.jar</systemPath>-->
+			<systemPath>${project.basedir}/lib/sshxcute-1.0.jar</systemPath>
 		</dependency>
 
 	</dependencies>
