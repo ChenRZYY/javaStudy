@@ -4,8 +4,8 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.sql.{Encoders, SparkSession}
-import org.apache.spark.sql.streaming.OutputMode
+import org.apache.spark.sql.{DataFrame, Encoders, SparkSession}
+import org.apache.spark.sql.streaming.{OutputMode, StreamingQuery}
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.{DStream, ReceiverInputDStream}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -30,14 +30,12 @@ class _02_WindowStreaming {
 
     val words: DStream[(String, Int)] = lines.flatMap(_.split(" ")).map(x => (x, 1))
 
-
     // 通过 window 操作, 会将流分为多个窗口
     val wordsWindow: DStream[(String, Int)] = words.window(Seconds(30), Seconds(10))
     // 此时是针对于窗口求聚合
     val wordCounts: DStream[(String, Int)] = wordsWindow.reduceByKey((newValue, runningValue) => newValue + runningValue)
 
     wordCounts.print()
-
     ssc.start()
     ssc.awaitTermination()
   }
@@ -57,8 +55,7 @@ class _02_WindowStreaming {
     //使用自定义的receiver接收消息
     val ds: ReceiverInputDStream[String] = ssc.receiverStream(new MyReceiver("server02", 2181))
     //3、数据处理
-    ds.flatMap(_.split(" "))
-      .map((_, 1))
+    ds.flatMap(_.split(" ")).map((_, 1))
       .reduceByKeyAndWindow(
         reduceFunc = (agg, curr) => agg + curr,
         windowDuration = Seconds(10),
@@ -73,8 +70,8 @@ class _02_WindowStreaming {
 
   @Test
   def withWatermark(): Unit = {
-    val spark = SparkSession.builder().appName("test").master("local[*]").getOrCreate()
-    val lines = spark.readStream.format("socket").option("host", "127.0.0.1").option("port", 19999).load()
+    val spark: SparkSession = SparkSession.builder().appName("test").master("local[*]").getOrCreate()
+    val lines: DataFrame = spark.readStream.format("socket").option("host", "127.0.0.1").option("port", 19999).load()
     import spark.implicits._
 
     val sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -96,7 +93,7 @@ class _02_WindowStreaming {
          |group id
          |""".stripMargin)
 
-    val query = resultDf.writeStream.format("console").outputMode(OutputMode.Update()).start()
+    val query: StreamingQuery = resultDf.writeStream.format("console").outputMode(OutputMode.Update()).start()
 
     query.awaitTermination()
     query.stop()

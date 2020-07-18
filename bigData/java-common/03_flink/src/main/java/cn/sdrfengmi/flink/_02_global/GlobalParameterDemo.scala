@@ -25,7 +25,7 @@ class GlobalParameterDemo {
     val configuration: Configuration = new Configuration()
     configuration.setString("genre", "Action");
 
-    val unit: DataSet[(String, Int)] = words.filter(_._1 == "hadoop").withParameters(configuration)
+    val dataset: DataSet[(String, Int)] = words.filter(_._1 == "hadoop").withParameters(configuration)
 
   }
 

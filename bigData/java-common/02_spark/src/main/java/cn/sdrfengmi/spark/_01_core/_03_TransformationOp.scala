@@ -106,6 +106,9 @@ class _03_TransformationOp extends Serializable {
     val rdd2 = rdd1.sample(false, 0.4)
     val result = rdd2.collect()
     result.foreach(item => println(item))
+
+    val rdd3: Array[Int] = rdd1.takeSample(false, 3, 10) //怎么使用
+    rdd3.foreach(item => println(item))
   }
 
   /**

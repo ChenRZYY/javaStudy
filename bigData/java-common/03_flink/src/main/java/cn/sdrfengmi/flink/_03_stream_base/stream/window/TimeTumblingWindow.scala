@@ -29,6 +29,8 @@ class TumblingTimeWindow {
     val keyedStream: KeyedStream[CountCar, Int] = mapDataStream.keyBy(_.sen)
     // FIXME 每5s 计算一次  timeWindow 怎么详细操作???
     val value: WindowedStream[CountCar, Int, TimeWindow] = keyedStream.timeWindow(Time.seconds(5))
+    val result: DataStream[CountCar] = value.sum(1)
+    result.print()
 
     val countCarDataStream: DataStream[CountCar] = keyedStream.timeWindow(Time.seconds(5)).sum(1)
     // 5. 打印结果

@@ -488,15 +488,15 @@ class ApplyDemo {
     val DisplayFormat: String = "清算日期|发生日期|用户流水序号|用户代码|用户姓名|资产账户|资金余额|备注信息|币种|发生金额|业务类别|COME_IN_DATE|用户角色|USER_CLS|资产类别|分支机构|业务代码|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|CHECK_DATE|"
     val IndexParamNew: String = "HideSegmentIndex=8&MONEYNAMEINDEX=8&IsJERG=10&FUNDACCOUNTIndex=5&businessdate=1&DATEFORMINDEX=1&occurbalance=9&"
 
-//    HsReq=START_DATE|END_DATE|BRANCHES|OP_CODE|BIZ_NO|USER_CODE|USER_CLSES|SERIAL_NO|ACC_CLSES|ACCOUNT|CURRENCY|BIZ_CODES|CHANNELS|CHECK_DATE|R_LAST_SN|R_COUNT|K_USER_CODE|K_SERIAL_NO|
-//      HsAns=SETT_DATE|OCCUR_DATE|COME_IN_DATE|SERIAL_NO|USER_CODE|USER_ROLE|USER_NAME|USER_CLS|ACCOUNT|CURRENCY|ACC_CLS|BRANCH|BIZ_TYPE|BIZ_CODE|CPTL_AMT|BALANCE|OP_USER|OP_ROLE|OP_NAME|OP_CLS|OP_BRH|OP_SITE|CHANNEL|APPENDIX|REMARK|CHECK_DATE|
-//    ;Request=BEGINDATE|ENDDATE||||USERCODE||||FUNDACCOUNT||||||R_COUNT|||
-//      Request=BEGINDATE|ENDDATE||||USERCODE||||||||||R_COUNT|||
-//      ReturnGrid=清算日期|发生日期|COME_IN_DATE|用户流水序号|用户代码|用户角色|用户姓名|USER_CLS|资产账户|币种|资产类别|分支机构|业务类别|业务代码|发生金额|资金余额|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|备注信息|CHECK_DATE|
-//    ;DisplayFormat=清算日期|发生日期|COME_IN_DATE|用户流水序号|用户代码|用户角色|用户姓名|USER_CLS|资产账户|币种|资产类别|分支机构|业务类别|业务代码|发生金额|资金余额|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|备注信息|CHECK_DATE|
-//    ;IndexParamNew=MONEYNAMEINDEX=9&IsJERG=12&occurbalance=14&FUNDACCOUNTIndex=8&businessdate=1&DATEFORMINDEX=1&
-//      DisplayFormat=清算日期|发生日期|用户流水序号|用户代码|用户姓名|资产账户|资金余额|备注信息|币种|发生金额|业务类别|COME_IN_DATE|用户角色|USER_CLS|资产类别|分支机构|业务代码|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|CHECK_DATE|
-//      IndexParamNew=HideSegmentIndex=8&MONEYNAMEINDEX=8&IsJERG=10&FUNDACCOUNTIndex=5&businessdate=1&DATEFORMINDEX=1&occurbalance=9&
+    //    HsReq=START_DATE|END_DATE|BRANCHES|OP_CODE|BIZ_NO|USER_CODE|USER_CLSES|SERIAL_NO|ACC_CLSES|ACCOUNT|CURRENCY|BIZ_CODES|CHANNELS|CHECK_DATE|R_LAST_SN|R_COUNT|K_USER_CODE|K_SERIAL_NO|
+    //      HsAns=SETT_DATE|OCCUR_DATE|COME_IN_DATE|SERIAL_NO|USER_CODE|USER_ROLE|USER_NAME|USER_CLS|ACCOUNT|CURRENCY|ACC_CLS|BRANCH|BIZ_TYPE|BIZ_CODE|CPTL_AMT|BALANCE|OP_USER|OP_ROLE|OP_NAME|OP_CLS|OP_BRH|OP_SITE|CHANNEL|APPENDIX|REMARK|CHECK_DATE|
+    //    ;Request=BEGINDATE|ENDDATE||||USERCODE||||FUNDACCOUNT||||||R_COUNT|||
+    //      Request=BEGINDATE|ENDDATE||||USERCODE||||||||||R_COUNT|||
+    //      ReturnGrid=清算日期|发生日期|COME_IN_DATE|用户流水序号|用户代码|用户角色|用户姓名|USER_CLS|资产账户|币种|资产类别|分支机构|业务类别|业务代码|发生金额|资金余额|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|备注信息|CHECK_DATE|
+    //    ;DisplayFormat=清算日期|发生日期|COME_IN_DATE|用户流水序号|用户代码|用户角色|用户姓名|USER_CLS|资产账户|币种|资产类别|分支机构|业务类别|业务代码|发生金额|资金余额|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|备注信息|CHECK_DATE|
+    //    ;IndexParamNew=MONEYNAMEINDEX=9&IsJERG=12&occurbalance=14&FUNDACCOUNTIndex=8&businessdate=1&DATEFORMINDEX=1&
+    //      DisplayFormat=清算日期|发生日期|用户流水序号|用户代码|用户姓名|资产账户|资金余额|备注信息|币种|发生金额|业务类别|COME_IN_DATE|用户角色|USER_CLS|资产类别|分支机构|业务代码|柜员代码|操作角色|操作用户名称|操作员类别|操作分支|操作站点|渠道|附属信息|CHECK_DATE|
+    //      IndexParamNew=HideSegmentIndex=8&MONEYNAMEINDEX=8&IsJERG=10&FUNDACCOUNTIndex=5&businessdate=1&DATEFORMINDEX=1&occurbalance=9&
 
     hsReq(HsReq)
     request(Request)
@@ -507,13 +507,22 @@ class ApplyDemo {
 
   @Test
   def get5905(): Unit = {
-var name = "{\n\t\"Action\": \"5905\",\n\t\"MobileCode\": \"($MobileCode)\",\n\t\"ProtoType\": \"Sign\",\n\t\"ReqlinkType\": \"1\",\n\t\"Reqno\": \"40000001_158805947310735218\",\n\t\"Token\": \"oRWvfs17650@F865-739A134fpKIhN\",\n\t\"UserCode\": \"40000001\",\n\t\"accountType\": \"KHBH\",\n\t\"alias\": \"${40000001}_基金申购\",\n\t\"area\": \"jy_data\",\n\t\"mobilekind\": \"web\",\n\t\"name\": \"晓芜\",\n\t\"newindex\": \"1\",\n\t\"plaintext\": {\n\t\t\"DocHashs\": \"\",\n\t\t\"custcode\": \"40000001\",\n\t\t\"custname\": \"晓芜\",\n\t\t\"signatureItems\": {\n\t\t\t\"question\": false,\n\t\t\t\"expectation\": \"期望产生一定的收益，可以承担一定的投资风险\",\n\t\t\t\"userMes\": {\n\t\t\t\t\"fundAccount\": \"8215000001\",\n\t\t\t\t\"name\": \"晓芜\"\n\t\t\t},\n\t\t\t\"level\": {\n\t\t\t\t\"className\": \"level-icon4\",\n\t\t\t\t\"levelText\": \"积极型\"\n\t\t\t},\n\t\t\t\"timeLimit\": {\n\t\t\t\t\"time\": \"无特别要求\",\n\t\t\t\t\"style\": {\n\t\t\t\t\t\"width\": \"0%\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"investType\": {\n\t\t\t\t\"equity\": {\n\t\t\t\t\t\"className\": \"type3-icon2\",\n\t\t\t\t\t\"txt\": \"权益类\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"productInfo\": {\n\t\t\t\t\"name\": \"国泰货币\",\n\t\t\t\t\"level\": \"低风险\",\n\t\t\t\t\"time\": \"0到1年\",\n\t\t\t\t\"type\": \"固定收益类\",\n\t\t\t\t\"result\": \"期望产生一定的收益，可以承担一定的投资风险\"\n\t\t\t},\n\t\t\t\"nowData\": \"2020年04月28日\",\n\t\t\t\"title\": \"适当性匹配及投资者确认书\"\n\t\t}\n\n\t}\n}"
+    var name = "{\n\t\"Action\": \"5905\",\n\t\"MobileCode\": \"($MobileCode)\",\n\t\"ProtoType\": \"Sign\",\n\t\"ReqlinkType\": \"1\",\n\t\"Reqno\": \"40000001_158805947310735218\",\n\t\"Token\": \"oRWvfs17650@F865-739A134fpKIhN\",\n\t\"UserCode\": \"40000001\",\n\t\"accountType\": \"KHBH\",\n\t\"alias\": \"${40000001}_基金申购\",\n\t\"area\": \"jy_data\",\n\t\"mobilekind\": \"web\",\n\t\"name\": \"晓芜\",\n\t\"newindex\": \"1\",\n\t\"plaintext\": {\n\t\t\"DocHashs\": \"\",\n\t\t\"custcode\": \"40000001\",\n\t\t\"custname\": \"晓芜\",\n\t\t\"signatureItems\": {\n\t\t\t\"question\": false,\n\t\t\t\"expectation\": \"期望产生一定的收益，可以承担一定的投资风险\",\n\t\t\t\"userMes\": {\n\t\t\t\t\"fundAccount\": \"8215000001\",\n\t\t\t\t\"name\": \"晓芜\"\n\t\t\t},\n\t\t\t\"level\": {\n\t\t\t\t\"className\": \"level-icon4\",\n\t\t\t\t\"levelText\": \"积极型\"\n\t\t\t},\n\t\t\t\"timeLimit\": {\n\t\t\t\t\"time\": \"无特别要求\",\n\t\t\t\t\"style\": {\n\t\t\t\t\t\"width\": \"0%\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"investType\": {\n\t\t\t\t\"equity\": {\n\t\t\t\t\t\"className\": \"type3-icon2\",\n\t\t\t\t\t\"txt\": \"权益类\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"productInfo\": {\n\t\t\t\t\"name\": \"国泰货币\",\n\t\t\t\t\"level\": \"低风险\",\n\t\t\t\t\"time\": \"0到1年\",\n\t\t\t\t\"type\": \"固定收益类\",\n\t\t\t\t\"result\": \"期望产生一定的收益，可以承担一定的投资风险\"\n\t\t\t},\n\t\t\t\"nowData\": \"2020年04月28日\",\n\t\t\t\"title\": \"适当性匹配及投资者确认书\"\n\t\t}\n\n\t}\n}"
 
-//    hsReq(HsReq)
-//    request(Request)
-//    requestMapping(Request, HsReq)
-//    indexParamNew(IndexParamNew)
-//    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+    //    hsReq(HsReq)
+    //    request(Request)
+    //    requestMapping(Request, HsReq)
+    //    indexParamNew(IndexParamNew)
+    //    responseMapping(HsAns, ReturnGrid, DisplayFormat)
+  }
+
+  @Test
+  def getzk(): Unit = {
+    var str = "资金账号|方向|篮子类型|成交进度|委托金额|成交金额|浮动盈亏|委托时间|委托耗时|委托批号|成交指数点|\\n12988680|700|100|79.59%|6.1484|4.2822|0|20200717 17:13:07|0|171306203|61484.00|\\n12988680|702|100|79.59%|6.1484|4.2822|0|20200717 17:11:20|0|171119110|61484.00|\\n12988680|700|100|79.59%|6.1484|4.2822|0|20200717 17:08:44|0|170843917|61484.00|\\n12988680|700|100|100.00%|5.2153|5.2153|0|20200717 17:06:53|613|170652375|52153.00|\\n12988680|700|100|100.00%|5.2153|5.2153|0|20200717 17:00:28|492|170027219|52153.00|\\n12988680|700|100|100.00%|5.0011|5.0011|0|20200717 16:58:29|233|165828843|50011.00|\\n12988680|700|100|100.00%|5.0011|5.0011|0|20200717 15:47:42|4614|154738672|50011.00|\\n12988680|701|100|100.00%|5.0011|5.0011|0|20200717 15:47:22|178|154722545|50011.00|\\n12988680|700|100|100.00%|5.0011|5.0011|0|20200717 15:46:03|3190|154600374|50011.00|\\n12988680|700|100|100.00%|5.0011|5.0011|0|20200717 15:44:38|2766|154435246|50011.00|\\n12988680|700|100|100.00%|5.0011|5.0011|0|20200717 15:44:18|539|154417619|50011.00|\\n12988680|700|100|100.00%|5.0011|5.0011|0|20200717 15:39:26|7872|153918325|50011.00|\\n12988680|701|100|100.00%|5.0011|5.0011|0|20200717 15:39:06|551|153905797|50011.00|\\n12988680|701|100|100.00%|5.0011|5.0011|0|20200717 15:38:53|4366|153848878|50011.00|\\n12988680|700|100|100.00%|5.0011|5.0011|0|20200717 15:16:33|0|151632973|50011.00|\\n12988680|700|100|100.00%|5.5711|5.5711|0.57|20200717 14:55:52|587|145553179|55711.00|\\n12988680|701|100|||||20200717 14:50:22|0|145021554||\\n12988680|702|100|||||20200717 14:50:13|0|145012114||\\n12988680|701|100|||||20200717 14:50:02|0|14495728||\\n12988680|702|100|100.00%|2.0301|2.0301|0|20200717 14:49:05|1555|144905795|20301.00|\\n12988680|700|100|||||20200717 14:40:55|0|144049626||\\n12988680|700|100|||||20200717 14:36:53|0|143645827||\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:42:06|0|134204703|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:41:47|175|134145905|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:40:04|10872|133951632|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:39:50|157|133948192|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:32:41|166|133239695|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:32:21|199|133219401|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:31:34|10321|133122761|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:30:23|0|133021625|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:24:13|4384|132406765|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:24:02|5163|132355206|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:23:44|145|132342456|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:22:14|1416|132210689|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:22:03|221|132201144|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:21:01|4635|132054965|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:20:44|10746|132031639|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:20:25|178|132022111|59987.00|\\n12988680|700|100|100.00%|5.9987|5.9987|0.9976|20200717 13:16:48|289|131645368|59987.00|\\n12988680|701|100|100.00%|5.9987|5.9987|0.9976|20200717 09:58:50|176|9585163|59987.00|\\n12988680|701|100|100.00%|5.9987|5.9987|0.9976|20200717 09:58:28|167|95829752|59987.00|"
+    val strs: Array[String] = str.split("\\n")
+    strs.foreach(f => {
+      System.err.println(f)
+    })
   }
 
 

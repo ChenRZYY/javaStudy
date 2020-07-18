@@ -20,7 +20,9 @@ object CachFile {
     val list: DataSet[String] = env.fromCollection(List("a", "b", "c", "d"))
     // 3. 注册文件
     // 参数1:文件路径,可以是HDFS的路径,参数2:文件的名称,自定义
-    env.registerCachedFile("dataset/globalParameter.txt", "globalParameter.txt")
+    env.registerCachedFile("01_dataset/globalParameter.txt", "globalParameter.txt")
+//    env.registerCachedFile("hdfs:///path/to/your/file", "hdfsFile")
+//    env.registerCachedFile("file:///path/to/exec/file", "localExecFile", true)
     // 4. map open 获取文件
     val result: DataSet[String] = list.map(new RichMapFunction[String, String] {
       override def open(parameters: Configuration): Unit = {

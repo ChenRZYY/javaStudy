@@ -2,7 +2,7 @@ package cn.sdrfengmi.spark._07_youhua
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
 import org.junit.Test
 
 import scala.util.Random
@@ -18,8 +18,8 @@ class DataTest extends Serializable {
     *       spark.default.parallelism
     *    3、在groupby的时候，某一个key的数据特别多，该key的数据都会聚集在一个分区，导致数据倾斜
     *    4、大表 join 小表，产生的结果中某一个key的数据量特别大，导致数据倾斜
-    *    5、大表1 join 大表2，大表1中存在个别key数据量特别大，导致数据倾斜
-    *    6、大表1 join 大表2，大表1中存在有很多的key数据量特别大，导致数据倾斜
+    *    5、大表1 join 大表2，大表1中存在个别key数据量特别大，导致数据倾斜-------------->多数key倾斜不能用
+    *    6、大表1 join 大表2，大表1中存在有很多的key数据量特别大，导致数据倾斜---------->
     */
   val spark = SparkSession.builder()
     .master("local[4]")
@@ -187,8 +187,8 @@ class DataTest extends Serializable {
     //student.sample(false,0.6).show()
 
     //1、将两个表中出现数据倾斜的key的数据过滤出来
-    val solutionStudentDF = student.filter("clazz_id='class_01'")
-    val solutionClazzDF = clazz.filter("id='class_01'")
+    val solutionStudentDF: Dataset[Row] = student.filter("clazz_id='class_01'")
+    val solutionClazzDF: Dataset[Row] = clazz.filter("id='class_01'")
     //2、将两个表中没有出现数据倾斜的key的数据过滤出来
     student.filter("clazz_id!='class_01'").createOrReplaceTempView("student_tmp1")
     clazz.filter("id!='class_01'").createOrReplaceTempView("clazz_tmp1")
