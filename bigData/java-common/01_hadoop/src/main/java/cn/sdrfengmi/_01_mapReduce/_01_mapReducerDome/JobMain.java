@@ -49,7 +49,7 @@ public class JobMain extends Configured implements Tool {
      * 2. merge: 来自不同的机器的多个数据文件，需要归并成一个文件.在拷贝文件过程中会进行文件归并操作.
      * 3. Sort: 阶段按照MapReduce语义，用户编写reduce()函数输入数据是按key进行聚集的一组数据。为了将key相同的数据聚在一起，Hadoop采用了基于排序的策略。由于各个MapTask已经实现对自己的处理结果进行了局部排序，因此，ReduceTask只需对所有数据进行一次归并排序即可。
      * 4. reduce: 相同key的value放一起 调用reduce方法
-     * 5. output: OutputFormat是MapReduce输出的基类，所有MapReduce输出都实现了 OutputFormat 接口,主要有：TextInputFormat 、SequenceFileOutputFormat、MultipleOutputs、DBOutputFormat等
+     * 5. output: OutputFormat是MapReduce输出的基类，所有MapReduce输出都实现了 OutputFormat 接口,主要有：TextOutputFormat 、SequenceFileOutputFormat、MultipleOutputs、DBOutputFormat等
      *
      * @param args
      * @return

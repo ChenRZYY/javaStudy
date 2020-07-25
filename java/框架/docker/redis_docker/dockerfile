@@ -1,0 +1,6 @@
+FROM hub.c.163.com/public/redis:2.8.4
+#FROM hub.c.163.com/library/redis:latest
+MAINTAINER chenzhendong "631665415@@qq.com"
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
+WORKDIR /root/redis_docker/workspace
