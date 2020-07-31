@@ -16,6 +16,16 @@ import scala.util.Try
   * @Author 陈振东
   * @create 2020/3/23 15:59
   *         解析ip获取经纬度 补充道数据中
+  *
+  *         1、对数据做ETL处理，并统计各类指标
+  *         2、生成自己的商圈库
+  *         3、对数据标签化
+  *         4、合并标签数据
+  *         5、使用Graphx统一用户识别
+  *         6、实现标签衰减
+  *         7、开发WEB页面，对数据进行报表展示
+  *         8、广告风控
+  *
   */
 object EtlProcess {
   Logger.getLogger("org").setLevel(Level.ERROR)
@@ -48,9 +58,8 @@ object EtlProcess {
       .option("timestampFormat", "yyyy/MM/dd HH:mm:ss ZZ")
       .json("01_dataset/pmt.json")
 
-    val distinctDS: Dataset[Row] = source.select('ip)
-      .filter("ip is not null and ip != ''")
-      .distinct()
+    val distinctDS: Dataset[Row] = source.select('ip).filter("ip is not null and ip != ''").distinct()
+
     val sourceDS: Dataset[String] = distinctDS.as[String]
     val mapDS: DataFrame = sourceDS.map((ip: String) => {
       val service: LookupService = new LookupService(ConfigUtils.GEOLITECITY)
@@ -72,6 +81,7 @@ object EtlProcess {
       val (region, city): (String, String) = parseJson(jsonResult)
       (ip, longitude, latitude, region, city)
     }).toDF("ip", "longitude", "latitude", "region", "city")
+
     mapDS.createOrReplaceTempView("ip_info")
     source.createOrReplaceTempView("source")
 

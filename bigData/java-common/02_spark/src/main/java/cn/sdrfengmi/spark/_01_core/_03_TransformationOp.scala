@@ -8,9 +8,9 @@ import org.junit.Test
 
 
 class _03_TransformationOp extends Serializable {
+  Logger.getLogger("org").setLevel(Level.ERROR)
   val conf = new SparkConf().setMaster("local[6]").setAppName("transformation_op")
   val sc = new SparkContext(conf)
-  Logger.getLogger("org").setLevel(Level.ERROR)
 
   /**
     * mapPartitions 和 map 算子是一样的, 只不过 map 是针对每一条数据进行转换, mapPartitions 针对一整个分区的数据进行转换
@@ -191,9 +191,9 @@ class _03_TransformationOp extends Serializable {
 
   /**
     * aggregateByKey(zeroValue)(seqOp, combOp)
-    * zeroValue : 指定初始值
+    * zeroValue : 指定初始值,初始值作用于每个元素
     * seqOp : 作用于每一个元素, 根据初始值, 进行计算
-    * combOp : 将 seqOp 处理过的结果进行聚合
+    * combOp : 将 seqOp 处理过的结果进行聚合,作用每个元素后的结果
     *
     * aggregateByKey 特别适合针对每个数据要先处理, 后聚合
     */

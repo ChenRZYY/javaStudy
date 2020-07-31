@@ -41,12 +41,13 @@ object App {
       // 延迟的时间
       val delayTime = 2000l
 
-      // 返回水印时间
+      // 2 返回水印时间 窗口向后延迟多长时间 被评估
       override def getCurrentWatermark: Watermark = {
         new Watermark(currentTimestamp - delayTime)
       }
 
-      // 比较当前元素的时间和上一个元素的时间,取最大值,防止时光倒流
+      // 比较当前元素的时间和上一个元素的时间,取最大值,防止时光倒流,获取消息真正到达的时间
+      // 1消息真正到达的时间 比如窗口[5s,10s] 这时候系统时间是9s,消息时间是7s,以7s为准
       override def extractTimestamp(element: Canal, previousElementTimestamp: Long): Long = {
         currentTimestamp = Math.max(element.timestamp, previousElementTimestamp)
         currentTimestamp

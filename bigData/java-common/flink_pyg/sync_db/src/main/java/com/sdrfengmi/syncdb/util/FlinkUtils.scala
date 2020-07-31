@@ -44,14 +44,11 @@ object FlinkUtils {
   def initKafkaFlink()={
     // 整合Kafka
     val  props:Properties = new Properties()
-
-
     props.setProperty("bootstrap.servers",GlobalConfigUtil.bootstrapServers)
     props.setProperty("group.id",GlobalConfigUtil.groupId)
     props.setProperty("enable.auto.commit",GlobalConfigUtil.enableAutoCommit)
     props.setProperty("auto.commit.interval.ms",GlobalConfigUtil.autoCommitIntervalMs)
     props.setProperty("auto.offset.reset",GlobalConfigUtil.autoOffsetReset)
-
 
     // String topic, DeserializationSchema<T> valueDeserializer, Properties props
     val consumer = new FlinkKafkaConsumer010[String](
