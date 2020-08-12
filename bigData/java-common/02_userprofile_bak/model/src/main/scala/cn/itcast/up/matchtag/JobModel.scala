@@ -7,7 +7,9 @@ import org.apache.commons.lang3.StringUtils
 import org.apache.spark.sql._
 
 
-
+/**
+  * 性别标签开发
+  */
 object JobModel {
   def main(args: Array[String]): Unit = {
     //1.创建SparkSession

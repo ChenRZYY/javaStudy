@@ -6,7 +6,7 @@ import cn.itcast.up.bean.HBaseMeta
 import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
 
 /**
-  * 入门案例
+  * 入门案例 性别标签
   */
 object SimpleGenderModel {
   def main(args: Array[String]): Unit = {
@@ -27,11 +27,11 @@ object SimpleGenderModel {
     val url = "jdbc:mysql://bd001:3306/tags_new?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&user=root&password=123456"
     val tableName = "tbl_basic_tag"
     val properties = new Properties()
-    val mysqlDF: DataFrame = spark.read.jdbc(url,tableName,properties)
+    val mysqlDF: DataFrame = spark.read.jdbc(url, tableName, properties)
 
     //3.筛选出4级标签规则
     //val ds: Dataset[Row] = mysqlDF.select("rule").filter("id=4")
-    val ds: Dataset[Row] = mysqlDF.select('rule).where('id===4)
+    val ds: Dataset[Row] = mysqlDF.select('rule).where('id === 4)
     //ds.show(false)
     /*
 +-------------------------------------------------------------------------------------------------------------+
@@ -44,9 +44,8 @@ object SimpleGenderModel {
     //4.解析规则
     //inType=HBase##zkHosts=192.168.10.20##zkPort=2181##
     //hbaseTable=tbl_users##family=detail##selectFields=id,gender
-    val fourRuleMap: Map[String, String] = ds.rdd.map(row => {
-      val ruleArr: Array[String] = row.getAs[String]("rule")
-        .split("##")
+    val fourRuleMap: Map[String, String] = ds.rdd.map((row: Row) => {
+      val ruleArr: Array[String] = row.getAs[String]("rule").split("##")
       ruleArr.map(kvStr => {
         val kv: Array[String] = kvStr.split("=")
         (kv(0), kv(1))
@@ -73,8 +72,8 @@ object SimpleGenderModel {
 
     //6.筛选出5级标签规则
     //Map[rule, id]
-    val fiveRuleMap: Map[String,Long]  = fiveDS
-      .map(row => (row.getString(1),row.getLong(0)))
+    val fiveRuleMap: Map[String, Long] = fiveDS
+      .map(row => (row.getString(1), row.getLong(0)))
       .collect()
       .toMap
     println(fiveRuleMap)
@@ -116,13 +115,13 @@ root
 
 
     //8.将HBase数据和5级规则进行匹配
-    val gender2Tag = udf((gender:String)=>{
+    val gender2Tag = udf((gender: String) => {
       val tag = fiveRuleMap(gender)
       tag
     })
 
     val result: DataFrame = hbaseDF
-      .select($"id".as("userId"),gender2Tag($"gender").as("tagIds"))
+      .select($"id".as("userId"), gender2Tag($"gender").as("tagIds"))
     result.show(10)
 
     /*
@@ -158,6 +157,7 @@ root
 
   /**
     * 解析Map格式规则并返回HBaseMeta对象
+    *
     * @param ruleMap
     * @return
     */

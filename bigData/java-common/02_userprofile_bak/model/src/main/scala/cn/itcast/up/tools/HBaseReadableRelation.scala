@@ -11,6 +11,12 @@ import org.apache.spark.sql.{Row, SQLContext}
 import org.apache.spark.sql.sources.{BaseRelation, TableScan}
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
+/**
+  * HBase自定义数据源 write Relation
+  *
+  * @param context
+  * @param hbaseMeta
+  */
 class HBaseReadableRelation(context: SQLContext, hbaseMeta: HBaseMeta) extends BaseRelation with TableScan with Serializable {
   override def sqlContext: SQLContext = context
 

@@ -161,11 +161,18 @@ WHERE st.`s_id` NOT IN (SELECT s.`s_id` FROM Score s GROUP BY s.`s_id` HAVING CO
 -- 12、查询至少有一门课与学号为"01"的同学所学相同的同学的信息 
 SELECT * FROM Student st1,Score s2 WHERE s2.`s_id`=st1.`s_id` AND s2.`c_id` IN (SELECT s.`c_id` FROM Score s WHERE s.`s_id`='01') AND st1.`s_id`!='01';
 
+SELECT * FROM Student st1,Score s2 WHERE EXISTS (SELECT 1 FROM Score s WHERE s.`s_id`='01' AND s2.`c_id`=s.`c_id`) AND s2.`s_id`=st1.`s_id` AND st1.`s_id`!='01';
+
+
 -- 13、查询和"01"号的同学学习的课程完全相同的其他同学的信息 
 
 SELECT s1.`s_id`,s1.`c_id` FROM Score s1 GROUP BY s1.`s_id`,s1.`c_id` HAVING COUNT(s1.`s_id`,s1.`c_id`)==3
 SELECT   COUNT(c_id) FROM  Score WHERE s_id = '01' ;
 
+SHOW VARIABLES LIKE '%slow_query_log%';
+SET GLOBAL slow_query_log=1;
+
+SELECT * FROM score GROUP BY 
 
 
 CREATE TABLE `tem` (

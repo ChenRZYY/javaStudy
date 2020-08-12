@@ -5,9 +5,11 @@ import org.apache.spark.sql.types.LongType
 import org.apache.spark.sql.{Column, DataFrame}
 
 /**
-  * Author itcast
   * Date 2019/10/27 17:22
-  * Desc 
+  * Desc
+  *
+  * 消费周期标签开发
+  * 消费周期主要是获取用户在平台的最近消费时间,比如用户最后一次的消费时间是最近一周还是一个月.方便我们获取到长时间未消费的用户.
   */
 object CycleModel extends BaseModel{
   def main(args: Array[String]): Unit = {

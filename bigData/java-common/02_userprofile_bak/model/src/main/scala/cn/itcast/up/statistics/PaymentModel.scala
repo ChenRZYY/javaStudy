@@ -5,9 +5,10 @@ import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.{DataFrame, Dataset, Row}
 
 /**
-  * Author itcast
   * Date 2019/10/27 19:07
-  * Desc 
+  * Desc
+  * 支付方式标签开发
+  * 用户的支付方式有多种,比如使用支付宝/微信/货到付款/银联等等.我们需要知道用户最常用的支付方式,以便于了解用户最常用的支付平台.
   */
 object PaymentModel extends BaseModel{
   def main(args: Array[String]): Unit = {

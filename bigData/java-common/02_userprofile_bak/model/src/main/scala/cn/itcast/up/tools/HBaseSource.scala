@@ -4,6 +4,9 @@ import cn.itcast.up.bean.HBaseMeta
 import org.apache.spark.sql.{DataFrame, SQLContext, SaveMode}
 import org.apache.spark.sql.sources.{BaseRelation, CreatableRelationProvider, DataSourceRegister, InsertableRelation, RelationProvider}
 
+/**
+  * HBase数据源source
+  */
 class HBaseSource extends RelationProvider with CreatableRelationProvider with DataSourceRegister with Serializable {
   /**
     * 创建读取数据Relation

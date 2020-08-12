@@ -10,6 +10,12 @@ import org.apache.spark.sql.{DataFrame, SQLContext}
 import org.apache.spark.sql.sources.{BaseRelation, InsertableRelation}
 import org.apache.spark.sql.types.{StructField, StructType}
 
+/**
+  * HBase自定义数据源 write Relation
+  * @param context
+  * @param hbaseMeta
+  * @param dataFrame
+  */
 class HBaseWritableRelation(context: SQLContext, hbaseMeta: HBaseMeta, dataFrame: DataFrame) extends BaseRelation with InsertableRelation with Serializable {
   override def sqlContext: SQLContext = context
 

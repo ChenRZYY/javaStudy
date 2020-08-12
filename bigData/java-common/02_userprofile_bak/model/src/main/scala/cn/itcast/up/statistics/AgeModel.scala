@@ -3,6 +3,9 @@ package cn.itcast.up.statistics
 import cn.itcast.up.base.BaseModel
 import org.apache.spark.sql.{Column, DataFrame, Dataset}
 
+/**
+  * 聚合标签开发,年龄段标签开发
+  */
 object AgeModel extends BaseModel{
   def main(args: Array[String]): Unit = {
     execute()

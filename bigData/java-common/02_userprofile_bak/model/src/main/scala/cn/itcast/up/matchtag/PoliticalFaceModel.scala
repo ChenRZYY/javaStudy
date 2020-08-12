@@ -147,13 +147,5 @@ object PoliticalFaceModel {
       .option(HBaseMeta.SELECTFIELDS, "userid,tagIds")
       .save()
 
-
-
-
-
-
-
-
-
   }
 }
