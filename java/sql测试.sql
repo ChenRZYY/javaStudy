@@ -7,7 +7,7 @@ CREATE TABLE mytest
 
 CREATE TABLE studytest.mytest (
 	id INT AUTO_INCREMENT NOT NULL,
-	NAME VARCHAR(20) NULL COMMENT '名字',
+	NAME VARCHAR(20) NULL COMMENT '鍚嶅瓧',
 	age VARCHAR(2) NULL,
 	PRIMARY KEY (id)
 )
@@ -17,8 +17,8 @@ COLLATE=utf8mb4_general_ci;
 CREATE INDEX mytest_id_IDX USING BTREE ON studytest.mytest (id);
 
 
--- 建表
--- 学生表
+-- 寤鸿〃
+-- 瀛︾敓琛�
 CREATE TABLE `Student`(
     `s_id` VARCHAR(20),
     `s_name` VARCHAR(20) NOT NULL DEFAULT '',
@@ -26,46 +26,46 @@ CREATE TABLE `Student`(
     `s_sex` VARCHAR(10) NOT NULL DEFAULT '',
     PRIMARY KEY(`s_id`)
 );
--- 课程表
+-- 璇剧▼琛�
 CREATE TABLE `Course`(
     `c_id`  VARCHAR(20),
     `c_name` VARCHAR(20) NOT NULL DEFAULT '',
     `t_id` VARCHAR(20) NOT NULL,
     PRIMARY KEY(`c_id`)
 );
--- 教师表
+-- 鏁欏笀琛�
 CREATE TABLE `Teacher`(
     `t_id` VARCHAR(20),
     `t_name` VARCHAR(20) NOT NULL DEFAULT '',
     PRIMARY KEY(`t_id`)
 );
--- 成绩表
+-- 鎴愮哗琛�
 CREATE TABLE `Score`(
     `s_id` VARCHAR(20),
     `c_id`  VARCHAR(20),
     `s_score` INT(3),
     PRIMARY KEY(`s_id`,`c_id`)
 );
--- 插入学生表测试数据
-INSERT INTO Student VALUES('01' , '赵雷' , '1990-01-01' , '男');
-INSERT INTO Student VALUES('02' , '钱电' , '1990-12-21' , '男');
-INSERT INTO Student VALUES('03' , '孙风' , '1990-05-20' , '男');
-INSERT INTO Student VALUES('04' , '李云' , '1990-08-06' , '男');
-INSERT INTO Student VALUES('05' , '周梅' , '1991-12-01' , '女');
-INSERT INTO Student VALUES('06' , '吴兰' , '1992-03-01' , '女');
-INSERT INTO Student VALUES('07' , '郑竹' , '1989-07-01' , '女');
-INSERT INTO Student VALUES('08' , '王菊' , '1990-01-20' , '女');
--- 课程表测试数据
-INSERT INTO Course VALUES('01' , '语文' , '02');
-INSERT INTO Course VALUES('02' , '数学' , '01');
-INSERT INTO Course VALUES('03' , '英语' , '03');
+-- 鎻掑叆瀛︾敓琛ㄦ祴璇曟暟鎹�
+INSERT INTO Student VALUES('01' , '璧甸浄' , '1990-01-01' , '鐢�');
+INSERT INTO Student VALUES('02' , '閽辩數' , '1990-12-21' , '鐢�');
+INSERT INTO Student VALUES('03' , '瀛欓' , '1990-05-20' , '鐢�');
+INSERT INTO Student VALUES('04' , '鏉庝簯' , '1990-08-06' , '鐢�');
+INSERT INTO Student VALUES('05' , '鍛ㄦ' , '1991-12-01' , '濂�');
+INSERT INTO Student VALUES('06' , '鍚村叞' , '1992-03-01' , '濂�');
+INSERT INTO Student VALUES('07' , '閮戠' , '1989-07-01' , '濂�');
+INSERT INTO Student VALUES('08' , '鐜嬭強' , '1990-01-20' , '濂�');
+-- 璇剧▼琛ㄦ祴璇曟暟鎹�
+INSERT INTO Course VALUES('01' , '璇枃' , '02');
+INSERT INTO Course VALUES('02' , '鏁板' , '01');
+INSERT INTO Course VALUES('03' , '鑻辫' , '03');
 
--- 教师表测试数据
-INSERT INTO Teacher VALUES('01' , '张三');
-INSERT INTO Teacher VALUES('02' , '李四');
-INSERT INTO Teacher VALUES('03' , '王五');
+-- 鏁欏笀琛ㄦ祴璇曟暟鎹�
+INSERT INTO Teacher VALUES('01' , '寮犱笁');
+INSERT INTO Teacher VALUES('02' , '鏉庡洓');
+INSERT INTO Teacher VALUES('03' , '鐜嬩簲');
 
--- 成绩表测试数据
+-- 鎴愮哗琛ㄦ祴璇曟暟鎹�
 INSERT INTO Score VALUES('01' , '01' , 80);
 INSERT INTO Score VALUES('01' , '02' , 90);
 INSERT INTO Score VALUES('01' , '03' , 99);
@@ -86,44 +86,47 @@ INSERT INTO Score VALUES('07' , '02' , 89);
 INSERT INTO Score VALUES('07' , '03' , 98);
 
 SHOW TABLES;
-SELECT * FROM Teacher;
-SELECT * FROM Course ;
-SELECT * FROM Score;-- 中间表
+SELECT * FROM Teacher ;
+SELECT * FROM Course ; -- 课程
+SELECT * FROM Score ; -- 中间关系表 分数
 SELECT * FROM Student;
 
+-- 等量关系是什么:  维度是什么
 
 -- 1 
 SELECT * FROM Score s ,Student st WHERE st.s_id= s.s_id ;
 
--- where条件 只能和外部 和同一行比较
--- 1、查询"01"课程比"02"课程成绩高的学生的信息及课程分数  
-SELECT * FROM Score s1,Score s2,Student st WHERE s1.s_id=st.s_id AND s1.c_id=01 AND s2.s_id=st.s_id AND s2.c_id=02 AND s1.s_score > s2.s_score;
+-- 如何使用笛卡尔积
+-- 1、查询"01"课程比"02"课程成绩高的学生的信息及课程分数   
+SELECT * FROM Score s1,Score s2,Student st WHERE s1.s_id=st.s_id AND s2.s_id=st.s_id AND s1.c_id=01 AND s2.c_id=02 AND s1.s_score > s2.s_score;
 
--- 3、查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩
+-- 2、查询"01"课程比"02"课程成绩低的学生的信息及课程分数
 SELECT s.s_id,st.s_name,ROUND(AVG(s.s_score),2) avg1 FROM Score s ,Student st WHERE st.s_id= s.s_id GROUP BY s.s_id HAVING avg1 >60;
 
--- 4 查询平均成绩小于60分的同学的学生编号和学生姓名和平均成绩 (包括有成绩的和无成绩的)
+-- 3、查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩
+select s2.s_id ,round(avg(s_score )),s3.* from Score s2 ,Student s3 where s2.s_id =s3.s_id group by s2.s_id HAVING avg(s_score )>60;
+
+-- 4、查询平均成绩小于60分的同学的学生编号和学生姓名和平均成绩        -- (包括有成绩的和无成绩的)
 SELECT s.s_id,st.s_name,ROUND(AVG(s.s_score),2) avg1 FROM Score s ,Student st WHERE st.s_id= s.s_id GROUP BY s.s_id HAVING avg1 <60
 UNION SELECT st.s_id,st.s_name,0 FROM Student st  WHERE st.s_id NOT IN(SELECT s.s_id FROM Score s);
+-- 不用in 做判断
+select * from Student st where not exists(select 1 from Score s where st.s_id = s.s_id) ;
 
-SELECT * FROM Student st , Score s WHERE st.s_id=s.s_id ;
-
--- 5 group by 如果是主键分组,真个表都能显示,因为每行数据都有,后面是三行复制的数据,三行数据相同就能写到select 后面
+-- 5、查询所有同学的学生编号、学生姓名、选课总数、所有课程的总成绩
 SELECT st.s_id,st.s_name,st.s_birth,st.s_sex,s.s_id,COUNT(s.s_id) , COUNT(s.c_id),SUM(s.s_score) FROM Student st , Score s WHERE st.s_id=s.s_id GROUP BY st.s_id;
 
 -- 6、查询"李"姓老师的数量 
-SELECT COUNT(1) FROM Teacher t WHERE t.t_name LIKE "李%";
+SELECT  COUNT(1) FROM Teacher t WHERE t.t_name LIKE "李%";
 
--- 7、查询学过"张三"老师授课的同学的信息
+-- 7、查询学过"张三"老师授课的同学的信息 
 SELECT * FROM Teacher t,  Course c,Score s,Student st WHERE t.t_id=c.t_id AND c.c_id=s.c_id AND s.s_id=st.s_id  AND t.t_name="张三";
 
 -- 8、查询没学过"张三"老师授课的同学的信息
 SELECT * FROM Student st
-WHERE st.`s_id` NOT IN (
+WHERE  NOT exists (
 	SELECT s.`s_id` 
 	FROM Teacher t ,Course c, Score s 
-	WHERE t.t_id=c.`t_id` AND s.`c_id`=c.`c_id` AND t.`t_name`='张三'
-)
+	WHERE t.t_id=c.`t_id` AND s.`c_id`=c.`c_id` AND t.`t_name`='张三' and st.`s_id` = s.`s_id` );
 
 
 SELECT DISTINCT(a.s_id) ,a.*
@@ -136,7 +139,7 @@ WHERE a.s_id NOT IN
 
 
 -- 9、查询学过编号为"01"并且也学过编号为"02"的课程的同学的信息
-SELECT st.* FROM Teacher t,  Course c,Score s,Student st WHERE t.t_id=c.t_id AND c.c_id=s.c_id AND s.s_id=st.s_id  AND c.`c_id` IN (01,02);
+SELECT distinct(st.s_name ),st.* FROM Teacher t,  Course c,Score s,Student st WHERE t.t_id=c.t_id AND c.c_id=s.c_id AND s.s_id=st.s_id  AND c.`c_id` IN (01,02);
 
 SELECT * 
 FROM student 
@@ -145,29 +148,30 @@ WHERE s_id IN (SELECT a.`s_id`
 		JOIN Score b ON a.s_id = b.s_id
 		WHERE a.c_id = '01' AND b.c_id = '02');
 
--- 10、查询学过编号为"01"但是没有学过编号为"02"的课程的同学的信息  in 都是= 放到from后和where后一样
-SELECT s.`s_id` FROM Score s WHERE s.`c_id`='01';
-
-SELECT * 
-FROM Student st ,(SELECT s.`s_id` FROM Score s WHERE s.`c_id`='01') s1
+-- 10、查询学过编号为"01"但是没有学过编号为"02"的课程的同学的信息
+SELECT * FROM Student st ,(SELECT s.`s_id` FROM Score s WHERE s.`c_id`='01') s1
 WHERE st.`s_id` = s1.s_id AND st.`s_id` NOT IN (SELECT s.`s_id` FROM Score s WHERE s.`c_id`='02');
 
 -- 11、查询没有学全所有课程的同学的信息 
-
 SELECT * 
 FROM Student st 
 WHERE st.`s_id` NOT IN (SELECT s.`s_id` FROM Score s GROUP BY s.`s_id` HAVING COUNT(s.`c_id`) = 3);
 
 -- 12、查询至少有一门课与学号为"01"的同学所学相同的同学的信息 
 SELECT * FROM Student st1,Score s2 WHERE s2.`s_id`=st1.`s_id` AND s2.`c_id` IN (SELECT s.`c_id` FROM Score s WHERE s.`s_id`='01') AND st1.`s_id`!='01';
-
+-- exists方法
 SELECT * FROM Student st1,Score s2 WHERE EXISTS (SELECT 1 FROM Score s WHERE s.`s_id`='01' AND s2.`c_id`=s.`c_id`) AND s2.`s_id`=st1.`s_id` AND st1.`s_id`!='01';
 
 
 -- 13、查询和"01"号的同学学习的课程完全相同的其他同学的信息 
-
 SELECT s1.`s_id`,s1.`c_id` FROM Score s1 GROUP BY s1.`s_id`,s1.`c_id` HAVING COUNT(s1.`s_id`,s1.`c_id`)==3
 SELECT   COUNT(c_id) FROM  Score WHERE s_id = '01' ;
+
+
+
+
+
+
 
 SHOW VARIABLES LIKE '%slow_query_log%';
 SET GLOBAL slow_query_log=1;
