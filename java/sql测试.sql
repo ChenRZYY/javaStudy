@@ -167,8 +167,75 @@ SELECT * FROM Student st1,Score s2 WHERE EXISTS (SELECT 1 FROM Score s WHERE s.`
 SELECT s1.`s_id`,s1.`c_id` FROM Score s1 GROUP BY s1.`s_id`,s1.`c_id` HAVING COUNT(s1.`s_id`,s1.`c_id`)==3
 SELECT   COUNT(c_id) FROM  Score WHERE s_id = '01' ;
 
+SELECT * 
+FROM Student 
+WHERE s_id IN (SELECT s_id 
+		FROM Score 
+		GROUP BY s_id 
+		HAVING COUNT(c_id) = (SELECT COUNT(c_id) 
+					FROM Score 
+					WHERE s_id = '01') 
+		AND s_id NOT IN (SELECT s_id 
+				FROM Score 
+				WHERE c_id NOT IN(SELECT c_id 
+						  FROM Score 
+						  WHERE s_id = '01')) 
+		AND s_id != '01');
 
 
+select s.s_id from Score s 
+where  s.s_id !=01 
+and s.s_id  not IN (SELECT s_id FROM Score WHERE c_id NOT IN(SELECT c_id FROM Score WHERE s_id = '01'))
+group by s.s_id HAVING COUNT(s.s_id ) = (select COUNT(1) from Score s where s.s_id =01 group by s.s_id);
+
+
+select * from Teacher t2  ;
+SELECT * FROM Course c2 ;
+SELECT * FROM Score s2 ;
+select * from Student s1  ;
+
+-- 14、查询没学过"张三"老师讲授的任一门课程的学生姓名
+SELECT * FROM Student s2 where s2.s_id not in (select s_id FROM Score s3 where s3.c_id =02);
+
+-- 15、查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩 
+select s.s_id,AVG(s.s_score ),s2.s_name from Score s,Student s2 where s2.s_id =s.s_id  and s.s_score <60 group by s.s_id HAVING count(s.s_id)>=2;
+
+-- 16、检索"01"课程分数小于60，按分数降序排列的学生信息
+-- 等式 <60 01课程 
+SELECT * FROM Score s,Student s2 where s.s_id=s2.s_id and s.c_id =01 and s.s_score <60 order by s.s_score DESC ;
+
+-- 17、按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩
+-- 等式条件  平均成绩
+-- 展示字段
+select s2.s_id,s2.s_name ,SUM(CASE when s.c_id ='01' then s.s_score else null END) 语文,SUM(CASE when s.c_id ='02' then s.s_score else null END)  数学,SUM(CASE when s.c_id ='03' then s.s_score else null END)  英语 ,avg(s.s_score) 平均成绩 
+from Score s  right join Student s2 on s.s_id=s2.s_id   group by s2.s_id,s2.s_name order by avg(s.s_score );
+
+-- 18.查询各科成绩最高分、最低分和平均分：以如下形式显示：课程ID，课程name，最高分，最低分，平均分，及格率，中等率，优良率，优秀率
+-- 维度 分组  以主键分组,后面所有的都能带
+select s.c_id ,c.c_name ,MAX(s.s_score),min(s.s_score),avg(s.s_score),
+ROUND(sum(CASE WHEN s.s_score >=60 THEN 1 else 0 end )/count(1),2)  及格率,
+ROUND(SUM(CASE WHEN s.s_score>= 70 AND s.s_score <80 THEN 1 ELSE 0 END)/COUNT(c.c_id),2) AS 中等率,
+ROUND(SUM(CASE WHEN s.s_score>= 80 AND s.s_score <90 THEN 1 ELSE 0 END)/COUNT(c.c_id),2) AS 优良率,
+ROUND(SUM(CASE WHEN s.s_score>= 90 THEN 1 ELSE 0 END)/COUNT(c.c_id),2) AS 优秀率,
+count(1) 
+from Score s ,Course c where s.c_id =c.c_id group by c.c_id;
+
+-- 19、按各科成绩进行排序，并显示排名
+-- 
+
+SET @pre_c_id:= '01';
+SET @rank:=0;
+SELECT tb2.s_id,tb2.c_id,tb2.s_score,tb2.排名 
+FROM(SELECT *,
+	(CASE WHEN tb1.c_id = @pre_c_id THEN @rank:=@rank+1 ELSE @rank:=1 END) AS 排名,
+	(CASE WHEN @pre_c_id = tb1.c_id THEN @pre_c_id ELSE @pre_c_id:=tb1.c_id END ) AS pre_c_id 
+     FROM(SELECT * 
+	  FROM Score 
+	  ORDER BY c_id,s_score DESC) tb1 )tb2;
+
+
+
+select COUNT(1) from Score s where s.s_id =01 group by s.s_id ;	
 
 
 
