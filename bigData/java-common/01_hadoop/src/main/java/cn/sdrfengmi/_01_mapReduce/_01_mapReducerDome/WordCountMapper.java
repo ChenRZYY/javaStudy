@@ -1,6 +1,7 @@
 package cn.sdrfengmi._01_mapReduce._01_mapReducerDome;
 
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
@@ -32,6 +33,7 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, LongWritab
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         Text text = new Text();
         LongWritable longWritable = new LongWritable();
+//        NullWritable nullWritable = new NullWritable();
         //1:将一行的文本数据进行拆分
         String[] split = value.toString().split(" ");
         //2:遍历数组，组装 K2 和 V2

@@ -7,7 +7,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 object _01_WordCount {
 
   def main(args: Array[String]): Unit = {
-    Logger.getLogger("org").setLevel(Level.ERROR)
+//    Logger.getLogger("org").setLevel(Level.ERROR)
     //1、创建SparkContext
     //setMaster:在本地idea中运行的时候必须设置，如果在集群中运行就不用设置
     //setAppName:必须设置

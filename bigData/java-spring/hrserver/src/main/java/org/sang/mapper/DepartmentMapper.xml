@@ -18,7 +18,7 @@
         </collection>
     </resultMap>
     <select id="getDepByPid" resultMap="BaseResultMap">
-        select d1.*from department d1 where d1.`parentId`=#{pid} AND d1.enabled=true;
+        select d1.* from department d1 where d1.`parentId`=#{pid} AND d1.enabled=true;
     </select>
     <select id="getAllDeps" resultType="org.sang.bean.Department">
         select * from department WHERE enabled=true;

@@ -16,6 +16,10 @@ public class Department {
     private boolean enabled;
     private boolean isParent;
 
+    //存储过程执行结果
+    private Integer result;
+    private List<Department> children = new ArrayList<>();
+
     public Department() {
     }
 
@@ -37,10 +41,6 @@ public class Department {
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
     }
-
-    //存储过程执行结果
-    private Integer result;
-    private List<Department> children = new ArrayList<>();
 
     public List<Department> getChildren() {
         return children;
