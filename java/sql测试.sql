@@ -17,8 +17,8 @@ COLLATE=utf8mb4_general_ci;
 CREATE INDEX mytest_id_IDX USING BTREE ON studytest.mytest (id);
 
 
--- 寤鸿〃
--- 瀛︾敓琛�
+-- 建表
+-- 学生表
 CREATE TABLE `Student`(
     `s_id` VARCHAR(20),
     `s_name` VARCHAR(20) NOT NULL DEFAULT '',
@@ -26,46 +26,46 @@ CREATE TABLE `Student`(
     `s_sex` VARCHAR(10) NOT NULL DEFAULT '',
     PRIMARY KEY(`s_id`)
 );
--- 璇剧▼琛�
+-- 课程表
 CREATE TABLE `Course`(
     `c_id`  VARCHAR(20),
     `c_name` VARCHAR(20) NOT NULL DEFAULT '',
     `t_id` VARCHAR(20) NOT NULL,
     PRIMARY KEY(`c_id`)
 );
--- 鏁欏笀琛�
+-- 教师表
 CREATE TABLE `Teacher`(
     `t_id` VARCHAR(20),
     `t_name` VARCHAR(20) NOT NULL DEFAULT '',
     PRIMARY KEY(`t_id`)
 );
--- 鎴愮哗琛�
+-- 成绩表
 CREATE TABLE `Score`(
     `s_id` VARCHAR(20),
     `c_id`  VARCHAR(20),
     `s_score` INT(3),
     PRIMARY KEY(`s_id`,`c_id`)
 );
--- 鎻掑叆瀛︾敓琛ㄦ祴璇曟暟鎹�
-INSERT INTO Student VALUES('01' , '璧甸浄' , '1990-01-01' , '鐢�');
-INSERT INTO Student VALUES('02' , '閽辩數' , '1990-12-21' , '鐢�');
-INSERT INTO Student VALUES('03' , '瀛欓' , '1990-05-20' , '鐢�');
-INSERT INTO Student VALUES('04' , '鏉庝簯' , '1990-08-06' , '鐢�');
-INSERT INTO Student VALUES('05' , '鍛ㄦ' , '1991-12-01' , '濂�');
-INSERT INTO Student VALUES('06' , '鍚村叞' , '1992-03-01' , '濂�');
-INSERT INTO Student VALUES('07' , '閮戠' , '1989-07-01' , '濂�');
-INSERT INTO Student VALUES('08' , '鐜嬭強' , '1990-01-20' , '濂�');
--- 璇剧▼琛ㄦ祴璇曟暟鎹�
-INSERT INTO Course VALUES('01' , '璇枃' , '02');
-INSERT INTO Course VALUES('02' , '鏁板' , '01');
-INSERT INTO Course VALUES('03' , '鑻辫' , '03');
+-- 插入学生表测试数据
+INSERT INTO Student VALUES('01' , '赵雷' , '1990-01-01' , '男');
+INSERT INTO Student VALUES('02' , '钱电' , '1990-12-21' , '男');
+INSERT INTO Student VALUES('03' , '孙风' , '1990-05-20' , '男');
+INSERT INTO Student VALUES('04' , '李云' , '1990-08-06' , '男');
+INSERT INTO Student VALUES('05' , '周梅' , '1991-12-01' , '女');
+INSERT INTO Student VALUES('06' , '吴兰' , '1992-03-01' , '女');
+INSERT INTO Student VALUES('07' , '郑竹' , '1989-07-01' , '女');
+INSERT INTO Student VALUES('08' , '王菊' , '1990-01-20' , '女');
+-- 课程表测试数据
+INSERT INTO Course VALUES('01' , '语文' , '02');
+INSERT INTO Course VALUES('02' , '数学' , '01');
+INSERT INTO Course VALUES('03' , '英语' , '03');
 
--- 鏁欏笀琛ㄦ祴璇曟暟鎹�
-INSERT INTO Teacher VALUES('01' , '寮犱笁');
-INSERT INTO Teacher VALUES('02' , '鏉庡洓');
-INSERT INTO Teacher VALUES('03' , '鐜嬩簲');
+-- 教师表测试数据
+INSERT INTO Teacher VALUES('01' , '张三');
+INSERT INTO Teacher VALUES('02' , '李四');
+INSERT INTO Teacher VALUES('03' , '王五');
 
--- 鎴愮哗琛ㄦ祴璇曟暟鎹�
+-- 成绩表测试数据
 INSERT INTO Score VALUES('01' , '01' , 80);
 INSERT INTO Score VALUES('01' , '02' , 90);
 INSERT INTO Score VALUES('01' , '03' , 99);
@@ -221,7 +221,17 @@ count(1)
 from Score s ,Course c where s.c_id =c.c_id group by c.c_id;
 
 -- 19、按各科成绩进行排序，并显示排名
--- 
+select * ,row_number() over (partition by c_id order by s_score desc ) as row_num from Score;
+select * ,rank () over (partition by c_id order by s_score ) as row_num from Score s;
+select * ,dense_rank () over (partition by c_id order by s_score) as row_num from score s;
+
+
+
+
+
+
+
+
 
 SET @pre_c_id:= '01';
 SET @rank:=0;
