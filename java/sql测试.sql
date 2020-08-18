@@ -7,7 +7,7 @@ CREATE TABLE mytest
 
 CREATE TABLE studytest.mytest (
 	id INT AUTO_INCREMENT NOT NULL,
-	NAME VARCHAR(20) NULL COMMENT '鍚嶅瓧',
+	NAME VARCHAR(20) NULL COMMENT '名字',
 	age VARCHAR(2) NULL,
 	PRIMARY KEY (id)
 )
@@ -188,12 +188,6 @@ where  s.s_id !=01
 and s.s_id  not IN (SELECT s_id FROM Score WHERE c_id NOT IN(SELECT c_id FROM Score WHERE s_id = '01'))
 group by s.s_id HAVING COUNT(s.s_id ) = (select COUNT(1) from Score s where s.s_id =01 group by s.s_id);
 
-
-select * from Teacher t2  ;
-SELECT * FROM Course c2 ;
-SELECT * FROM Score s2 ;
-select * from Student s1  ;
-
 -- 14、查询没学过"张三"老师讲授的任一门课程的学生姓名
 SELECT * FROM Student s2 where s2.s_id not in (select s_id FROM Score s3 where s3.c_id =02);
 
@@ -224,6 +218,36 @@ from Score s ,Course c where s.c_id =c.c_id group by c.c_id;
 select * ,row_number() over (partition by c_id order by s_score desc ) as row_num from Score;
 select * ,rank () over (partition by c_id order by s_score ) as row_num from Score s;
 select * ,dense_rank () over (partition by c_id order by s_score) as row_num from score s;
+
+-- 20、查询学生的总成绩并进行排名
+select s.s_id ,sum(s.s_score ) su from score s group by s.s_id order by su;
+select *,rank () over ( order by c.su ) as row_num from (select s.s_id ,sum(s.s_score ) su from score s group by s.s_id order by su) c;
+
+-- 21、查询不同老师所教不同课程平均分从高到低显示 
+select s.s_id ,sum(s.s_score ) su from score s group by s.s_id order by su;
+select *,rank () over ( order by sc.su ) as row_num from (select s.c_id ,avg(s.s_score ) su from score s group by s.c_id order by su) sc ,Course c where sc.c_id=c.c_id ;
+select * from teacher;
+select * from Teacher t2 ;
+SELECT * FROM Course c2 ;
+SELECT * FROM Score s2 ;
+select * from Student s1  ;
+
+-- 22、查询所有课程的成绩第2名到第3名的学生信息及该课程成绩
+select * from (select *, row_number() over (partition by s.c_id order by s.s_score ) as row_num from score s) f  where f.row_num=2 or f.row_num=3;
+
+-- sum, avg, count, max, min
+select *,rank() OVER() ,PERCENT_RANK() OVER(),from score s ;
+SELECT *,sum(s_score ) over(partition by s_id order by s_score ) FROM Score s2 ;
+SELECT *,avg(s_score ) over(partition by s_id order by s_score ) FROM Score s2 ;
+SELECT *,count(s_score ) over(partition by s_id order by s_score ) FROM Score s2 ;
+SELECT *,max(s_score ) over(partition by s_id order by s_score ) FROM Score s2 ;
+SELECT *,min(s_score ) over(partition by s_id order by s_score ) FROM Score s2 ;
+
+-- 23、统计各科成绩各分数段人数：课程编号,课程名称,[100-85],(85-70],(70-60],(0-60]及所占百分比
+
+select s.s_id from score s ;
+
+
 
 
 
