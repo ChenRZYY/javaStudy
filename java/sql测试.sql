@@ -250,6 +250,32 @@ select s.s_id from score s ;
 
 
 
+-- 46、查询各学生的年龄
+SELECT s_name ,
+	(DATE_FORMAT(NOW(),'%Y')-DATE_FORMAT(s_birth,'%Y') + 
+		(CASE WHEN DATE_FORMAT(NOW(),'%m%d')>=DATE_FORMAT(s_birth,'%m%d') THEN 0 ELSE 1 END)) AS age
+FROM student;
+
+SELECT *  from student s2 ;
+
+SELECT s_name ,DATE_FORMAT(s_birth,'%Y%m%d'),	((DATE_FORMAT(NOW(),'%Y')-DATE_FORMAT(s_birth,'%Y')+1))  AS age from student  ;
+-- 47、查询本周过生日的学生
+SELECT NOW() FROM DUAL;
+SELECT LOCALTIME();-- 2017-05-15 10:20:00
+SELECT SYSDATE();-- 当前日期时间：2017-05-12 11:42:03
+SELECT WEEK('2017-01-01 10:37:14.123456'); -- 20 (获取周)
+SELECT WEEK('2017-05-15 10:37:14.123456', 7);-- ****** 测试此函数在MySQL5.6下无效
+SELECT DATE_FORMAT('2017-05-12 17:03:51', '%Y年%m月%d日 %H时%i分%s秒');-- 2017年05月12日 17时03分51秒(具体需要什么格式的数据根据实际情况来;小写h为12小时制;)
+SELECT TIME_FORMAT('2017-05-12 17:03:51', '%Y年%m月%d日 %H时%i分%s秒');-- 0000年00月00日 17时03分51秒(time_format()只能用于时间的格式化)
+SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'); -- 时间转字符串
+SELECT STR_TO_DATE('2019-01-20 16:01:45', '%Y-%m-%d %H:%i:%s');
+select DATE_FORMAT(NOW(),'%Y');
+
+
+
+
+
+
 
 
 
