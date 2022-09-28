@@ -1,3 +1,0 @@
-FROM rancher/server
-MAINTAINER chenzhendong "631665415@@qq.com"
-WORKDIR /root/rancher/dockerlog	
